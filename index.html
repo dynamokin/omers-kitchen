@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Omer's Kitchen 🔥</title>
+
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2C1A0E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Omer's Kitchen">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+<!-- SEO -->
+<meta name="description" content="מחשבון בצק פיצה לטאבון — ללא גלוטן, פוליש, ביגה">
+<meta name="author" content="עמר כחלון">
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@1,500&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+.logo-wrap{display:flex;align-items:center;justify-content:center;padding:40px 24px 28px;background:#0E0C09}
+.logo-el{display:flex;flex-direction:column;align-items:center}
+.logo-omers{font-family:"Pinyon Script",cursive;font-size:22px;color:#C9A84C;line-height:1;margin-top:16px}
+.logo-dough{font-family:"Pinyon Script",cursive;font-size:52px;color:#FFFFFF;line-height:1;margin-top:-2px}
+.logo-rule{display:flex;align-items:center;gap:7px;margin:5px 0}
+.logo-rl{height:1px;background:#1E1A10;width:32px}
+.logo-rd{width:3px;height:3px;background:#1E1A10;transform:rotate(45deg);flex-shrink:0}
+.logo-tag{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:9px;letter-spacing:3px;color:#C9A84C}
+</style>
+<style>
+:root {
+  --ink: #14120E;
+  --paper: #F7F3EC;
+  --warm: #EDE7D9;
+  --tomato: #C13B2A;
+  --tomato-dim: rgba(193,59,42,0.1);
+  --gold: #B8922A;
+  --gold-dim: rgba(184,146,42,0.12);
+  --green: #1E5C36;
+  --green-light: #4CAF72;
+  --green-dim: rgba(30,92,54,0.12);
+  --blue: #1A3A5C;
+  --blue-light: #5B9BD5;
+  --blue-dim: rgba(26,58,92,0.1);
+  --muted: #7A7060;
+  --border: #D8CEBF;
+  --white: #FFFFFF;
+  --shadow-sm: 0 2px 12px rgba(20,18,14,0.07);
+  --shadow-md: 0 6px 28px rgba(20,18,14,0.11);
+  --shadow-lg: 0 16px 48px rgba(20,18,14,0.16);
+  --r: 16px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Heebo',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;direction:rtl;font-size:15px}
+
+/* ─── HEADER ─── */
+.site-header{background:var(--ink);padding:52px 24px 44px;text-align:center;position:relative;overflow:hidden}
+.site-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 100%,rgba(184,146,42,.15),transparent 55%),radial-gradient(ellipse at 80% 0%,rgba(193,59,42,.12),transparent 50%);pointer-events:none}
+.badge{display:inline-flex;align-items:center;gap:6px;background:var(--tomato);color:#fff;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 14px;border-radius:30px;margin-bottom:20px}
+.site-header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.1rem,6vw,3.6rem);font-weight:700;color:#fff;line-height:1.05;margin-bottom:10px}
+.site-header h1 em{color:#F0C96A;font-style:normal}
+.site-header p{color:rgba(247,243,236,.5);font-size:14px;font-weight:300}
+.pizza-big{font-size:58px;display:block;margin-bottom:16px;filter:drop-shadow(0 6px 18px rgba(184,146,42,.4))}
+
+/* ─── LAYOUT ─── */
+main{max-width:880px;margin:0 auto;padding:40px 16px 120px;display:grid;gap:20px}
+
+/* ─── CARD ─── */
+.card{background:var(--white);border-radius:var(--r);padding:26px 24px 22px;box-shadow:var(--shadow-sm);border:1px solid var(--border);transition:box-shadow .2s}
+.card:hover{box-shadow:var(--shadow-md)}
+.card-head{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.card-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;background:var(--warm)}
+.card-head h2{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:var(--ink)}
+.card-head small{font-size:11px;color:var(--muted);font-weight:400;margin-right:4px}
+
+/* ─── FLOUR TYPE TOGGLE ─── */
+.flour-toggle{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:14px;overflow:hidden;border:2px solid var(--border)}
+.flour-btn{padding:18px 14px 16px;cursor:pointer;transition:all .22s;text-align:center;user-select:none;background:var(--warm);position:relative}
+.flour-btn:first-child{border-left:1px solid var(--border)}
+.flour-btn:hover{background:#fff}
+.flour-btn.active.gf{background:linear-gradient(135deg,#EAF5EE,#D5EDE0);border-color:var(--green)}
+.flour-btn.active.reg{background:linear-gradient(135deg,#FFF8EC,#FDF0D5);border-color:var(--gold)}
+.flour-btn .f-emoji{font-size:32px;display:block;margin-bottom:8px}
+.flour-btn .f-name{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.flour-btn .f-sub{font-size:11px;color:var(--muted);line-height:1.4}
+.flour-btn.active.gf .f-name{color:var(--green)}
+.flour-btn.active.reg .f-name{color:var(--gold)}
+.flour-btn.active::after{content:'✓';position:absolute;top:8px;left:10px;width:20px;height:20px;border-radius:50%;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;color:#fff}
+.flour-btn.active.gf::after{background:var(--green)}
+.flour-btn.active.reg::after{background:var(--gold)}
+
+/* ─── METHOD PICKER ─── */
+.method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.method-btn{border:2px solid var(--border);border-radius:14px;padding:18px 12px 16px;cursor:pointer;transition:all .2s;background:var(--warm);text-align:center;user-select:none;position:relative}
+.method-btn:hover{border-color:var(--gold);background:#fff}
+.method-btn.active{border-color:var(--tomato);background:var(--tomato-dim)}
+.method-btn.active .method-name{color:var(--tomato)}
+.method-btn .method-emoji{font-size:28px;display:block;margin-bottom:8px}
+.method-btn .method-name{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.method-btn .method-desc{font-size:11px;color:var(--muted);line-height:1.4}
+.method-btn.active::after{content:'✓';position:absolute;top:8px;left:10px;width:18px;height:18px;background:var(--tomato);color:#fff;border-radius:50%;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center}
+
+/* ─── FIELDS ─── */
+.row2{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted)}
+.field input[type=number],.field select{border:1.5px solid var(--border);border-radius:10px;padding:10px 13px;font-size:15px;font-family:'Heebo',sans-serif;color:var(--ink);background:var(--warm);width:100%;transition:border-color .2s,box-shadow .2s;-moz-appearance:textfield;appearance:textfield;direction:rtl}
+.field input[type=number]::-webkit-inner-spin-button{display:none}
+.field input:focus,.field select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-dim)}
+
+/* ─── SLIDER ─── */
+.sl-wrap{display:flex;flex-direction:column;gap:7px}
+.sl-top{display:flex;justify-content:space-between;align-items:center}
+.sl-label{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted)}
+.sl-val{font-size:14px;font-weight:700;color:var(--tomato);background:var(--tomato-dim);padding:2px 10px;border-radius:20px;min-width:54px;text-align:center}
+.sl-val.green{color:var(--green);background:var(--green-dim)}
+.sl-val.blue{color:var(--blue);background:var(--blue-dim)}
+input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:3px;background:linear-gradient(to left,var(--tomato) 0%,var(--tomato) var(--pct,30%),var(--border) var(--pct,30%),var(--border) 100%);outline:none;cursor:pointer}
+input[type=range].green-track{background:linear-gradient(to left,var(--green) 0%,var(--green) var(--pct,30%),var(--border) var(--pct,30%),var(--border) 100%)}
+input[type=range].blue-track{background:linear-gradient(to left,var(--blue) 0%,var(--blue) var(--pct,30%),var(--border) var(--pct,30%),var(--border) 100%)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#fff;border:2.5px solid var(--tomato);box-shadow:0 2px 8px rgba(193,59,42,.2);transition:transform .15s}
+input[type=range].green-track::-webkit-slider-thumb{border-color:var(--green);box-shadow:0 2px 8px rgba(30,92,54,.2)}
+input[type=range].blue-track::-webkit-slider-thumb{border-color:var(--blue);box-shadow:0 2px 8px rgba(26,58,92,.2)}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
+.sl-hints{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:-3px}
+
+/* ─── HOURS SLIDER (big) ─── */
+.hours-block{background:linear-gradient(135deg,var(--ink),#2A241C);border-radius:14px;padding:20px;margin-top:0}
+.hours-display{text-align:center;margin-bottom:16px}
+.hours-big{font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:700;color:#F0C96A;line-height:1}
+.hours-unit{font-size:13px;color:rgba(247,243,236,.5);margin-top:3px}
+.hours-rec{font-size:12px;color:rgba(247,243,236,.75);text-align:center;margin-top:10px;min-height:16px;font-style:italic}
+input[type=range].hours-range{background:linear-gradient(to left,#F0C96A 0%,#F0C96A var(--pct,10%),rgba(255,255,255,.15) var(--pct,10%),rgba(255,255,255,.15) 100%)}
+input[type=range].hours-range::-webkit-slider-thumb{border-color:#F0C96A;box-shadow:0 2px 12px rgba(240,201,106,.35)}
+.hours-ticks{display:flex;justify-content:space-between;font-size:10px;color:rgba(247,243,236,.35);margin-top:-2px}
+
+/* ─── CHIPS ─── */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.chip{padding:7px 15px;border-radius:24px;border:1.5px solid var(--border);font-size:12px;font-weight:600;cursor:pointer;transition:all .18s;background:var(--warm);color:var(--muted);user-select:none;font-family:'Heebo',sans-serif}
+.chip:hover{border-color:var(--gold);color:var(--ink)}
+.chip.active{background:var(--ink);border-color:var(--ink);color:#fff}
+
+/* ─── NOTE BOX ─── */
+.note{border-radius:12px;padding:13px 16px;display:flex;gap:11px;align-items:flex-start;margin-top:16px;font-size:13px;line-height:1.55}
+.note.gold{background:linear-gradient(135deg,#FFF8EC,#FDF0D5);border:1.5px solid var(--gold)}
+.note.green{background:linear-gradient(135deg,#EAF5EE,#D5EDE0);border:1.5px solid var(--green-light)}
+.note.blue{background:linear-gradient(135deg,#EAF0F8,#D5E4F2);border:1.5px solid var(--blue-light)}
+.note-ico{font-size:20px;flex-shrink:0;margin-top:1px}
+.note p{color:var(--ink)}
+.note strong{font-weight:700;color:var(--tomato)}
+
+/* ─── PRE-FERMENT CARD ─── */
+.ferment-card{border-radius:var(--r);padding:26px 24px 22px;box-shadow:var(--shadow-md)}
+.ferment-card.poolish{background:linear-gradient(145deg,#1C3A2A,#0F2318);border:1px solid rgba(255,255,255,.07)}
+.ferment-card.biga{background:linear-gradient(145deg,#1A3A5C,#0E2035);border:1px solid rgba(255,255,255,.07)}
+.ferment-card .card-head h2{color:#fff}
+.ferment-card .card-icon{background:rgba(255,255,255,.1)}
+.ferment-card .sl-label{color:rgba(255,255,255,.45)}
+.ferment-card .sl-hints{color:rgba(255,255,255,.3)}
+.f-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin:16px 0}
+.f-item{border-radius:12px;padding:13px 10px;text-align:center}
+.poolish .f-item{background:rgba(255,255,255,.07);border:1px solid rgba(126,232,162,.12)}
+.biga .f-item{background:rgba(255,255,255,.07);border:1px solid rgba(91,155,213,.15)}
+.f-item .fl{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
+.poolish .f-item .fl{color:rgba(126,232,162,.55)}
+.biga .f-item .fl{color:rgba(91,155,213,.55)}
+.f-item .fv{font-size:1.4rem;font-weight:700;line-height:1}
+.poolish .f-item .fv{color:#7EE8A2}
+.biga .f-item .fv{color:#8FC9F5}
+.f-item .fu{font-size:10px;color:rgba(255,255,255,.35);margin-top:3px}
+.f-steps{list-style:none;display:flex;flex-direction:column;gap:9px}
+.f-steps li{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.5;color:rgba(247,243,236,.8)}
+.fstep{width:20px;height:20px;border-radius:50%;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.poolish .fstep{background:#2A7A4A}
+.biga .fstep{background:#1A5585}
+.f-divider{height:1px;margin:16px 0}
+.poolish .f-divider{background:rgba(126,232,162,.13)}
+.biga .f-divider{background:rgba(91,155,213,.13)}
+.f-section{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px}
+.poolish .f-section{color:rgba(126,232,162,.55)}
+.biga .f-section{color:rgba(91,155,213,.55)}
+.f-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.f-chip{padding:5px 13px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;background:transparent;transition:all .18s;user-select:none;font-family:'Heebo',sans-serif}
+.poolish .f-chip{border:1.5px solid rgba(126,232,162,.25);color:rgba(247,243,236,.5)}
+.biga .f-chip{border:1.5px solid rgba(91,155,213,.25);color:rgba(247,243,236,.5)}
+.poolish .f-chip:hover,.poolish .f-chip.active{border-color:#2A7A4A;background:#2A7A4A;color:#fff}
+.biga .f-chip:hover,.biga .f-chip.active{border-color:#1A5585;background:#1A5585;color:#fff}
+
+/* ─── RESULTS ─── */
+.results-card{background:var(--ink);color:#fff;border-radius:var(--r);padding:28px 24px;box-shadow:var(--shadow-lg);border:1px solid rgba(255,255,255,.06)}
+.results-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:#F0C96A;margin-bottom:22px;display:flex;align-items:center;gap:8px}
+.results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:11px;margin-bottom:22px}
+.r-item{background:rgba(255,255,255,.07);border-radius:13px;padding:15px 11px 13px;text-align:center;border:1px solid rgba(255,255,255,.08);transition:background .2s}
+.r-item:hover{background:rgba(255,255,255,.11)}
+.r-item.hl{border-color:rgba(240,201,106,.3)}
+.r-item .rl{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:5px}
+.r-item .rv{font-size:1.65rem;font-weight:700;color:#F0C96A;line-height:1}
+.r-item.hl .rv{color:#fff;font-size:1.95rem}
+.r-item .ru{font-size:10px;color:rgba(255,255,255,.35);margin-top:3px}
+.steps-block{background:rgba(255,255,255,.06);border-radius:13px;padding:18px;border:1px solid rgba(255,255,255,.07)}
+.steps-title{font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#F0C96A;margin-bottom:14px}
+.steps-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.steps-list li{display:flex;gap:11px;align-items:flex-start;font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.8)}
+.snum{width:22px;height:22px;border-radius:50%;background:var(--tomato);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+
+/* ─── TIPS ─── */
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.tip{background:var(--warm);border:1.5px solid var(--border);border-radius:13px;padding:15px;display:flex;gap:11px;align-items:flex-start}
+.tip-ico{font-size:20px;flex-shrink:0}
+.tip h4{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.tip p{font-size:11.5px;color:var(--muted);line-height:1.5}
+
+/* ─── DIVIDER ─── */
+.div{height:1px;background:var(--border);margin:18px 0}
+
+/* ─── FOOTER ─── */
+footer{text-align:center;padding:28px 16px;font-size:12px;color:var(--muted);border-top:1px solid var(--border)}
+footer strong{color:var(--ink)}
+footer .share-hint{margin-top:8px;font-size:11px;color:rgba(122,112,96,.6)}
+
+/* ─── LANG TOGGLE ─── */
+.lang-bar{background:#0E0C09;padding:10px 20px;display:flex;justify-content:center;align-items:center;gap:8px;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,.06)}
+.lang-btn{padding:5px 16px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;transition:all .18s;border:1.5px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.4);letter-spacing:.5px;font-family:'Heebo',sans-serif}
+.lang-btn.active{background:var(--tomato);border-color:var(--tomato);color:#fff}
+.lang-btn:hover:not(.active){border-color:rgba(255,255,255,.35);color:rgba(255,255,255,.7)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.card,.ferment-card,.results-card{animation:fadeUp .35s ease both}
+
+
+
+/* ─── SECTION CARDS (home) ─── */
+.section-cards{display:flex;flex-direction:column;gap:0;padding-bottom:80px}
+.section-card{position:relative;height:200px;overflow:hidden;cursor:pointer;display:flex;align-items:flex-end}
+.section-card + .section-card{border-top:1px solid rgba(255,255,255,.06)}
+.sc-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .4s ease}
+.section-card:hover .sc-bg{transform:scale(1.03)}
+.sc-overlay{position:absolute;inset:0}
+.sc-content{position:relative;z-index:2;padding:24px 20px;width:100%}
+.sc-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:6px}
+.sc-title{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:#fff;line-height:1;margin-bottom:6px}
+.sc-sub{font-size:12px;color:rgba(255,255,255,.55);line-height:1.4}
+.sc-arrow{position:absolute;bottom:24px;left:20px;width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);font-size:14px}
+.sc-coming{position:absolute;top:16px;left:16px;background:rgba(0,0,0,.5);color:rgba(255,255,255,.6);font-size:9px;font-weight:700;letter-spacing:2px;padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.15)}
+
+/* Taboon bg — dark fire tones */
+.sc-taboon .sc-bg{background:linear-gradient(160deg,#1A0A04 0%,#2C1008 40%,#0E0604 100%)}
+.sc-taboon .sc-overlay{background:linear-gradient(to top,rgba(10,4,2,.95) 0%,rgba(10,4,2,.4) 60%,transparent 100%)}
+.sc-taboon .sc-title{color:#F0C96A}
+
+/* Smoker bg — grey/wood tones */
+.sc-smoker .sc-bg{background:linear-gradient(160deg,#1A1410 0%,#2A2018 40%,#0E0C08 100%)}
+.sc-smoker .sc-overlay{background:linear-gradient(to top,rgba(10,8,4,.95) 0%,rgba(10,8,4,.4) 60%,transparent 100%)}
+
+/* Sous vide bg — cool blue tones */
+.sc-sousvide .sc-bg{background:linear-gradient(160deg,#06101A 0%,#0A1828 40%,#040C12 100%)}
+.sc-sousvide .sc-overlay{background:linear-gradient(to top,rgba(4,8,14,.95) 0%,rgba(4,8,14,.4) 60%,transparent 100%)}
+
+/* Taboon decorative fire shapes in bg */
+.sc-taboon .sc-bg::before{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:180px;height:120px;background:radial-gradient(ellipse at 50% 100%,rgba(180,80,0,.25) 0%,transparent 70%)}
+.sc-smoker .sc-bg::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(255,255,255,.01) 40px,rgba(255,255,255,.01) 41px)}
+.sc-sousvide .sc-bg::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 30px,rgba(91,155,213,.04) 30px,rgba(91,155,213,.04) 31px)}
+
+/* ─── SUB-HOME SCREEN ─── */
+.sub-home{padding-bottom:80px}
+.sub-home-hero{background:var(--ink);padding:20px 20px 24px;border-bottom:1px solid rgba(255,255,255,.06)}
+.sub-home-hero .sh-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#F0C96A;margin-bottom:4px}
+.sub-home-hero .sh-sub{font-size:12px;color:rgba(255,255,255,.4)}
+.sub-cards{padding:16px 16px 0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sub-card{background:var(--white);border-radius:14px;padding:18px 14px;cursor:pointer;border:1px solid var(--border);box-shadow:var(--shadow-sm);transition:transform .18s,box-shadow .18s;display:flex;flex-direction:column}
+.sub-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.sub-card .sc2-ico{font-size:26px;margin-bottom:10px}
+.sub-card .sc2-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:3px;line-height:1.2}
+.sub-card .sc2-sub{font-size:11px;color:var(--muted);line-height:1.4}
+
+
+/* ─── SECTION CARDS (home) ─── */
+.sections-list{display:flex;flex-direction:column;gap:16px;padding:20px 16px 100px}
+.section-card{border-radius:20px;overflow:hidden;cursor:pointer;position:relative;height:180px;display:flex;flex-direction:column;justify-content:flex-end;transition:transform .2s,box-shadow .2s}
+.section-card:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.section-card .sc-bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.section-card .sc-overlay{position:absolute;inset:0}
+.section-card .sc-content{position:relative;z-index:2;padding:20px 22px}
+.section-card .sc-label{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:5px}
+.section-card .sc-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:#fff;line-height:1;margin-bottom:4px}
+.section-card .sc-sub{font-size:12px;color:rgba(255,255,255,.6);line-height:1.4}
+.section-card .sc-arrow{position:absolute;top:18px;left:18px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(255,255,255,.7)}
+.section-card .sc-badge{position:absolute;top:18px;right:18px;background:rgba(0,0,0,.4);backdrop-filter:blur(4px);color:rgba(255,255,255,.6);font-size:9px;font-weight:700;letter-spacing:1.5px;padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.15)}
+
+/* TABOON card */
+.sc-taboon .sc-bg{background:linear-gradient(160deg,#3D1A08 0%,#1A0A03 100%)}
+.sc-taboon .sc-overlay{background:linear-gradient(to top,rgba(10,4,0,.85) 0%,rgba(10,4,0,.2) 60%,transparent 100%)}
+/* Smoker card */
+.sc-smoker .sc-bg{background:linear-gradient(160deg,#1A1A14 0%,#0A0A08 100%)}
+.sc-smoker .sc-overlay{background:linear-gradient(to top,rgba(5,5,4,.9) 0%,rgba(5,5,4,.3) 60%,transparent 100%)}
+/* Sous Vide card */
+.sc-sousvide .sc-bg{background:linear-gradient(160deg,#0A1A2A 0%,#050E18 100%)}
+.sc-sousvide .sc-overlay{background:linear-gradient(to top,rgba(3,8,18,.9) 0%,rgba(3,8,18,.3) 60%,transparent 100%)}
+
+/* taboon section inner nav */
+.section-inner-home{padding:0 16px 100px;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.sih-card{background:var(--white);border-radius:14px;padding:18px 14px;border:1px solid var(--border);box-shadow:var(--shadow-sm);cursor:pointer;transition:box-shadow .2s;display:flex;flex-direction:column;gap:6px}
+.sih-card:hover{box-shadow:var(--shadow-md)}
+.sih-ico{font-size:24px}
+.sih-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--ink)}
+.sih-sub{font-size:11px;color:var(--muted);line-height:1.4}
+
+/* coming soon screen */
+.coming-soon-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;padding:40px 32px;text-align:center;gap:16px}
+.cs-icon{font-size:56px;margin-bottom:8px;opacity:.6}
+.cs-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--ink)}
+.cs-sub{font-size:14px;color:var(--muted);line-height:1.6;max-width:260px}
+.cs-tag{display:inline-block;background:var(--warm);border:1px solid var(--border);border-radius:20px;font-size:10px;font-weight:700;letter-spacing:2px;color:var(--muted);padding:5px 14px;margin-top:8px}
+
+/* ─── SCREENS ─── */
+.screen{display:none}
+.screen.active{display:block}
+
+
+/* ─── BACK BUTTON ─── */
+.top-bar{background:var(--ink);padding:12px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.06)}
+.back-btn-top{display:flex;align-items:center;gap:7px;color:rgba(255,255,255,.6);font-size:13px;font-weight:600;cursor:pointer;border:none;background:none;font-family:'Heebo',sans-serif;padding:4px 0;transition:color .18s}
+.back-btn-top:hover{color:#F0C96A}
+.back-btn-top .back-arrow{font-size:18px;line-height:1}
+.top-bar-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#F0C96A;flex:1;text-align:center;padding-right:60px}
+
+/* ─── BOTTOM NAV ─── */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--ink);border-top:1px solid rgba(255,255,255,.08);display:flex;z-index:200;padding-bottom:env(safe-area-inset-bottom)}
+.nav-btn{flex:1;padding:10px 4px 8px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;border:none;background:none;color:rgba(255,255,255,.35);transition:color .18s;font-family:'Heebo',sans-serif}
+.nav-btn.active{color:#F0C96A}
+.nav-btn .nav-ico{font-size:20px;line-height:1}
+.nav-btn .nav-label{font-size:9px;font-weight:600;letter-spacing:.5px}
+
+/* ─── HOME SCREEN ─── */
+.home-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:24px 16px 100px}
+.home-card{border-radius:18px;padding:22px 18px;cursor:pointer;transition:transform .18s,box-shadow .18s;position:relative;overflow:hidden;min-height:140px;display:flex;flex-direction:column;justify-content:flex-end}
+.home-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.home-card.calculator{background:linear-gradient(145deg,#2C1A0E,#1A0E06);border:1px solid rgba(184,146,42,.25)}
+.home-card.recipes{background:linear-gradient(145deg,#1C3A2A,#0F2318);border:1px solid rgba(126,232,162,.2)}
+.home-card.techniques{background:linear-gradient(145deg,#1A2A4A,#0E1A2E);border:1px solid rgba(91,155,213,.2)}
+.home-card.tips{background:linear-gradient(145deg,#3A1A0E,#220E06);border:1px solid rgba(193,59,42,.25)}
+.home-card .hc-ico{font-size:36px;margin-bottom:10px}
+.home-card .hc-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:#fff;line-height:1.1;margin-bottom:4px}
+.home-card .hc-sub{font-size:11px;color:rgba(255,255,255,.45);line-height:1.4}
+.home-card .hc-badge{position:absolute;top:12px;left:12px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:9px;font-weight:700;letter-spacing:1px;padding:3px 8px;border-radius:10px}
+
+/* ─── SECTION HEADER ─── */
+.section-header{background:var(--ink);padding:20px 20px 16px;display:flex;align-items:center;gap:12px;cursor:pointer}
+.back-btn{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;color:#fff}
+.section-header h2{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:#F0C96A;flex:1}
+
+/* ─── RECIPE LIST ─── */
+.recipe-list{padding:16px 16px 100px;display:grid;gap:14px}
+.recipe-card{background:var(--white);border-radius:16px;padding:20px;border:1px solid var(--border);box-shadow:var(--shadow-sm);cursor:pointer;transition:box-shadow .2s}
+.recipe-card:hover{box-shadow:var(--shadow-md)}
+.recipe-card .rc-category{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.recipe-card .rc-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--ink);margin-bottom:6px}
+.recipe-card .rc-desc{font-size:12.5px;color:var(--muted);line-height:1.5}
+.recipe-card .rc-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.rc-tag{font-size:10px;font-weight:600;padding:3px 10px;border-radius:12px;background:var(--warm);color:var(--muted);border:1px solid var(--border)}
+
+/* ─── RECIPE DETAIL ─── */
+.recipe-detail{padding:0 0 100px}
+.recipe-hero{background:var(--ink);padding:24px 20px 20px}
+.recipe-hero .rh-cat{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#B8922A;margin-bottom:8px}
+.recipe-hero .rh-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#fff;line-height:1.1;margin-bottom:8px}
+.recipe-hero .rh-desc{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6}
+.recipe-body{padding:20px}
+.recipe-section-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--ink);margin:20px 0 12px;display:flex;align-items:center;gap:8px}
+.ingredient-list{display:flex;flex-direction:column;gap:8px}
+.ingredient{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--warm);border-radius:10px;border:1px solid var(--border)}
+.ingredient .ing-name{font-size:13.5px;color:var(--ink)}
+.ingredient .ing-qty{font-size:13px;font-weight:700;color:var(--gold)}
+.method-steps-list{display:flex;flex-direction:column;gap:12px}
+.method-step{display:flex;gap:12px;align-items:flex-start}
+.method-step .ms-num{width:26px;height:26px;border-radius:50%;background:var(--tomato);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.method-step .ms-text{font-size:13.5px;color:var(--ink);line-height:1.6}
+.tip-note{background:linear-gradient(135deg,#FFF8EC,#FDF0D5);border:1.5px solid var(--gold);border-radius:12px;padding:14px 16px;display:flex;gap:10px;margin-top:16px}
+.tip-note .tn-ico{font-size:18px;flex-shrink:0}
+.tip-note p{font-size:12.5px;color:var(--espresso);line-height:1.55}
+.basil-oil-box{background:linear-gradient(135deg,#EAF5EE,#D5EDE0);border:1.5px solid #4CAF72;border-radius:12px;padding:16px;margin-top:14px;cursor:pointer}
+.basil-oil-box .bo-title{font-size:12px;font-weight:700;color:var(--green);margin-bottom:4px}
+.basil-oil-box .bo-text{font-size:12px;color:#1E5C36;line-height:1.5}
+
+/* ─── TECHNIQUES ─── */
+.techniques-list{padding:16px 16px 100px;display:grid;gap:14px}
+.technique-card{background:var(--white);border-radius:16px;padding:20px;border:1px solid var(--border);box-shadow:var(--shadow-sm)}
+.technique-card .tc-num{width:32px;height:32px;border-radius:50%;background:var(--tomato);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.technique-card .tc-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:8px}
+.technique-card .tc-text{font-size:13px;color:var(--muted);line-height:1.65}
+.technique-card .tc-highlight{background:var(--tomato-dim);border-right:3px solid var(--tomato);padding:10px 14px;border-radius:0 8px 8px 0;margin-top:12px;font-size:12.5px;color:var(--ink);line-height:1.55}
+
+/* ─── TIPS ─── */
+.tips-section{padding:16px 16px 100px;display:grid;gap:14px}
+.big-tip{background:var(--white);border-radius:16px;padding:20px;border:1px solid var(--border);box-shadow:var(--shadow-sm);display:flex;gap:14px;align-items:flex-start}
+.big-tip .bt-ico{font-size:28px;flex-shrink:0}
+.big-tip .bt-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:6px}
+.big-tip .bt-text{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:520px){
+  .card,.ferment-card,.results-card{padding:18px 14px}
+  main{padding:24px 10px 80px;gap:16px}
+  .site-header{padding:36px 16px 30px}
+  .method-grid{grid-template-columns:repeat(3,1fr)}
+  .method-btn .method-desc{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <button class="lang-btn active" id="btnHe">🇮🇱 עברית</button>
+  <button class="lang-btn" id="btnEn">🇬🇧 English</button>
+</div>
+
+<header class="site-header" style="padding:0 0 24px">
+  <div class="logo-wrap"><div class="logo-el">
+  <svg width="72" height="68" viewBox="0 0 96 90">
+    <rect x="4" y="70" width="88" height="4.5" rx="1.2" fill="#C9A84C"/>
+    <rect x="4" y="72.5" width="88" height="2" fill="#8A6A18" opacity="0.6"/>
+    <path d="M10,70 Q10,8 48,8 Q86,8 86,70" fill="none" stroke="#FFFFFF" stroke-width="2.4"/>
+    <path d="M20,70 Q20,20 48,20 Q76,20 76,70" fill="none" stroke="#C9A84C" stroke-width="1.1"/>
+    <path d="M30,70 Q30,33 48,33 Q66,33 66,70" fill="none" stroke="#1E1A10" stroke-width="0.7"/>
+    <path d="M34,70 Q34,53 48,53 Q62,53 62,70" fill="none" stroke="#FFFFFF" stroke-width="1.8"/>
+    <path d="M48,66 C45,60 41,54 43,47 C44,44 47,46 47,49 C47,45 49,41 51,44 C54,49 52,57 50,63 C49,65 48,66 48,66Z" fill="#C9A84C"/>
+    <path d="M48,63 C47,59 44,55 46,50 C47,48 48,50 48,52 C48,49 49,47 50,49 C52,53 51,59 49,62Z" fill="#F0C96A" opacity="0.8"/>
+    <rect x="44" y="2" width="8" height="8" rx="1.2" fill="#1E1A10"/>
+    <rect x="41" y="0" width="14" height="4" rx="1.2" fill="#FFFFFF"/>
+    <circle cx="48" cy="12" r="1.3" fill="#1E1A10"/>
+    <circle cx="33" cy="25" r="1.1" fill="#1E1A10"/>
+    <circle cx="63" cy="25" r="1.1" fill="#1E1A10"/>
+    <circle cx="24" cy="40" r="1" fill="#1E1A10"/>
+    <circle cx="72" cy="40" r="1" fill="#1E1A10"/>
+  </svg>
+  <span class="logo-omers">Omer's</span>
+  <div class="logo-rule"><div class="logo-rl"></div><div class="logo-rd"></div><div class="logo-rl"></div></div>
+  <span class="logo-dough">Kitchen</span>
+  <div class="logo-rule"><div class="logo-rl"></div><div class="logo-rd"></div><div class="logo-rl"></div></div>
+  <span class="logo-tag">Taboon · Gluten Free</span>
+</div></div>
+  <div class="badge" id="headerBadge">Omer's Kitchen · ללא גלוטן · 🔥 טאבון</div>
+</header>
+
+<div id="screenCalc" class="screen active"><div class="top-bar" id="calcTopBar"><button class="back-btn-top" onclick="showScreen('home')"><span class="back-arrow">←</span><span id="calcBackLabel">בית</span></button><div class="top-bar-title" id="calcTopTitle">מחשבון בצק</div></div><main>
+
+<!-- 0. FLOUR TYPE -->
+<div class="card">
+  <div class="card-head"><div class="card-icon">🌾</div><h2 data-i18n="flourTitle">סוג קמח</h2></div>
+  <div class="flour-toggle">
+    <div class="flour-btn active gf" onclick="setFlour('gf',this)">
+      <span class="f-emoji">🟢</span>
+      <div class="f-name" data-i18n="flourGFName">ללא גלוטן</div>
+      <div class="f-sub" data-i18n="flourGFSub">Caputo Fioreglut<br>מותאם לצליאק ורגישות</div>
+    </div>
+    <div class="flour-btn reg" onclick="setFlour('reg',this)">
+      <span class="f-emoji">🌾</span>
+      <div class="f-name" data-i18n="flourRegName">קמח רגיל</div>
+      <div class="f-sub" data-i18n="flourRegSub">קמח פיצה 00<br>Caputo Pizzeria / Manitoba</div>
+    </div>
+  </div>
+  <div id="flourNote"></div>
+</div>
+
+<!-- 1. METHOD -->
+<div class="card">
+  <div class="card-head"><div class="card-icon">🔬</div><h2><span data-i18n="methodTitle">שיטת הכנה</span> <small data-i18n="methodSub">— בחר סוג בצק</small></h2></div>
+  <div class="method-grid">
+    <div class="method-btn active" data-method="direct" onclick="setMethod('direct',this)">
+      <span class="method-emoji">⚡</span>
+      <div class="method-name" data-i18n="methodDirectName">ישיר</div>
+      <div class="method-desc" data-i18n="methodDirectDesc">קל ומהיר. בצק אחד, ללא פרה-פרמנט.</div>
+    </div>
+    <div class="method-btn" data-method="poolish" onclick="setMethod('poolish',this)">
+      <span class="method-emoji">🌿</span>
+      <div class="method-name" data-i18n="methodPoolishName">פוליש</div>
+      <div class="method-desc" data-i18n="methodPoolishDesc">פרה-פרמנט נוזלי. טעם עמוק, מרקם פריך.</div>
+    </div>
+    <div class="method-btn" data-method="biga" onclick="setMethod('biga',this)">
+      <span class="method-emoji">🏔️</span>
+      <div class="method-name" data-i18n="methodBigaName">ביגה</div>
+      <div class="method-desc" data-i18n="methodBigaDesc">פרה-פרמנט יבש. מרכיב נאפוליטנה קלאסית.</div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. BASICS -->
+<div class="card">
+  <div class="card-head"><div class="card-icon">⚙️</div><h2 data-i18n="basicsTitle">הגדרות בסיסיות</h2></div>
+  <div class="row2">
+    <div class="field"><label data-i18n="labelBalls">מספר כדורים</label><input type="number" id="balls" value="4" min="1" max="60"></div>
+    <div class="field"><label data-i18n="labelBallW">משקל כדור (גרם)</label><input type="number" id="ballW" value="250" min="150" max="450"></div>
+    <div class="field"><label data-i18n="labelPizzaSize">גודל פיצה בטאבון</label>
+      <select id="pizzaType">
+        <option value="napoletana" data-i18n="sizeNapoletana">נאפוליטנה (28–32 ס"מ)</option>
+        <option value="large" data-i18n="sizeLarge">גדולה (34–38 ס"מ)</option>
+        <option value="personal" data-i18n="sizePersonal">אישית (22–26 ס"מ)</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+
+<!-- OVEN TYPE -->
+<div class="card">
+  <div class="card-head"><div class="card-icon">🔥</div><h2 data-i18n="ovenTitle">סוג אפייה</h2></div>
+  <div class="method-grid" style="grid-template-columns:1fr 1fr">
+    <div class="method-btn active" id="ovenTaboon" onclick="setOven('taboon',this)">
+      <span class="method-emoji">🔥</span>
+      <div class="method-name" data-i18n="ovenTaboonName">טאבון</div>
+      <div class="method-desc" data-i18n="ovenTaboonDesc">400–500°C · אפייה קצרה ועזה</div>
+    </div>
+    <div class="method-btn" id="ovenRegular" onclick="setOven('regular',this)">
+      <span class="method-emoji">🏠</span>
+      <div class="method-name" data-i18n="ovenRegularName">תנור ביתי</div>
+      <div class="method-desc" data-i18n="ovenRegularDesc">250–280°C · אבן פיצה / תבנית</div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. TOTAL FERMENTATION TIME -->
+<div class="card">
+  <div class="card-head"><div class="card-icon">⏱️</div><h2 data-i18n="hoursTitle">זמן התפחה כולל</h2></div>
+  <div class="hours-block">
+    <div class="hours-display">
+      <div class="hours-big" id="hoursDisplay">24</div>
+      <div class="hours-unit" data-i18n="hoursUnit">שעות התפחה</div>
+    </div>
+    <input type="range" id="totalHours" class="hours-range" min="2" max="72" value="24" step="1">
+    <div class="hours-ticks"><span>2h</span><span>12h</span><span>24h</span><span>48h</span><span>72h</span></div>
+    <div class="hours-rec" id="hoursRec"></div>
+  </div>
+</div>
+
+<!-- 4. HYDRATION -->
+<div class="card">
+  <div class="card-head"><div class="card-icon">💧</div><h2 data-i18n="hydroTitle">הידרציה</h2></div>
+  <div class="sl-wrap">
+    <div class="sl-top"><span class="sl-label" data-i18n="hydroLabel">אחוז הידרציה</span><span class="sl-val" id="hydroVal">70%</span></div>
+    <input type="range" id="hydration" min="60" max="85" value="70" step="1">
+    <div class="sl-hints"><span data-i18n="hydroDry">60% יבש</span><span data-i18n="hydroRec">70% מומלץ GF</span><span data-i18n="hydroWet">85% רטוב</span></div>
+  </div>
+  <div class="note gold" id="hydroNote">
+    <div class="note-ico">💡</div>
+    <p data-i18n="hydroNoteGF">קמח <strong>קאפוטו פיורגלוט</strong> סופג יותר מים. מומלץ <strong>70–75%</strong>. הבצק יהיה דביק — זה נורמלי!</p>
+  </div>
+</div>
+
+<!-- 5. PRE-FERMENT (poolish/biga — dynamic) -->
+<div id="fermentSection" style="display:none"></div>
+
+<!-- 6. SALT OIL YEAST -->
+<div class="card">
+  <div class="card-head"><div class="card-icon">🧂</div><h2 data-i18n="saltTitle">מלח, שמן ושמרים</h2></div>
+  <div class="row2" style="margin-bottom:16px">
+    <div class="sl-wrap">
+      <div class="sl-top"><span class="sl-label" data-i18n="saltLabel">מלח (%)</span><span class="sl-val" id="saltVal">2.5%</span></div>
+      <input type="range" id="salt" min="1.5" max="3.5" value="2.5" step="0.1">
+      <div class="sl-hints"><span>1.5%</span><span data-i18n="saltRec">2.5% מומלץ</span><span>3.5%</span></div>
+    </div>
+    <div class="sl-wrap">
+      <div class="sl-top"><span class="sl-label" data-i18n="oilLabel">שמן זית (%)</span><span class="sl-val" id="oilVal">3%</span></div>
+      <input type="range" id="oil" min="0" max="8" value="3" step="0.5">
+      <div class="sl-hints"><span>0%</span><span data-i18n="oilRec">3% מומלץ GF</span><span>8%</span></div>
+    </div>
+  </div>
+  <div class="div"></div>
+  <div style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.7px;text-transform:uppercase;margin-bottom:10px" data-i18n="yeastTypeLabel">🦠 סוג שמרים</div>
+  <div class="chips" id="yeastChips">
+    <div class="chip active" data-pct="0.3" data-i18n="yeastFresh">שמרים טריים</div>
+    <div class="chip" data-pct="0.1" data-i18n="yeastDry">שמרים יבשים</div>
+    <div class="chip" data-pct="0.1" data-i18n="yeastInstant">אינסטנט</div>
+  </div>
+  <div class="div"></div>
+  <div class="sl-wrap">
+    <div class="sl-top"><span class="sl-label" data-i18n="yeastLabel">כמות שמרים סה"כ (%)</span><span class="sl-val" id="yeastVal">0.30%</span></div>
+    <input type="range" id="yeast" min="0.05" max="1.5" value="0.3" step="0.05">
+    <div class="sl-hints"><span data-i18n="yeastSlow">איטי/קר</span><span>24h</span><span data-i18n="yeastFast">מהיר/חם</span></div>
+  </div>
+</div>
+
+<!-- 7. EXTRAS -->
+<div class="card" id="extrasCard">
+  <div class="card-head"><div class="card-icon">✨</div><h2 id="extrasTitle" data-i18n="extrasGF">תוספות GF אופציונליות</h2></div>
+  <div class="row2">
+    <div class="sl-wrap" id="psylliumWrap">
+      <div class="sl-top"><span class="sl-label" data-i18n="psylliumLabel">פסיליום (%)</span><span class="sl-val green" id="psylliumVal">0%</span></div>
+      <input type="range" id="psyllium" class="green-track" min="0" max="3" value="0" step="0.5">
+      <div class="sl-hints"><span data-i18n="none">ללא</span><span data-i18n="psylliumRec">1–2% עוזר</span><span>3%</span></div>
+    </div>
+    <div class="sl-wrap">
+      <div class="sl-top"><span class="sl-label" data-i18n="sugarLabel">סוכר (%)</span><span class="sl-val blue" id="sugarVal">1%</span></div>
+      <input type="range" id="sugar" class="blue-track" min="0" max="3" value="1" step="0.5">
+      <div class="sl-hints"><span data-i18n="none">ללא</span><span data-i18n="sugarRec">1% מומלץ</span><span>3%</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 8. RESULTS -->
+<div class="results-card">
+  <div class="results-title" data-i18n="resultsTitle">📊 כמויות ומתכון מלא</div>
+  <div class="results-grid" id="resultsGrid"></div>
+  <div class="steps-block">
+    <div class="steps-title" data-i18n="stepsTitle">📋 הוראות הכנה שלב אחר שלב</div>
+    <ol class="steps-list" id="recipeSteps"></ol>
+  </div>
+</div>
+
+<!-- 9. TIPS -->
+<div class="card">
+  <div class="card-head"><div class="card-icon">💎</div><h2 data-i18n="tipsTitle">טיפים מקצועיים לקאפוטו GF</h2></div>
+  <div class="tips-grid" id="tipsGrid"></div>
+</div>
+
+</main>
+
+</main></div>
+
+<!-- HOME SCREEN -->
+<div id="screenHome" class="screen"></div>
+<!-- RECIPES SCREEN -->
+<div id="screenRecipes" class="screen"></div>
+<!-- RECIPE DETAIL -->
+<div id="screenRecipeDetail" class="screen"></div>
+<!-- TECHNIQUES SCREEN -->
+<div id="screenTechniques" class="screen"></div>
+<!-- TIPS SCREEN -->
+<div id="screenTips" class="screen"></div>
+<!-- TABOON SECTION HOME -->
+<div id="screenTaboon" class="screen"></div>
+<!-- SMOKER SECTION -->
+<div id="screenSmoker" class="screen"></div>
+<!-- SOUS VIDE SECTION -->
+<div id="screenSousVide" class="screen"></div>
+<!-- TABOON SUB-HOME -->
+<div id="screenTaboon" class="screen"></div>
+<!-- SMOKER -->
+<div id="screenSmoker" class="screen"></div>
+<!-- SOUS VIDE -->
+<div id="screenSousVide" class="screen"></div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="nav-btn" id="navHome" onclick="showScreen('home')"><span class="nav-ico">🏠</span><span class="nav-label" data-i18n="navHome">בית</span></button>
+  <button class="nav-btn" id="navCalc" onclick="showScreen('calc')"><span class="nav-ico">🧮</span><span class="nav-label" data-i18n="navCalc">מחשבון</span></button>
+  <button class="nav-btn" id="navRecipes" onclick="showScreen('recipes')"><span class="nav-ico">🍕</span><span class="nav-label" data-i18n="navRecipes">מתכונים</span></button>
+  <button class="nav-btn" id="navTech" onclick="showScreen('techniques')"><span class="nav-ico">📖</span><span class="nav-label" data-i18n="navTech">טכניקות</span></button>
+  <button class="nav-btn" id="navTips" onclick="showScreen('tips')"><span class="nav-ico">🔥</span><span class="nav-label" data-i18n="navTips">טיפים</span></button>
+</nav>
+
+<footer>
+  <span data-i18n="footerText">Omer's Kitchen | מתכונים וטכניקות לטאבון</span>
+  <div class="share-hint"><a href="/install.html" style="color:inherit" data-i18n="installLink">📲 מדריך התקנה לטלפון</a></div>
+</footer>
+
+<script>
+// ───────────────────────────────
+//  i18n — TRANSLATIONS
+// ───────────────────────────────
+let lang = 'he';
+
+const T = {
+  he: {
+    headerTitle: 'מחשבון הבצק<br>של <em>עמר כחלון</em>',
+    headerSub: 'כי פיצה טובה מתחילה בחישוב מדויק — וללא גלוטן, בלי פשרות.',
+    badgeGF: 'Omer\'s Kitchen · ללא גלוטן · 🔥 טאבון',
+    badgeReg: 'קמח 00 · קלאסי · 🔥 טאבון',
+    flourTitle: 'סוג קמח',
+    flourGFName: 'ללא גלוטן', flourGFSub: 'Caputo Fioreglut<br>מותאם לצליאק ורגישות',
+    flourRegName: 'קמח רגיל', flourRegSub: 'קמח פיצה 00<br>Caputo Pizzeria / Manitoba',
+    flourNoteGF: 'בחרת <strong>קמח ללא גלוטן</strong> — Caputo Fioreglut. כל החישובים מותאמים לספיגה ולמרקם של קמח זה.',
+    flourNoteReg: 'בחרת <strong>קמח פיצה 00</strong> — Caputo Pizzeria / Manitoba. הידרציה מומלצת: <strong>60–65%</strong> לנאפוליטנה.',
+    navHome:'בית', navCalc:'מחשבון', navRecipes:'מתכונים', navTech:'טכניקות', navTips:'טיפים',
+    methodTitle: 'שיטת הכנה', methodSub: '— בחר סוג בצק',
+    ovenTitle: 'סוג אפייה', ovenTaboonName: 'טאבון', ovenTaboonDesc: '400–500°C · אפייה קצרה ועזה', ovenRegularName: 'תנור ביתי', ovenRegularDesc: '250–280°C · אבן פיצה / תבנית',
+    methodDirectName: 'ישיר', methodDirectDesc: 'קל ומהיר. בצק אחד, ללא פרה-פרמנט.',
+    methodPoolishName: 'פוליש', methodPoolishDesc: 'פרה-פרמנט נוזלי. טעם עמוק, מרקם פריך.',
+    methodBigaName: 'ביגה', methodBigaDesc: 'פרה-פרמנט יבש. מרכיב נאפוליטנה קלאסית.',
+    basicsTitle: 'הגדרות בסיסיות',
+    labelBalls: 'מספר כדורים', labelBallW: 'משקל כדור (גרם)', labelPizzaSize: 'גודל פיצה בטאבון',
+    sizeNapoletana: 'נאפוליטנה (28–32 ס"מ)', sizeLarge: 'גדולה (34–38 ס"מ)', sizePersonal: 'אישית (22–26 ס"מ)',
+    hoursTitle: 'זמן התפחה כולל', hoursUnit: 'שעות התפחה',
+    hoursRec: [
+      'התפחה קצרה — כמות שמרים גבוהה, טעם מינימלי',
+      'התפחה בינונית — תוצאה טובה בקלות',
+      '✨ מתחיל להיות מעניין — טעם מפותח',
+      '🌟 המתוק שבאמצע — מומלץ לפוליש/ביגה',
+      '🏆 התפחה ארוכה — עומק טעם מקסימלי',
+      '🔥 48+ שעות — טעם חמצמץ עמוק, כמו מאפייה'
+    ],
+    hydroTitle: 'הידרציה', hydroLabel: 'אחוז הידרציה',
+    hydroDry: '60% יבש', hydroRec: '70% מומלץ GF', hydroWet: '85% רטוב',
+    hydroNoteGF: 'קמח <strong>קאפוטו פיורגלוט</strong> סופג יותר מים. מומלץ <strong>70–75%</strong>. הבצק יהיה דביק — זה נורמלי!',
+    hydroNoteReg: 'קמח 00 קלאסי — מומלץ <strong>60–65%</strong> לנאפוליטנה, עד <strong>75%</strong> לטגליה. בצק גמיש ונעים ללישה.',
+    fermentPoolishTitle: 'פוליש (Pre-Ferment נוזלי)', fermentPoolishSub: 'פרמנטציה ראשונית בהידרציה 100% — פריכות, ריח ועומק טעם',
+    fermentBigaTitle: 'ביגה (Pre-Ferment יבש)', fermentBigaSub: 'פרה-פרמנט יבש איטי — מרקם אוורירי, ניחוח עמוק',
+    fermentPctLabel: '% קמח שנכנס לפרה-פרמנט',
+    honeyLabel: 'דבש לפוליש 🍯', honeyAmtLabel: 'כמות דבש (% מהקמח)', honeyNone: 'ללא', honeyRec: '0.5% מומלץ', honeySugary: '2% מתוק',
+    honeyNote: '🍯 דבש מזין את השמרים, מאיץ את ההתפחה ומוסיף ניחוח עדין. נכנס ישירות לפוליש עם המים.',
+    fermentTimeLabel: 'זמן התפחת הפרה-פרמנט',
+    fermentFast: '2–4 שעות (מהיר)', fermentNight: '8–12 שעות (לילה)', fermentCold: '16–24 שעות (קר)',
+    fermentCompositionLabel: 'הרכב הפרה-פרמנט',
+    fermentStepsLabel: 'הוראות הכנה',
+    fItemFlour: 'קמח', fItemWater: 'מים', fItemYeast: 'שמרים', fItemTime: 'זמן התפחה', fItemHours: 'שעות',
+    fItemHoney: 'דבש 🍯',
+    fermentNotePoolish: 'הידרציה 100% (שווה קמח ומים)',
+    fermentNoteBiga: '45–50% הידרציה — בצק פירורי וכבד, זה בסדר',
+    fermentYeastNote: (isPl) => `<strong>השמרים שנכנסים לפרה-פרמנט הם רק ${isPl?'10':'15'}% מסך השמרים</strong> — השאר הולכים לבצק הסופי.`,
+    saltTitle: 'מלח, שמן ושמרים', saltLabel: 'מלח (%)', saltRec: '2.5% מומלץ',
+    oilLabel: 'שמן זית (%)', oilRec: '3% מומלץ GF', oilRecReg: '2% נאפוליטנה',
+    yeastTypeLabel: '🦠 סוג שמרים', yeastFresh: 'שמרים טריים', yeastDry: 'שמרים יבשים', yeastInstant: 'אינסטנט',
+    yeastLabel: 'כמות שמרים סה"כ (%)', yeastSlow: 'איטי/קר', yeastFast: 'מהיר/חם',
+    extrasGF: 'תוספות GF אופציונליות', extrasReg: 'תוספות אופציונליות',
+    psylliumLabel: 'פסיליום (%)', psylliumRec: '1–2% עוזר',
+    sugarLabel: 'סוכר (%)', sugarRec: '1% מומלץ', none: 'ללא',
+    resultsTitle: '📊 כמויות ומתכון מלא', stepsTitle: '📋 הוראות הכנה שלב אחר שלב',
+    rFlour: 'קמח קאפוטו GF', rFlourReg: 'קמח 00', rFlourMain: ' ראשי',
+    rWater: 'מים', rWaterMain: 'מים ראשיים', rSalt: 'מלח', rOil: 'שמן זית',
+    rYeast: 'שמרים', rYeastMain: 'שמרים ראשיים', rPsyllium: 'פסיליום', rSugar: 'סוכר',
+    rHoney: 'דבש (בפוליש) 🍯', rTotal: 'סה"כ בצק', rBalls: 'כדורים',
+    rGram: 'גרם', rGramMl: 'גרם / מ"ל', rGramAll: 'גרם (כולו)',
+    rPoolish: 'פוליש מוכן', rBiga: 'ביגה מוכנה',
+    tipsTitle: 'טיפים מקצועיים לקאפוטו GF', tipsTitleReg: 'טיפים מקצועיים לטאבון',
+    tipsGF: [
+      {i:'🌡️', h:'טמפרטורת מים', p:'20–25°C לבצק. לפרה-פרמנט — 18–20°C לפרמנטציה עמוקה יותר.'},
+      {i:'🔥', h:'חימום הטאבון', p:'חמם לפחות 30–45 דקות לפני האפייה. המטרה: 350–400°C. אל תמהר!'},
+      {i:'⏱️', h:'זמן אפייה בטאבון', p:'3–5 דקות לבצק GF בטאבון. עקוב אחר הקצוות — הן אמורות להיות מנומרות.'},
+      {i:'🤲', h:'עיצוב', p:'הבצק דביק — ידיים רטובות/משומנות. מפשטים בעדינות, לא מרדדים.'},
+      {i:'🫒', h:'שמן זית', p:'חשוב במיוחד בבצק GF — מוסיף גמישות ומונע יובש בחום הגבוה של הטאבון.'},
+      {i:'🌿', h:'פרה-פרמנט ב-GF', p:'פוליש/ביגה משפרים ריח וטעם גם בלי גלוטן. מוכן כשמופיעות בועות.'},
+    ],
+    tipsReg: [
+      {i:'🔥', h:'חימום הטאבון', p:'חמם 45–60 דקות לפחות. בטאבון אמיתי מגיעים ל־400–500°C — אפייה של 60–90 שניות!'},
+      {i:'🌡️', h:'טמפרטורת מים', p:'18–24°C. מלח מוסיפים רק לאחר שהשמרים מעורבבים — מלח הורג שמרים.'},
+      {i:'💪', h:'לישה', p:'לוש 8–10 דקות ביד. הבצק צריך להיות חלק, אלסטי ולא נדבק לידיים.'},
+      {i:'⚖️', h:'עיצוב', p:'לא מרדדים! לוחצים מהמרכז החוצה בתנועות עדינות — שומרים על הבועות.'},
+      {i:'❄️', h:'התפחה קרה', p:'24–72h במקרר = טעם עמוק מאוד. הוצא 2 שעות לפני הכנה, בצק קר קשה לפישוט.'},
+      {i:'👁️', h:'מה לחפש בטאבון', p:'קצוות מנומרות ושחומות = מוכן. תחתית פריכה. מרכז עם בועות אוויר — זה המטרה!'},
+    ],
+    footerText: 'Omer\'s Kitchen | מתכונים וטכניקות לטאבון',
+    installLink: '📲 מדריך התקנה לטלפון',
+    // recipe strings
+    rec: {
+      prepareFerment: (n) => `הכן את ה${n} לפי ההוראות למעלה. המתן`,
+      dissolveYeast: (y, sg, w) => `המס <strong>${y}g שמרים</strong>${sg} ב־<strong>${w}g מים</strong> (20–24°C).`,
+      addFerment: (n, f, fl) => `ערבב את ה${n} המוכן עם נוזלי השמרים. הוסף <strong>${f}g ${fl}</strong> וערבב.`,
+      addFlour: (y, sg, w, f, fl, k) => `המס <strong>${y}g שמרים</strong>${sg} ב־<strong>${w}g מים</strong> (20–24°C). המתן 5–10 דקות. הוסף ל־<strong>${f}g ${fl}</strong>. ${k}`,
+      addSalt: (s, o) => `הוסף <strong>${s}g מלח</strong>${o ? ` ו־<strong>${o}g שמן זית</strong>` : ''} וערבב היטב.`,
+      shape: (n, w, gf) => `חלק ל־${n} כדורים (${w}g). ${gf ? 'עצב עם ידיים רטובות/משומנות.' : 'עצב לכדורים חלקים.'}`,
+      rest: (h, fridge) => `כסה ונוח <strong>${fridge ? h+'h במקרר' : h+'–'+(h+2)+'h בטמפ\' חדר'}</strong>.`,
+      bake: (temp, time, spread) => `חמם טאבון ל־<strong>${temp}</strong> (לפחות 30–45 דקות מראש). ${spread} ואפה <strong>${time}</strong> — עד שהקצוות מנומרות ושחומות. 🔥`,
+      hours: 'שעות',
+      kneadGF: 'הבצק דביק — עבוד עם ידיים רטובות/משומנות, לא מרדדים!',
+      kneadReg: 'לוש 8–10 דק\' עד לבצק חלק ואלסטי.',
+      spreadGF: 'פשט בצק על קמח תירס/אורז',
+      spreadReg: 'פשט בצק ביד על משטח מקומח',
+      taboonGF: '350–400°C', taboonGFTime: '3–5 דקות',
+      taboonReg: '400–500°C', taboonRegTime: '90 שניות עד 3 דקות',
+      psylliumNote: (p) => ` ערבב ${p}g פסיליום לתוך הקמח. `,
+      sugarNote: (s) => ` + ${s}g סוכר`,
+      waitHours: 'המתן',
+      poolishReady: 'מוכן כשמופיעות בועות ויש ריח קלות חמצמץ. 🫧',
+      coverStore: (t, h) => `כסה בניילון (עם חור קטן לאוורור) ואחסן <strong>${t}</strong> למשך <strong>${h} שעות</strong>.`,
+      fStep1poolish: (y, w, honey) => `המס <strong>${y}g שמרים</strong> ב־<strong>${w}g מים</strong> (18–20°C).${honey ? ` הוסף <strong>${honey}g דבש</strong> לתערובת וערבב.` : ''}`,
+      fStep2poolish: (f) => `הוסף <strong>${f}g קמח</strong> וערבב לתערובת חלקה ללא גושים.`,
+      fStep1biga: (f, y) => `פרר <strong>${f}g קמח</strong> לקערה. הוסף <strong>${y}g שמרים</strong>.`,
+      fStep2biga: (w) => `הוסף <strong>${w}g מים</strong> (18°C) בטפטוף וערבב לגושים פירוריים (לא לישה מלאה!).`,
+      inFridge: 'במקרר (4°C)', inRoom: 'בטמפ\' חדר (20–22°C)',
+    }
+  },
+  en: {
+    headerTitle: "Omer's Dough<br><em>Calculator</em>",
+    headerSub: 'Because great pizza starts with precise measurements — gluten-free, no compromises.',
+    badgeGF: 'Omer\'s Kitchen · Gluten-Free · 🔥 Taboon',
+    badgeReg: 'Flour 00 · Classic · 🔥 Taboon',
+    flourTitle: 'Flour Type',
+    flourGFName: 'Gluten-Free', flourGFSub: 'Caputo Fioreglut<br>For celiac & sensitivity',
+    flourRegName: 'Regular Flour', flourRegSub: 'Pizza flour 00<br>Caputo Pizzeria / Manitoba',
+    flourNoteGF: 'You selected <strong>gluten-free flour</strong> — Caputo Fioreglut. All calculations are adjusted for this flour\'s absorption.',
+    flourNoteReg: 'You selected <strong>pizza flour 00</strong> — Caputo Pizzeria / Manitoba. Recommended hydration: <strong>60–65%</strong> for Napoletana.',
+    navHome:'Home', navCalc:'Calculator', navRecipes:'Recipes', navTech:'Techniques', navTips:'Tips',
+    methodTitle: 'Method', methodSub: '— choose dough type',
+    ovenTitle: 'Baking method', ovenTaboonName: 'Taboon', ovenTaboonDesc: '400–500°C · short intense bake', ovenRegularName: 'Home oven', ovenRegularDesc: '250–280°C · pizza stone / tray',
+    methodDirectName: 'Direct', methodDirectDesc: 'Simple & fast. One dough, no pre-ferment.',
+    methodPoolishName: 'Poolish', methodPoolishDesc: 'Liquid pre-ferment. Deep flavor, crispy crust.',
+    methodBigaName: 'Biga', methodBigaDesc: 'Dry pre-ferment. Classic Napoletana ingredient.',
+    basicsTitle: 'Basic Settings',
+    labelBalls: 'Number of balls', labelBallW: 'Ball weight (grams)', labelPizzaSize: 'Pizza size in taboon',
+    sizeNapoletana: 'Napoletana (28–32 cm)', sizeLarge: 'Large (34–38 cm)', sizePersonal: 'Personal (22–26 cm)',
+    hoursTitle: 'Total Fermentation Time', hoursUnit: 'fermentation hours',
+    hoursRec: [
+      'Short ferment — high yeast, minimal flavor',
+      'Medium ferment — easy good result',
+      '✨ Getting interesting — developed flavor',
+      '🌟 The sweet spot — recommended for poolish/biga',
+      '🏆 Long ferment — maximum depth of flavor',
+      '🔥 48+ hours — deep tangy flavor, like a bakery'
+    ],
+    hydroTitle: 'Hydration', hydroLabel: 'Hydration %',
+    hydroDry: '60% dry', hydroRec: '70% rec. GF', hydroWet: '85% wet',
+    hydroNoteGF: '<strong>Caputo Fioreglut</strong> absorbs more water than regular flour. Recommended <strong>70–75%</strong>. The dough will be sticky — that\'s normal!',
+    hydroNoteReg: 'Classic 00 flour — recommended <strong>60–65%</strong> for Napoletana, up to <strong>75%</strong> for teglia. Smooth elastic dough.',
+    fermentPoolishTitle: 'Poolish (Liquid Pre-Ferment)', fermentPoolishSub: '100% hydration pre-fermentation — crunch, aroma & depth',
+    fermentBigaTitle: 'Biga (Dry Pre-Ferment)', fermentBigaSub: 'Slow dry pre-ferment — airy texture, deep aroma',
+    fermentPctLabel: '% of flour in pre-ferment',
+    honeyLabel: 'Honey in Poolish 🍯', honeyAmtLabel: 'Honey amount (% of flour)', honeyNone: 'None', honeyRec: '0.5% rec.', honeySugary: '2% sweet',
+    honeyNote: '🍯 Honey feeds the yeast, accelerates fermentation and adds a subtle aroma. Add directly to poolish with the water.',
+    fermentTimeLabel: 'Pre-ferment fermentation time',
+    fermentFast: '2–4 hours (fast)', fermentNight: '8–12 hours (overnight)', fermentCold: '16–24 hours (cold)',
+    fermentCompositionLabel: 'Pre-ferment composition',
+    fermentStepsLabel: 'Instructions',
+    fItemFlour: 'Flour', fItemWater: 'Water', fItemYeast: 'Yeast', fItemTime: 'Ferment time', fItemHours: 'hours',
+    fItemHoney: 'Honey 🍯',
+    fermentNotePoolish: '100% hydration (equal flour and water)',
+    fermentNoteBiga: '45–50% hydration — crumbly and stiff, that\'s normal',
+    fermentYeastNote: (isPl) => `<strong>The yeast in the pre-ferment is only ${isPl?'10':'15'}% of total yeast</strong> — the rest goes into the main dough.`,
+    saltTitle: 'Salt, Oil & Yeast', saltLabel: 'Salt (%)', saltRec: '2.5% recommended',
+    oilLabel: 'Olive oil (%)', oilRec: '3% rec. GF', oilRecReg: '2% Napoletana',
+    yeastTypeLabel: '🦠 Yeast type', yeastFresh: 'Fresh yeast', yeastDry: 'Dry yeast', yeastInstant: 'Instant',
+    yeastLabel: 'Total yeast (%)', yeastSlow: 'slow/cold', yeastFast: 'fast/warm',
+    extrasGF: 'Optional GF Additions', extrasReg: 'Optional Additions',
+    psylliumLabel: 'Psyllium (%)', psylliumRec: '1–2% helps',
+    sugarLabel: 'Sugar (%)', sugarRec: '1% rec.', none: 'None',
+    resultsTitle: '📊 Quantities & Full Recipe', stepsTitle: '📋 Step-by-step instructions',
+    rFlour: 'Caputo GF Flour', rFlourReg: 'Flour 00', rFlourMain: ' (main)',
+    rWater: 'Water', rWaterMain: 'Main water', rSalt: 'Salt', rOil: 'Olive oil',
+    rYeast: 'Yeast', rYeastMain: 'Main yeast', rPsyllium: 'Psyllium', rSugar: 'Sugar',
+    rHoney: 'Honey (in poolish) 🍯', rTotal: 'Total dough', rBalls: 'Balls',
+    rGram: 'grams', rGramMl: 'grams / ml', rGramAll: 'grams (all)',
+    rPoolish: 'Ready poolish', rBiga: 'Ready biga',
+    tipsTitle: 'Pro Tips — Caputo GF', tipsTitleReg: 'Pro Tips — Taboon',
+    tipsGF: [
+      {i:'🌡️', h:'Water temperature', p:'20–25°C for the dough. For pre-ferment — 18–20°C for deeper fermentation.'},
+      {i:'🔥', h:'Heating the taboon', p:'Heat at least 30–45 minutes before baking. Target: 350–400°C. Don\'t rush!'},
+      {i:'⏱️', h:'Baking time', p:'3–5 minutes for GF dough in taboon. Watch the edges — they should be charred.'},
+      {i:'🤲', h:'Shaping', p:'The dough is sticky — use wet or oiled hands. Stretch gently, never roll.'},
+      {i:'🫒', h:'Olive oil', p:'Especially important in GF dough — adds elasticity and prevents dryness in the high heat.'},
+      {i:'🌿', h:'Pre-ferment in GF', p:'Poolish/biga improve aroma and flavor even without gluten. Ready when bubbles appear.'},
+    ],
+    tipsReg: [
+      {i:'🔥', h:'Heating the taboon', p:'Heat 45–60 minutes minimum. Real taboon reaches 400–500°C — 60–90 seconds bake!'},
+      {i:'🌡️', h:'Water temperature', p:'18–24°C. Add salt only after yeast is mixed — salt kills yeast.'},
+      {i:'💪', h:'Kneading', p:'Knead 8–10 minutes by hand. Dough should be smooth, elastic and not sticky.'},
+      {i:'⚖️', h:'Shaping', p:'Never roll! Press from center outward with gentle motions — preserve the bubbles.'},
+      {i:'❄️', h:'Cold ferment', p:'24–72h in fridge = very deep flavor. Remove 2 hours before shaping — cold dough is hard to stretch.'},
+      {i:'👁️', h:'What to look for', p:'Charred edges = done. Crispy bottom. Bubbles in the center — that\'s the goal!'},
+    ],
+    footerText: "Omer's Kitchen | Taboon Recipes & Techniques",
+    installLink: '📲 Install app guide',
+    rec: {
+      prepareFerment: (n) => `Prepare the ${n} according to instructions above. Wait`,
+      dissolveYeast: (y, sg, w) => `Dissolve <strong>${y}g yeast</strong>${sg} in <strong>${w}g water</strong> (20–24°C).`,
+      addFerment: (n, f, fl) => `Mix the ready ${n} with the yeast liquid. Add <strong>${f}g ${fl}</strong> and mix.`,
+      addFlour: (y, sg, w, f, fl, k) => `Dissolve <strong>${y}g yeast</strong>${sg} in <strong>${w}g water</strong> (20–24°C). Wait 5–10 min. Add to <strong>${f}g ${fl}</strong>. ${k}`,
+      addSalt: (s, o) => `Add <strong>${s}g salt</strong>${o ? ` and <strong>${o}g olive oil</strong>` : ''} and mix well.`,
+      shape: (n, w, gf) => `Divide into ${n} balls (${w}g each). ${gf ? 'Shape with wet/oiled hands.' : 'Shape into smooth balls.'}`,
+      rest: (h, fridge) => `Cover and rest <strong>${fridge ? h+'h in fridge' : h+'–'+(h+2)+'h at room temp'}</strong>.`,
+      bake: (temp, time, spread) => `Heat taboon to <strong>${temp}</strong> (at least 30–45 min ahead). ${spread} and bake <strong>${time}</strong> — until edges are charred. 🔥`,
+      hours: 'hours',
+      kneadGF: 'Dough is sticky — use wet/oiled hands, don\'t roll!',
+      kneadReg: 'Knead 8–10 min until smooth and elastic.',
+      spreadGF: 'Stretch dough on cornmeal/rice flour',
+      spreadReg: 'Stretch dough by hand on floured surface',
+      taboonGF: '350–400°C', taboonGFTime: '3–5 minutes',
+      taboonReg: '400–500°C', taboonRegTime: '90 seconds to 3 minutes',
+      psylliumNote: (p) => ` Mix ${p}g psyllium into the flour. `,
+      sugarNote: (s) => ` + ${s}g sugar`,
+      waitHours: 'Wait',
+      poolishReady: 'Ready when bubbles appear and there\'s a slight tangy smell. 🫧',
+      coverStore: (t, h) => `Cover with plastic wrap (small hole for ventilation) and store <strong>${t}</strong> for <strong>${h} hours</strong>.`,
+      fStep1poolish: (y, w, honey) => `Dissolve <strong>${y}g yeast</strong> in <strong>${w}g water</strong> (18–20°C).${honey ? ` Add <strong>${honey}g honey</strong> and stir.` : ''}`,
+      fStep2poolish: (f) => `Add <strong>${f}g flour</strong> and mix until smooth with no lumps.`,
+      fStep1biga: (f, y) => `Crumble <strong>${f}g flour</strong> into a bowl. Add <strong>${y}g yeast</strong>.`,
+      fStep2biga: (w) => `Add <strong>${w}g water</strong> (18°C) in a drizzle and mix into crumbly chunks (no full kneading!).`,
+      inFridge: 'in fridge (4°C)', inRoom: 'at room temp (20–22°C)',
+    }
+  }
+};
+
+function t(key) { return T[lang][key] || T['he'][key] || key; }
+
+// setLang is defined later after all helper functions are available
+// ───────────────────────────────
+//  STATE
+// ───────────────────────────────
+let method = 'direct';
+let fermentPct = 30;
+let fermentTiming = {hours:'8–12', type:'night'};
+let flourType = 'gf'; // 'gf' | 'reg'
+let honeyPct = 0.5;   // % of poolish flour
+let ovenType = 'taboon'; // 'taboon' | 'regular'
+
+// ───────────────────────────────
+//  FLOUR TYPE
+// ───────────────────────────────
+function setFlour(type, btn) {
+  flourType = type;
+  document.querySelectorAll('.flour-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const isGF = type === 'gf';
+  const L = T[lang];
+  $('headerBadge').textContent = isGF ? L.badgeGF : L.badgeReg;
+  $('flourNote').innerHTML = `<div class="note ${isGF?'green':'gold'}" style="margin-top:14px"><div class="note-ico">${isGF?'🟢':'🌾'}</div><p>${isGF ? L.flourNoteGF : L.flourNoteReg}</p></div>`;
+  $('hydroNote').innerHTML = `<div class="note-ico">💡</div><p>${isGF ? L.hydroNoteGF : L.hydroNoteReg}</p>`;
+  $('psylliumWrap').style.display = isGF ? '' : 'none';
+  $('extrasTitle').textContent = isGF ? L.extrasGF : L.extrasReg;
+  if (!isGF) { $('psyllium').value = 0; $('psylliumVal').textContent = '0%'; setGrad($('psyllium')); }
+  document.querySelector('#oil').closest('.sl-wrap').querySelector('.sl-hints').innerHTML =
+    isGF ? `<span>0%</span><span>${L.oilRec}</span><span>8%</span>`
+          : `<span>0%</span><span>${L.oilRecReg}</span><span>8%</span>`;
+  const hydroEl = $('hydration');
+  if (isGF && parseInt(hydroEl.value) < 65) { hydroEl.value = 70; }
+  if (!isGF && parseInt(hydroEl.value) > 70) { hydroEl.value = 63; }
+  $('hydroVal').textContent = hydroEl.value + '%';
+  setGrad(hydroEl);
+  updateTips();
+  calculate();
+}
+
+// ───────────────────────────────
+//  HELPERS
+// ───────────────────────────────
+const $ = id => document.getElementById(id);
+const r1 = n => Math.round(n * 10) / 10;
+
+function setGrad(el, color) {
+  const pct = ((parseFloat(el.value) - parseFloat(el.min)) / (parseFloat(el.max) - parseFloat(el.min))) * 100;
+  el.style.setProperty('--pct', pct + '%');
+}
+
+// ───────────────────────────────
+//  METHOD
+// ───────────────────────────────
+function setMethod(m, btn) {
+  method = m;
+  document.querySelectorAll('.method-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderFermentSection();
+  calculate();
+  // Re-render current non-calc screen
+  if (currentScreen !== 'calc') showScreen(currentScreen);
+}
+
+// ───────────────────────────────
+//  HOURS RECOMMENDATIONS
+// ───────────────────────────────
+function hoursRec(h) {
+  const r = T[lang].hoursRec;
+  if (h <= 4)  return r[0];
+  if (h <= 8)  return r[1];
+  if (h <= 16) return r[2];
+  if (h <= 24) return r[3];
+  if (h <= 48) return r[4];
+  return r[5];
+}
+
+// ───────────────────────────────
+//  FERMENT SECTION HTML
+// ───────────────────────────────
+function renderFermentSection() {
+  const sec = $('fermentSection');
+  if (method === 'direct') { sec.style.display = 'none'; sec.innerHTML = ''; return; }
+  sec.style.display = '';
+  const isPl = method === 'poolish';
+  const cls  = isPl ? 'poolish' : 'biga';
+  const L = T[lang];
+  const emoji = isPl ? '🌿' : '🏔️';
+  const title = isPl ? L.fermentPoolishTitle : L.fermentBigaTitle;
+  const sub   = isPl ? L.fermentPoolishSub : L.fermentBigaSub;
+  const hydNote = isPl ? L.fermentNotePoolish : L.fermentNoteBiga;
+
+  sec.innerHTML = `
+  <div class="ferment-card ${cls}">
+    <div class="card-head"><div class="card-icon">${emoji}</div><h2>${title}</h2></div>
+    <p style="font-size:12px;color:rgba(247,243,236,.45);font-style:italic;margin-top:-12px;margin-bottom:18px">${sub}</p>
+
+    <div class="f-section">${L.fermentPctLabel}</div>
+    <div class="f-chips" id="fPctChips">
+      ${[20,30,40,50].map(v=>`<div class="f-chip ${v===fermentPct?'active':''}" data-val="${v}" onclick="setFermentPct(${v},this)">${v}%</div>`).join('')}
+    </div>
+
+    ${isPl ? `
+    <div class="f-divider"></div>
+    <div class="f-section">${L.honeyLabel}</div>
+    <div class="sl-wrap" style="margin-bottom:8px">
+      <div class="sl-top">
+        <span class="sl-label" style="color:rgba(126,232,162,.55)">${L.honeyAmtLabel}</span>
+        <span id="honeyVal" style="font-size:14px;font-weight:700;color:#F0C96A;background:rgba(240,201,106,.15);padding:2px 10px;border-radius:20px;min-width:48px;text-align:center">0.5%</span>
+      </div>
+      <input type="range" id="honeySlider" min="0" max="2" value="0.5" step="0.25"
+        style="-webkit-appearance:none;width:100%;height:6px;border-radius:3px;outline:none;cursor:pointer;--pct:25%;background:linear-gradient(to left,#B8922A 0%,#B8922A var(--pct),rgba(255,255,255,.15) var(--pct),rgba(255,255,255,.15) 100%)"
+        oninput="onHoneyChange(this)">
+      <div class="sl-hints" style="color:rgba(255,255,255,.3)"><span>${L.honeyNone}</span><span>${L.honeyRec}</span><span>${L.honeySugary}</span></div>
+    </div>
+    <div style="font-size:11.5px;color:rgba(247,243,236,.45);line-height:1.5;margin-bottom:4px">${L.honeyNote}</div>
+    ` : ''}
+
+    <div class="f-divider"></div>
+    <div class="f-section">${L.fermentTimeLabel}</div>
+    <div class="f-chips" id="fTimeChips" style="margin-bottom:16px">
+      <div class="f-chip ${fermentTiming.type==='fast'?'active':''}" onclick="setFermentTiming('fast','2–4',this)">${L.fermentFast}</div>
+      <div class="f-chip ${fermentTiming.type==='night'?'active':''}" onclick="setFermentTiming('night','8–12',this)">${L.fermentNight}</div>
+      <div class="f-chip ${fermentTiming.type==='cold'?'active':''}" onclick="setFermentTiming('cold','16–24',this)">${L.fermentCold}</div>
+    </div>
+
+    <div class="f-divider"></div>
+    <div class="f-section" style="margin-bottom:12px">${L.fermentCompositionLabel}</div>
+    <div class="f-grid" id="fGrid"></div>
+
+    <div class="f-divider"></div>
+    <div class="f-section" style="margin-bottom:12px">${L.fermentStepsLabel}</div>
+    <ol class="f-steps" id="fSteps"></ol>
+
+    <div class="note ${isPl?'green':'blue'}" style="margin-top:16px">
+      <div class="note-ico">${isPl?'💧':'🏔️'}</div>
+      <p>${hydNote}. ${L.fermentYeastNote(isPl)}</p>
+    </div>
+  </div>`;
+}
+
+function setFermentPct(v, btn) {
+  fermentPct = v;
+  document.querySelectorAll('#fPctChips .f-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  calculate();
+}
+function setOven(type, btn) {
+  ovenType = type;
+  document.querySelectorAll('#ovenTaboon,#ovenRegular').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  // Update badge
+  const isGF = flourType === 'gf';
+  const L = T[lang];
+  const ovenLabel = type === 'taboon'
+    ? (lang === 'he' ? '🔥 טאבון' : '🔥 Taboon')
+    : (lang === 'he' ? '🏠 תנור' : '🏠 Oven');
+  $('headerBadge').textContent = (isGF ? (lang==='he' ? 'Omer\'s Kitchen · ללא גלוטן' : 'Omer\'s Kitchen · Gluten-Free') : (lang==='he' ? 'קמח 00 · קלאסי' : 'Flour 00 · Classic')) + ' · ' + ovenLabel;
+  calculate();
+}
+
+function onHoneyChange(el) {
+  honeyPct = parseFloat(el.value);
+  const pct = ((honeyPct) / 2) * 100;
+  el.style.setProperty('--pct', pct + '%');
+  el.style.background = `linear-gradient(to left,#B8922A 0%,#B8922A ${pct}%,rgba(255,255,255,.15) ${pct}%,rgba(255,255,255,.15) 100%)`;
+  const display = $('honeyVal');
+  if (display) display.textContent = honeyPct === 0 ? 'ללא' : honeyPct.toFixed(2).replace(/\.?0+$/,'') + '%';
+  calculate();
+}
+function setFermentTiming(type, hours, btn) {
+  fermentTiming = {type, hours};
+  document.querySelectorAll('#fTimeChips .f-chip').forEach(c => c.classList.remove('active'));
+  btn.classList.add('active');
+  calculate();
+}
+
+// ───────────────────────────────
+//  MAIN CALCULATE
+// ───────────────────────────────
+function calculate() {
+  const balls     = parseInt($('balls').value)     || 1;
+  const ballW     = parseInt($('ballW').value)     || 250;
+  const hydration = parseInt($('hydration').value) / 100;
+  const saltPct   = parseFloat($('salt').value)    / 100;
+  const oilPct    = parseFloat($('oil').value)     / 100;
+  const yp        = parseFloat($('yeast').value)   / 100;
+  const psPct     = parseFloat($('psyllium').value)/ 100;
+  const sgPct     = parseFloat($('sugar').value)   / 100;
+  const totalHours= parseInt($('totalHours').value);
+  const pizzaType = $('pizzaType').value;
+
+  const totalDough = balls * ballW;
+  const div = 1 + hydration + saltPct + oilPct + yp + psPct + sgPct;
+  const flour = totalDough / div;
+  const water = flour * hydration;
+  const salt  = flour * saltPct;
+  const oil   = flour * oilPct;
+  const yeast = flour * yp;
+  const ps    = flour * psPct;
+  const sg    = flour * sgPct;
+
+  // ── PRE-FERMENT MATH ──
+  let fFlour=0, fWater=0, fYeast=0, mFlour=flour, mWater=water, mYeast=yeast;
+  const isPl = method === 'poolish';
+  const isBg = method === 'biga';
+
+  if (isPl || isBg) {
+    fFlour = flour * (fermentPct / 100);
+    const fHydration = isPl ? 1.0 : 0.47; // poolish=100%, biga≈47%
+    fWater = fFlour * fHydration;
+    const yeastShare = fermentTiming.type === 'cold' ? 0.05 : (isPl ? 0.10 : 0.15);
+    fYeast = yeast * yeastShare;
+    mFlour = flour - fFlour;
+    mWater = water - fWater;
+    mYeast = yeast - fYeast;
+  }
+
+  // ── UPDATE FERMENT DISPLAY ──
+  if ((isPl || isBg) && $('fGrid')) {
+    const L = T[lang]; const R = L.rec;
+    const fHydLabel = isPl ? '100%' : '~47%';
+    const isCold = fermentTiming.type === 'cold';
+    const fTemp = isCold ? R.inFridge : R.inRoom;
+    const honey = isPl ? fFlour * (honeyPct / 100) : 0;
+    const gridItems = [
+      {l:L.fItemFlour, v:r1(fFlour), u:L.rGram},
+      {l:L.fItemWater, v:r1(fWater), u:`${L.rGram} (${fHydLabel})`},
+      {l:L.fItemYeast, v:r1(fYeast), u:L.rGram},
+    ];
+    if (isPl && honey > 0) gridItems.push({l:L.fItemHoney, v:r1(honey), u:L.rGram});
+    gridItems.push({l:L.fItemTime, v:fermentTiming.hours, u:L.fItemHours});
+    $('fGrid').innerHTML = gridItems.map(i=>`<div class="f-item"><div class="fl">${i.l}</div><div class="fv">${i.v}</div><div class="fu">${i.u}</div></div>`).join('');
+
+    const honeyStep = (isPl && honey > 0) ? R.fStep1poolish(r1(fYeast), r1(fWater), r1(honey)) : R.fStep1poolish(r1(fYeast), r1(fWater), null);
+    const step1 = isPl ? honeyStep : R.fStep1biga(r1(fFlour), r1(fYeast));
+    const step2 = isPl ? R.fStep2poolish(r1(fFlour)) : R.fStep2biga(r1(fWater));
+    $('fSteps').innerHTML = `
+      <li><div class="fstep">1</div><span>${step1}</span></li>
+      <li><div class="fstep">2</div><span>${step2}</span></li>
+      <li><div class="fstep">3</div><span>${R.coverStore(fTemp, fermentTiming.hours)}</span></li>
+      <li><div class="fstep">4</div><span>${R.poolishReady}</span></li>
+    `;
+  }
+
+  // ── RESULTS GRID ──
+  const isGF = flourType === 'gf';
+  const hasFerment = isPl || isBg;
+  const L = T[lang]; const R = L.rec;
+  const flourLabel = isGF ? L.rFlour : L.rFlourReg;
+  const fLabelR = isPl ? L.rPoolish : L.rBiga;
+  const fTotal = r1(fFlour + fWater + fYeast);
+
+  const items = hasFerment ? [
+    {l: flourLabel + L.rFlourMain, v:r1(mFlour), u:L.rGram, hl:true},
+    {l: L.rWaterMain, v:r1(mWater), u:L.rGram},
+    {l: fLabelR,      v:fTotal,     u:L.rGramAll},
+    {l: L.rSalt,      v:r1(salt),   u:L.rGram},
+  ] : [
+    {l: flourLabel,  v:r1(flour), u:L.rGram, hl:true},
+    {l: L.rWater,    v:r1(water), u:L.rGram},
+    {l: L.rSalt,     v:r1(salt),  u:L.rGram},
+  ];
+
+  if (oil > 0.5) items.push({l:L.rOil, v:r1(oil), u:L.rGram});
+  items.push({l: hasFerment ? L.rYeastMain : L.rYeast, v:r1(hasFerment?mYeast:yeast), u:L.rGram});
+  if (isPl && honeyPct > 0) items.push({l:L.rHoney, v:r1(fFlour*(honeyPct/100)), u:L.rGram});
+  if (ps  > 0)   items.push({l:L.rPsyllium, v:r1(ps),  u:L.rGram});
+  if (sg  > 0.1) items.push({l:L.rSugar,    v:r1(sg),  u:L.rGram});
+  items.push({l:L.rTotal,  v:Math.round(totalDough), u:L.rGram});
+  items.push({l:L.rBalls,  v:balls, u:`× ${ballW}g`});
+
+  $('resultsGrid').innerHTML = items.map(i=>`
+    <div class="r-item ${i.hl?'hl':''}">
+      <div class="rl">${i.l}</div>
+      <div class="rv">${i.v}</div>
+      <div class="ru">${i.u}</div>
+    </div>`).join('');
+
+  // ── RECIPE STEPS ──
+  const isTaboon = ovenType === 'taboon';
+  const taboonTemp = isTaboon
+    ? (isGF ? R.taboonGF : R.taboonReg)
+    : (isGF ? '250–270°C' : '280–300°C');
+  const taboonTime = isTaboon
+    ? (isGF ? R.taboonGFTime : R.taboonRegTime)
+    : (isGF ? '8–12 דקות' : '6–10 דקות');
+  const mainRestH = Math.max(1, totalHours - (hasFerment ? (fermentTiming.type==='cold'?20:fermentTiming.type==='night'?10:3) : 0));
+  const psNote = ps > 0.1 ? R.psylliumNote(r1(ps)) : '';
+  const sgNote = sg > 0.1 ? R.sugarNote(r1(sg)) : '';
+  const spreadNote = isGF ? R.spreadGF : R.spreadReg;
+  const kneadNote  = isGF ? R.kneadGF  : R.kneadReg;
+  const fermentName = isPl ? (lang==='he'?'פוליש':'poolish') : (lang==='he'?'ביגה':'biga');
+  let s = 1;
+  let steps = [];
+  if (hasFerment) {
+    steps.push(`<li><div class="snum">${s++}</div><span>${R.prepareFerment(fermentName)} ${fermentTiming.hours} ${R.hours}.</span></li>`);
+    steps.push(`<li><div class="snum">${s++}</div><span>${psNote}${R.dissolveYeast(r1(mYeast), sgNote, r1(mWater))}</span></li>`);
+    steps.push(`<li><div class="snum">${s++}</div><span>${R.addFerment(fermentName, r1(mFlour), flourLabel)}</span></li>`);
+  } else {
+    steps.push(`<li><div class="snum">${s++}</div><span>${psNote}${R.addFlour(r1(yeast), sgNote, r1(water), r1(flour), flourLabel, kneadNote)}</span></li>`);
+  }
+  steps.push(`<li><div class="snum">${s++}</div><span>${R.addSalt(r1(salt), oil>0.5?r1(oil):null)}</span></li>`);
+  steps.push(`<li><div class="snum">${s++}</div><span>${R.shape(balls, ballW, isGF)}</span></li>`);
+  steps.push(`<li><div class="snum">${s++}</div><span>${R.rest(mainRestH, mainRestH > 4)}</span></li>`);
+  const ovenLabel = ovenType === 'taboon'
+    ? (lang === 'he' ? 'טאבון' : 'Taboon')
+    : (lang === 'he' ? 'תנור' : 'Oven');
+  const heatNote = ovenType === 'taboon'
+    ? (lang === 'he' ? 'לפחות 30–45 דקות מראש' : 'at least 30–45 min ahead')
+    : (lang === 'he' ? 'לפחות 45–60 דקות עם אבן' : 'at least 45–60 min with stone');
+  steps.push(`<li><div class="snum">${s++}</div><span>חמם ${ovenLabel} ל־<strong>${taboonTemp}</strong> (${heatNote}). ${spreadNote} ואפה <strong>${taboonTime}</strong> — עד שהקצוות זהובות ופריכות. 🔥</span></li>`);
+  $('recipeSteps').innerHTML = steps.join('');
+}
+
+// ───────────────────────────────
+//  TIPS (dynamic by flour type)
+// ───────────────────────────────
+function updateTips() {
+  const isGF = flourType === 'gf';
+  const L = T[lang];
+  const tipsEl = document.getElementById('tipsGrid');
+  if (!tipsEl) return;
+  const tips = isGF ? L.tipsGF : L.tipsReg;
+  tipsEl.innerHTML = tips.map(tip =>
+    `<div class="tip"><div class="tip-ico">${tip.i}</div><div><h4>${tip.h}</h4><p>${tip.p}</p></div></div>`
+  ).join('');
+  // Update tips card title
+  const tipsTitle = document.querySelector('[data-i18n="tipsTitle"]');
+  if (tipsTitle) tipsTitle.textContent = isGF ? L.tipsTitle : L.tipsTitleReg;
+}
+
+// ───────────────────────────────
+//  SLIDER INITS
+// ───────────────────────────────
+function initSlider(id, displayId, suffix, decimals) {
+  const el = $(id);
+  const update = () => {
+    $(displayId).textContent = parseFloat(el.value).toFixed(decimals) + suffix;
+    setGrad(el);
+    calculate();
+  };
+  el.addEventListener('input', update);
+  setGrad(el);
+}
+
+initSlider('hydration', 'hydroVal', '%',   0);
+initSlider('salt',      'saltVal',  '%',   1);
+initSlider('oil',       'oilVal',   '%',   1);
+initSlider('yeast',     'yeastVal', '%',   2);
+initSlider('psyllium',  'psylliumVal', '%',1);
+initSlider('sugar',     'sugarVal', '%',   1);
+
+// Hours slider (special)
+const hoursEl = $('totalHours');
+hoursEl.addEventListener('input', () => {
+  const h = parseInt(hoursEl.value);
+  $('hoursDisplay').textContent = h;
+  $('hoursRec').textContent = hoursRec(h);
+  setGrad(hoursEl);
+  calculate();
+});
+setGrad(hoursEl);
+$('hoursDisplay').textContent = hoursEl.value;
+$('hoursRec').textContent = hoursRec(parseInt(hoursEl.value));
+
+// Ball inputs
+$('balls').addEventListener('input', calculate);
+$('ballW').addEventListener('input', calculate);
+$('pizzaType').addEventListener('change', calculate);
+
+// Yeast type chips
+document.querySelectorAll('#yeastChips .chip').forEach(c => {
+  c.addEventListener('click', () => {
+    document.querySelectorAll('#yeastChips .chip').forEach(x => x.classList.remove('active'));
+    c.classList.add('active');
+    $('yeast').value = c.dataset.pct;
+    $('yeastVal').textContent = parseFloat(c.dataset.pct).toFixed(2) + '%';
+    setGrad($('yeast'));
+    calculate();
+  });
+});
+
+// ───────────────────────────────
+//  LANGUAGE SWITCHER
+// ───────────────────────────────
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active',
+      (l === 'he' && b.textContent.includes('עברית')) ||
+      (l === 'en' && b.textContent.includes('English'))
+    );
+  });
+  document.documentElement.lang = l;
+  document.documentElement.dir = l === 'he' ? 'rtl' : 'ltr';
+  document.body.style.direction = l === 'he' ? 'rtl' : 'ltr';
+  // Static elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const val = T[lang][el.getAttribute('data-i18n')];
+    if (val && typeof val === 'string') el.innerHTML = val;
+  });
+  // Calc top bar
+  const calcBack = document.getElementById('calcBackLabel');
+  const calcTitle = document.getElementById('calcTopTitle');
+  if (calcBack) calcBack.textContent = l==='he' ? 'בית' : 'Home';
+  if (calcTitle) calcTitle.textContent = l==='he' ? 'מחשבון בצק' : 'Dough Calculator';
+  // Nav labels
+  ['navHome','navCalc','navRecipes','navTech','navTips'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      const key = el.querySelector('[data-i18n]');
+      if (key) key.textContent = T[l][key.getAttribute('data-i18n')] || key.textContent;
+    }
+  });
+  // Select options
+  const sel = $('pizzaType');
+  if (sel) {
+    sel.options[0].text = T[lang].sizeNapoletana;
+    sel.options[1].text = T[lang].sizeLarge;
+    sel.options[2].text = T[lang].sizePersonal;
+  }
+  // Yeast chips
+  const yChips = document.querySelectorAll('#yeastChips .chip');
+  if (yChips.length === 3) {
+    yChips[0].textContent = T[lang].yeastFresh;
+    yChips[1].textContent = T[lang].yeastDry;
+    yChips[2].textContent = T[lang].yeastInstant;
+  }
+  // Re-render all dynamic sections
+  const ovenBtn = ovenType === 'taboon' ? $('ovenTaboon') : $('ovenRegular');
+  setFlour(flourType, document.querySelector('.flour-btn.active'));
+  renderFermentSection();
+  calculate();
+}
+
+
+// ─────────────────────────────────────────
+//  APP NAVIGATION
+// ─────────────────────────────────────────
+let currentScreen = 'home';
+
+const SCREENS = {
+  home: 'screenHome',
+  calc: 'screenCalc',
+  recipes: 'screenRecipes',
+  recipeDetail: 'screenRecipeDetail',
+  techniques: 'screenTechniques',
+  tips: 'screenTips',
+  taboon: 'screenTaboon',
+  smoker: 'screenSmoker',
+  sousvide: 'screenSousVide',
+};
+
+const NAV_BTNS = {
+  home: 'navHome', calc: 'navCalc',
+  taboon: 'navHome', smoker: 'navHome', sousvide: 'navHome',
+  recipes: 'navHome', recipeDetail: 'navHome',
+  techniques: 'navHome', tips: 'navHome',
+};
+
+function showScreen(name) {
+  // Hide all
+  Object.values(SCREENS).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.classList.remove('active'); }
+  });
+  // Show target
+  const target = SCREENS[name] || SCREENS['home'];
+  const el = document.getElementById(target);
+  if (el) { el.classList.add('active'); window.scrollTo(0,0); }
+  currentScreen = name;
+  // Update nav
+  Object.entries(NAV_BTNS).forEach(([k,v]) => {
+    const btn = document.getElementById(v);
+    if (btn) btn.classList.toggle('active', k === name || (name === 'recipeDetail' && k === 'recipes'));
+  });
+  // Render dynamic screens
+  if (name === 'home') renderHome();
+  if (name === 'taboon') renderTaboon();
+  if (name === 'smoker') renderSmoker();
+  if (name === 'sousvide') renderSousVide();
+  if (name === 'recipes') renderRecipes();
+  if (name === 'techniques') renderTechniques();
+  if (name === 'tips') renderTipsScreen();
+}
+
+// ─────────────────────────────────────────
+//  DATA
+// ─────────────────────────────────────────
+const RECIPES = [
+  {
+    id: 'margherita',
+    category: { he: 'פיצה קלאסית', en: 'Classic Pizza' },
+    title: { he: 'מרגריטה', en: 'Margherita' },
+    desc: { he: 'הקלאסיקה האיטלקית — רוטב עגבניות, מוצרלה ובזיליקום טרי', en: 'The Italian classic — tomato sauce, mozzarella and fresh basil' },
+    tags: ['GF', { he: 'ויגן-ידידותי', en: 'Vegan-friendly' }],
+    ingredients: [
+      { name: { he: 'בצק פיצה GF', en: 'GF pizza dough' }, qty: { he: '1 כדור (250g)', en: '1 ball (250g)' } },
+      { name: { he: 'רוטב עגבניות', en: 'Tomato sauce' }, qty: { he: '3-4 כפות', en: '3-4 tbsp' } },
+      { name: { he: 'מוצרלה', en: 'Mozzarella' }, qty: { he: '80g', en: '80g' } },
+      { name: { he: 'שמן זית', en: 'Olive oil' }, qty: { he: 'טפטוף', en: 'drizzle' } },
+      { name: { he: 'בזיליקום טרי', en: 'Fresh basil' }, qty: { he: 'קומץ עלים', en: 'handful of leaves' } },
+      { name: { he: 'מלח ים', en: 'Sea salt' }, qty: { he: 'לפי טעם', en: 'to taste' } },
+    ],
+    steps: [
+      { he: 'חמם את הטאבון לחום מקסימלי 30-45 דקות מראש.', en: 'Heat the taboon to maximum temperature 30-45 minutes ahead.' },
+      { he: 'פשט את הבצק בעדינות על גבי קמח תירס — אל תרדד!', en: 'Gently stretch the dough on cornmeal — don\'t roll it!' },
+      { he: 'מרח רוטב עגבניות עד 1 ס"מ מהשוליים.', en: 'Spread tomato sauce up to 1cm from the edges.' },
+      { he: 'פזר את המוצרלה בנתחים לא אחידים.', en: 'Distribute mozzarella in uneven chunks.' },
+      { he: 'טפטף מעט שמן זית.', en: 'Drizzle a little olive oil.' },
+      { he: 'הנמך אש לנמוך ביותר — הכנס פיצה — אפה 4-6 דקות עד שהקצוות מנומרות.', en: 'Lower heat to minimum — insert pizza — bake 4-6 minutes until edges are charred.' },
+      { he: 'הוסף בזיליקום טרי מיד לאחר היציאה מהטאבון.', en: 'Add fresh basil immediately after removing from taboon.' },
+    ],
+    tip: { he: 'בצק GF דקיק יותר = יותר פריך. אל תתפתה לעשות אותו עבה!', en: 'Thinner GF dough = crispier result. Don\'t be tempted to make it thick!' },
+  },
+  {
+    id: 'margherita-plus',
+    category: { he: 'פיצה משודרגת', en: 'Upgraded Pizza' },
+    title: { he: 'מרגריטה משודרגת', en: 'Upgraded Margherita' },
+    desc: { he: 'מרגריטה עם פרמזן מגורד, בייבי מוצרלה ושמן בזיליקום ביתי', en: 'Margherita with grated parmesan, baby mozzarella and homemade basil oil' },
+    tags: ['GF', { he: 'שף', en: 'Chef\'s pick' }],
+    ingredients: [
+      { name: { he: 'בצק פיצה GF', en: 'GF pizza dough' }, qty: { he: '1 כדור (250g)', en: '1 ball (250g)' } },
+      { name: { he: 'רוטב עגבניות', en: 'Tomato sauce' }, qty: { he: '3-4 כפות', en: '3-4 tbsp' } },
+      { name: { he: 'בייבי מוצרלה', en: 'Baby mozzarella' }, qty: { he: '80g', en: '80g' } },
+      { name: { he: 'פרמזן מגורד', en: 'Grated parmesan' }, qty: { he: '2 כפות', en: '2 tbsp' } },
+      { name: { he: 'שמן בזיליקום', en: 'Basil oil' }, qty: { he: '1-2 כפות', en: '1-2 tbsp' } },
+      { name: { he: 'מלח ופלפל', en: 'Salt & pepper' }, qty: { he: 'לפי טעם', en: 'to taste' } },
+    ],
+    steps: [
+      { he: 'חמם טאבון לחום מקסימלי.', en: 'Heat taboon to maximum temperature.' },
+      { he: 'פשט בצק על קמח תירס בעדינות.', en: 'Gently stretch dough on cornmeal.' },
+      { he: 'מרח רוטב, פזר פרמזן מגורד מעל.', en: 'Spread sauce, scatter grated parmesan on top.' },
+      { he: 'הוסף כדורי בייבי מוצרלה.', en: 'Add baby mozzarella balls.' },
+      { he: 'הנמך אש לנמוך ביותר, אפה 4-6 דקות.', en: 'Lower heat to minimum, bake 4-6 minutes.' },
+      { he: 'הוצא, טפטף שמן בזיליקום, הגש מיד.', en: 'Remove, drizzle basil oil, serve immediately.' },
+    ],
+    tip: { he: 'שמן הבזיליקום הוא הסוד — מוסיף ניחוח עמוק שלא מתקבל מעלים בלבד.', en: 'The basil oil is the secret — adds deep aroma that leaves alone can\'t achieve.' },
+    basilOil: true,
+  },
+  {
+    id: 'artichoke',
+    category: { he: 'פיצה מיוחדת', en: 'Special Pizza' },
+    title: { he: 'מרגריטה עם ארטישוק', en: 'Artichoke Margherita' },
+    desc: { he: 'מרגריטה קלאסית עם לבבות ארטישוק — שילוב עדין ומפתיע', en: 'Classic margherita with artichoke hearts — a subtle and surprising combination' },
+    tags: ['GF', { he: 'צמחוני', en: 'Vegetarian' }],
+    ingredients: [
+      { name: { he: 'בצק פיצה GF', en: 'GF pizza dough' }, qty: { he: '1 כדור (250g)', en: '1 ball (250g)' } },
+      { name: { he: 'רוטב עגבניות', en: 'Tomato sauce' }, qty: { he: '3 כפות', en: '3 tbsp' } },
+      { name: { he: 'מוצרלה', en: 'Mozzarella' }, qty: { he: '70g', en: '70g' } },
+      { name: { he: 'לבבות ארטישוק', en: 'Artichoke hearts' }, qty: { he: '4-5 לבבות', en: '4-5 hearts' } },
+      { name: { he: 'שמן זית', en: 'Olive oil' }, qty: { he: 'טפטוף', en: 'drizzle' } },
+      { name: { he: 'בזיליקום טרי', en: 'Fresh basil' }, qty: { he: 'עלים', en: 'leaves' } },
+    ],
+    steps: [
+      { he: 'גזור לבבות ארטישוק לרבעים אם גדולים.', en: 'Quarter artichoke hearts if large.' },
+      { he: 'פשט בצק, מרח רוטב.', en: 'Stretch dough, spread sauce.' },
+      { he: 'פזר מוצרלה.', en: 'Distribute mozzarella.' },
+      { he: 'הוסף לבבות ארטישוק — אל תעמיס יותר מדי.', en: 'Add artichoke hearts — don\'t overload.' },
+      { he: 'טפטף שמן זית מעל הארטישוק.', en: 'Drizzle olive oil over artichoke.' },
+      { he: 'הנמך אש, אפה 4-6 דקות. הוסף בזיליקום לאחר האפייה.', en: 'Lower heat, bake 4-6 minutes. Add basil after baking.' },
+    ],
+    tip: { he: 'ארטישוק משומר עובד מצוין — ייבש אותו קלות עם נייר סופג לפני השימוש.', en: 'Canned artichoke works great — lightly pat dry with paper towel before using.' },
+  },
+  {
+    id: 'basil-oil',
+    category: { he: 'רטבים ותוספות', en: 'Sauces & Extras' },
+    title: { he: 'שמן בזיליקום', en: 'Basil Oil' },
+    desc: { he: 'שמן זית בהירה עם ניחוח בזיליקום עמוק — הסוד של המרגריטה המשודרגת', en: 'Fragrant olive oil with deep basil aroma — the secret behind the upgraded margherita' },
+    tags: [{ he: 'ללא גלוטן', en: 'Gluten-Free' }, { he: '5 דקות', en: '5 minutes' }],
+    ingredients: [
+      { name: { he: 'שמן זית כתית מעולה', en: 'Extra virgin olive oil' }, qty: { he: '100ml', en: '100ml' } },
+      { name: { he: 'בזיליקום טרי', en: 'Fresh basil' }, qty: { he: 'צרור גדול', en: 'large bunch' } },
+      { name: { he: 'שן שום (אופציונלי)', en: 'Garlic clove (optional)' }, qty: { he: '1 שן', en: '1 clove' } },
+      { name: { he: 'מלח', en: 'Salt' }, qty: { he: 'קורט', en: 'pinch' } },
+    ],
+    steps: [
+      { he: 'שטוף וייבש היטב את עלי הבזיליקום.', en: 'Wash and thoroughly dry the basil leaves.' },
+      { he: 'הכנס לבלנדר עם שמן הזית, מלח ושום (אם משתמש).', en: 'Add to blender with olive oil, salt and garlic (if using).' },
+      { he: 'בלנד 30 שניות עד לתערובת חלקה וירוקה.', en: 'Blend 30 seconds until smooth and green.' },
+      { he: 'סנן דרך מסננת דקה לבקבוק זכוכית — שמור במקרר עד שבוע.', en: 'Strain through fine sieve into glass bottle — keep refrigerated up to one week.' },
+    ],
+    tip: { he: 'ייבוש מוחלט של הבזיליקום = שמן בהיר ולא כהה. לחות = חמצון מהיר.', en: 'Completely dry basil = bright green oil, not dark. Moisture = fast oxidation.' },
+  },
+];
+
+const TECHNIQUES = {
+  he: [
+    {
+      title: 'הטכניקה המרכזית — ניהול החום',
+      text: 'הסוד שמשנה הכל: כשאין פיצה בטאבון, תמיד שמור על החום הגבוה ביותר. ברגע שמכניסים פיצה — הנמך לאש הנמוכה ביותר. בין כל פיצה — חזור למקסימום וחכה 2-3 דקות.',
+      highlight: '🔥 אין פיצה = אש מקסימלית · יש פיצה = אש מינימלית',
+    },
+    {
+      title: 'עיצוב הבצק — הגלוטן הלא קיים',
+      text: 'בצק GF אין לו גלוטן שנותן אלסטיות. לכן: מעולם לא מרדדים. תמיד לוחצים ומפשטים ביד בתנועות עגולות מהמרכז החוצה. ידיים רטובות או משומנות קלות מונעות הידבקות.',
+      highlight: '✋ לחץ מהמרכז החוצה — לא מרדדים',
+    },
+    {
+      title: 'קמח תירס — ה-Peel הטבעי',
+      text: 'פזר קמח תירס (פולנטה) על משטח לפני שמניחים את הבצק. הגרגרים הקטנים יוצרים "כדורי גלגל" שמאפשרים החלקה קלה לטאבון. הרבה יותר טוב מקמח רגיל.',
+      highlight: '🌽 קמח תירס = פיצה שנכנסת לטאבון בקלות',
+    },
+    {
+      title: 'הסימנים לפיצה מוכנה',
+      text: 'קצוות מנומרות ושחומות (לא שרופות) — זה בריא ומוסיף טעם. תחתית פריכה כשמרימים עם לופתה. גבינה בועבעת ומתחילה להשחים בשפה.',
+      highlight: '👁️ מנומר = מוכן · שחור לגמרי = יותר מדי',
+    },
+  ],
+  en: [
+    {
+      title: 'The core technique — heat management',
+      text: 'The secret that changes everything: when no pizza is in the taboon, always keep the heat at maximum. The moment you put a pizza in — lower to minimum. Between each pizza — return to maximum and wait 2-3 minutes.',
+      highlight: '🔥 No pizza = max heat · Pizza inside = minimum heat',
+    },
+    {
+      title: 'Shaping the dough — without gluten',
+      text: 'GF dough has no gluten for elasticity. So: never roll it. Always press and stretch by hand in circular motions from center outward. Wet or lightly oiled hands prevent sticking.',
+      highlight: '✋ Press from center outward — never roll',
+    },
+    {
+      title: 'Cornmeal — the natural peel',
+      text: 'Scatter cornmeal (polenta) on the surface before placing the dough. The small grains create "ball bearings" that allow easy sliding into the taboon. Much better than regular flour.',
+      highlight: '🌽 Cornmeal = pizza that slides into taboon easily',
+    },
+    {
+      title: 'Signs the pizza is ready',
+      text: 'Charred and spotted edges (not burnt) — this is healthy and adds flavor. Crispy bottom when lifted with a peel. Cheese bubbling and starting to brown at the edges.',
+      highlight: '👁️ Spotted = ready · Completely black = too much',
+    },
+  ],
+};
+
+const TIPS_DATA = {
+  he: [
+    { ico: '🌡️', title: 'טמפרטורת הבצק', text: 'הוצא כדורי בצק מהמקרר 30-60 דקות לפני האפייה. בצק קר = קשה לפישוט ועלול להיקרע.' },
+    { ico: '⏱️', title: 'תזמון בין פיצות', text: 'אחרי שהוצאת פיצה, תן לטאבון 2-3 דקות על אש מקסימלית לפני הפיצה הבאה. אחרת הפיצה השנייה לא תהיה פריכה.' },
+    { ico: '💧', title: 'לחות ורוטב', text: 'בצק GF לא סופג עודפי נוזלים כמו בצק רגיל. רוטב מרובה = בצק רטוב לא פריך. פחות זה יותר.' },
+    { ico: '🧀', title: 'הגבינה הנכונה', text: 'מוצרלה טרייה עם תכולת לחות גבוהה תרטיב את הפיצה. ייבש קלות עם נייר סופג לפני השימוש, או השתמש במוצרלה יבשה יותר.' },
+    { ico: '🍕', title: 'גודל מושלם', text: 'לטאבון ביתי — פיצה בקוטר 25-28 ס"מ היא האידיאל. גדול מדי = קשה להסיר. קטן מדי = מתייבש מהר.' },
+    { ico: '🫒', title: 'שמן זית — מתי?', text: 'שמן זית לפני = מוסיף עומק. שמן זית אחרי = מוסיף ניחוח. שניהם ביחד = פיצה מושלמת.' },
+  ],
+  en: [
+    { ico: '🌡️', title: 'Dough temperature', text: 'Remove dough balls from fridge 30-60 minutes before baking. Cold dough = hard to stretch and may tear.' },
+    { ico: '⏱️', title: 'Timing between pizzas', text: 'After removing a pizza, let the taboon heat up 2-3 minutes at maximum before the next one. Otherwise the second pizza won\'t be crispy.' },
+    { ico: '💧', title: 'Moisture and sauce', text: 'GF dough doesn\'t absorb excess liquid like regular dough. Too much sauce = soggy crust. Less is more.' },
+    { ico: '🧀', title: 'The right cheese', text: 'Fresh mozzarella with high moisture content will wet the pizza. Pat dry lightly before using, or use drier mozzarella.' },
+    { ico: '🍕', title: 'Perfect size', text: 'For home taboon — a 25-28cm diameter pizza is ideal. Too large = hard to remove. Too small = dries out quickly.' },
+    { ico: '🫒', title: 'Olive oil — when?', text: 'Olive oil before = adds depth. Olive oil after = adds aroma. Both together = perfect pizza.' },
+  ],
+};
+
+// ─────────────────────────────────────────
+//  RENDER FUNCTIONS
+// ─────────────────────────────────────────
+function renderHome() {
+  const L = lang;
+  const el = document.getElementById('screenHome');
+  el.innerHTML = `
+    <div class="sections-list">
+      <div class="section-card sc-taboon" onclick="showScreen('taboon')">
+        <div class="sc-bg"></div>
+        <div class="sc-overlay"></div>
+        <div class="sc-arrow">→</div>
+        <div class="sc-content">
+          <div class="sc-label">${L==='he'?'מתכונים · טכניקות · מחשבון':'Recipes · Techniques · Calculator'}</div>
+          <div class="sc-title">${L==='he'?'טאבון 🔥':'Taboon 🔥'}</div>
+          <div class="sc-sub">${L==='he'?'פיצה ללא גלוטן, עיצוב בצק, שיטת החום':'Gluten-free pizza, dough shaping, heat method'}</div>
+        </div>
+      </div>
+      <div class="section-card sc-smoker" onclick="showScreen('smoker')">
+        <div class="sc-bg"></div>
+        <div class="sc-overlay"></div>
+        <div class="sc-arrow">→</div>
+        <div class="sc-badge">Coming Soon</div>
+        <div class="sc-content">
+          <div class="sc-label">${L==='he'?'עישון איטי':'Slow Smoking'}</div>
+          <div class="sc-title">${L==='he'?'מעשנה 💨':'Smoker 💨'}</div>
+          <div class="sc-sub">${L==='he'?'טמפרטורות, עצים, זמנים':'Temperatures, woods, timing'}</div>
+        </div>
+      </div>
+      <div class="section-card sc-sousvide" onclick="showScreen('sousvide')">
+        <div class="sc-bg"></div>
+        <div class="sc-overlay"></div>
+        <div class="sc-arrow">→</div>
+        <div class="sc-badge">Coming Soon</div>
+        <div class="sc-content">
+          <div class="sc-label">${L==='he'?'בישול מדויק':'Precision Cooking'}</div>
+          <div class="sc-title">${L==='he'?'סוויד 🌊':'Sous Vide 🌊'}</div>
+          <div class="sc-sub">${L==='he'?'טמפרטורות, זמנים, מרקמים':'Temperatures, times, textures'}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderRecipes() {
+  const L = lang;
+  const el = document.getElementById('screenRecipes');
+  el.innerHTML = `
+    <div class="top-bar">
+      <button class="back-btn-top" onclick="showScreen('home')"><span class="back-arrow">←</span>${L==='he'?'בית':'Home'}</button>
+      <div class="top-bar-title">${L==='he'?'מתכונים':'Recipes'}</div>
+    </div>
+    <div class="recipe-list">
+      ${RECIPES.map(r => `
+        <div class="recipe-card" onclick="showRecipe('${r.id}')">
+          <div class="rc-category">${r.category[L]}</div>
+          <div class="rc-title">${r.title[L]}</div>
+          <div class="rc-desc">${r.desc[L]}</div>
+          <div class="rc-tags">${r.tags.map(t => `<span class="rc-tag">${typeof t === 'string' ? t : t[L]}</span>`).join('')}</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+function showRecipe(id) {
+  const L = lang;
+  const r = RECIPES.find(x => x.id === id);
+  if (!r) return;
+  const el = document.getElementById('screenRecipeDetail');
+  const basilOilHtml = r.basilOil ? `
+    <div class="basil-oil-box" onclick="showRecipe('basil-oil')">
+      <div class="bo-title">🌿 ${L==='he'?'מתכון: שמן בזיליקום ←':'Recipe: Basil Oil →'}</div>
+      <div class="bo-text">${L==='he'?'לחץ לצפייה במתכון שמן הבזיליקום הביתי':'Tap to view the homemade basil oil recipe'}</div>
+    </div>` : '';
+
+  el.innerHTML = `
+    <div class="top-bar">
+      <button class="back-btn-top" onclick="showScreen('recipes')"><span class="back-arrow">←</span>${L==='he'?'מתכונים':'Recipes'}</button>
+      <div class="top-bar-title">${r.title[L]}</div>
+    </div>
+    <div class="recipe-detail">
+      <div class="recipe-hero">
+        <div class="rh-cat">${r.category[L]}</div>
+        <div class="rh-title">${r.title[L]}</div>
+        <div class="rh-desc">${r.desc[L]}</div>
+      </div>
+      <div class="recipe-body">
+        <div class="recipe-section-title">🧾 ${L==='he'?'מצרכים':'Ingredients'}</div>
+        <div class="ingredient-list">
+          ${r.ingredients.map(i => `
+            <div class="ingredient">
+              <span class="ing-name">${i.name[L]}</span>
+              <span class="ing-qty">${i.qty[L]}</span>
+            </div>`).join('')}
+        </div>
+        ${basilOilHtml}
+        <div class="recipe-section-title">👨‍🍳 ${L==='he'?'הכנה':'Method'}</div>
+        <div class="method-steps-list">
+          ${r.steps.map((s,i) => `
+            <div class="method-step">
+              <div class="ms-num">${i+1}</div>
+              <div class="ms-text">${s[L]}</div>
+            </div>`).join('')}
+        </div>
+        ${r.tip ? `
+        <div class="tip-note" style="margin-top:16px">
+          <div class="tn-ico">💡</div>
+          <p>${r.tip[L]}</p>
+        </div>` : ''}
+      </div>
+    </div>`;
+  showScreen('recipeDetail');
+}
+
+function renderTechniques() {
+  const L = lang;
+  const data = TECHNIQUES[L];
+  const el = document.getElementById('screenTechniques');
+  el.innerHTML = `
+    <div class="top-bar">
+      <button class="back-btn-top" onclick="showScreen('home')"><span class="back-arrow">←</span>${L==='he'?'בית':'Home'}</button>
+      <div class="top-bar-title">${L==='he'?'טכניקות':'Techniques'}</div>
+    </div>
+    <div class="techniques-list">
+      ${data.map((t,i) => `
+        <div class="technique-card">
+          <div class="tc-num">${i+1}</div>
+          <div class="tc-title">${t.title}</div>
+          <div class="tc-text">${t.text}</div>
+          <div class="tc-highlight">${t.highlight}</div>
+        </div>`).join('')}
+    </div>`;
+}
+
+function renderTipsScreen() {
+  const L = lang;
+  const data = TIPS_DATA[L];
+  const el = document.getElementById('screenTips');
+  el.innerHTML = `
+    <div class="top-bar">
+      <button class="back-btn-top" onclick="showScreen('home')"><span class="back-arrow">←</span>${L==='he'?'בית':'Home'}</button>
+      <div class="top-bar-title">${L==='he'?'טיפים לטאבון':'Taboon Tips'}</div>
+    </div>
+    <div class="tips-section">
+      ${data.map(t => `
+        <div class="big-tip">
+          <div class="bt-ico">${t.ico}</div>
+          <div>
+            <div class="bt-title">${t.title}</div>
+            <div class="bt-text">${t.text}</div>
+          </div>
+        </div>`).join('')}
+    </div>`;
+}
+
+
+function renderTaboon() {
+  const L = lang;
+  const el = document.getElementById('screenTaboon');
+  el.innerHTML = `
+    <div class="top-bar">
+      <button class="back-btn-top" onclick="showScreen('home')"><span class="back-arrow">←</span>${L==='he'?'בית':'Home'}</button>
+      <div class="top-bar-title">${L==='he'?'טאבון':'Taboon'}</div>
+    </div>
+    <div class="sub-home">
+      <div class="sub-cards">
+        <div class="sub-card" onclick="showScreen('recipes')">
+          <div class="sc2-ico">🍕</div>
+          <div class="sc2-title">${L==='he'?'מתכונים':'Recipes'}</div>
+          <div class="sc2-sub">${RECIPES.length} ${L==='he'?'מתכונים':'recipes'}</div>
+        </div>
+        <div class="sub-card" onclick="showScreen('calc')">
+          <div class="sc2-ico">🧮</div>
+          <div class="sc2-title">${L==='he'?'מחשבון בצק':'Dough Calculator'}</div>
+          <div class="sc2-sub">${L==='he'?'פוליש, ביגה, ישיר':'Poolish, biga, direct'}</div>
+        </div>
+        <div class="sub-card" onclick="showScreen('techniques')">
+          <div class="sc2-ico">📖</div>
+          <div class="sc2-title">${L==='he'?'טכניקות':'Techniques'}</div>
+          <div class="sc2-sub">${L==='he'?'עיצוב ואפייה':'Shaping & baking'}</div>
+        </div>
+        <div class="sub-card" onclick="showScreen('tips')">
+          <div class="sc2-ico">🔥</div>
+          <div class="sc2-title">${L==='he'?'טיפים':'Tips'}</div>
+          <div class="sc2-sub">${L==='he'?'סודות הטאבון':'Taboon secrets'}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderSmoker() {
+  const L = lang;
+  const el = document.getElementById('screenSmoker');
+  el.innerHTML = `
+    <div class="top-bar">
+      <button class="back-btn-top" onclick="showScreen('home')"><span class="back-arrow">←</span>${L==='he'?'בית':'Home'}</button>
+      <div class="top-bar-title">${L==='he'?'מעשנה':'Smoker'}</div>
+    </div>
+    <div style="padding:60px 24px;text-align:center">
+      <div style="font-size:64px;margin-bottom:20px">🪵</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--ink);margin-bottom:10px">${L==='he'?'בקרוב...':'Coming Soon...'}</div>
+      <div style="font-size:14px;color:var(--muted);line-height:1.6;max-width:280px;margin:0 auto">${L==='he'?'מתכוני מעשנה, זמני עישון, טמפרטורות ועצות מקצועיות יתווספו בקרוב.':'Smoker recipes, smoking times, temperatures and pro tips coming soon.'}</div>
+    </div>`;
+}
+
+function renderSousVide() {
+  const L = lang;
+  const el = document.getElementById('screenSousVide');
+  el.innerHTML = `
+    <div class="top-bar">
+      <button class="back-btn-top" onclick="showScreen('home')"><span class="back-arrow">←</span>${L==='he'?'בית':'Home'}</button>
+      <div class="top-bar-title">${L==='he'?'סוויד':'Sous Vide'}</div>
+    </div>
+    <div style="padding:60px 24px;text-align:center">
+      <div style="font-size:64px;margin-bottom:20px">🌡️</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--ink);margin-bottom:10px">${L==='he'?'בקרוב...':'Coming Soon...'}</div>
+      <div style="font-size:14px;color:var(--muted);line-height:1.6;max-width:280px;margin:0 auto">${L==='he'?'מדריכי טמפרטורה, זמני בישול ומתכוני סוויד יתווספו בקרוב.':'Temperature guides, cooking times and sous vide recipes coming soon.'}</div>
+    </div>`;
+}
+
+
+function renderTaboon() {
+  const L = lang;
+  const el = document.getElementById('screenTaboon');
+  el.innerHTML = `
+    <div class="top-bar">
+      <button class="back-btn-top" onclick="showScreen('home')"><span class="back-arrow">←</span>${L==='he'?'בית':'Home'}</button>
+      <div class="top-bar-title">${L==='he'?'טאבון 🔥':'Taboon 🔥'}</div>
+    </div>
+    <div class="section-inner-home">
+      <div class="sih-card" onclick="showScreen('recipes')">
+        <div class="sih-ico">🍕</div>
+        <div class="sih-title">${L==='he'?'מתכונים':'Recipes'}</div>
+        <div class="sih-sub">${RECIPES.length} ${L==='he'?'מתכונים':'recipes'}</div>
+      </div>
+      <div class="sih-card" onclick="showScreen('calc')">
+        <div class="sih-ico">🧮</div>
+        <div class="sih-title">${L==='he'?'מחשבון בצק':'Dough Calc'}</div>
+        <div class="sih-sub">${L==='he'?'פוליש, ביגה, ישיר':'Poolish, biga, direct'}</div>
+      </div>
+      <div class="sih-card" onclick="showScreen('techniques')">
+        <div class="sih-ico">📖</div>
+        <div class="sih-title">${L==='he'?'טכניקות':'Techniques'}</div>
+        <div class="sih-sub">${L==='he'?'עיצוב ואפייה':'Shaping & baking'}</div>
+      </div>
+      <div class="sih-card" onclick="showScreen('tips')">
+        <div class="sih-ico">🔥</div>
+        <div class="sih-title">${L==='he'?'טיפים':'Tips'}</div>
+        <div class="sih-sub">${L==='he'?'שיטת החום':'Heat method'}</div>
+      </div>
+    </div>`;
+}
+
+function renderComingSoon(type) {
+  const L = lang;
+  const data = {
+    smoker: { ico: '💨', he: 'מעשנה', en: 'Smoker', sub_he: 'מתכונים וטכניקות עישון בקרוב', sub_en: 'Smoking recipes & techniques coming soon' },
+    sousvide: { ico: '🌊', he: 'סוויד', en: 'Sous Vide', sub_he: 'מדריכי בישול מדויק בקרוב', sub_en: 'Precision cooking guides coming soon' },
+  };
+  const d = data[type];
+  const el = document.getElementById('screen' + type.charAt(0).toUpperCase() + type.slice(1));
+  el.innerHTML = `
+    <div class="top-bar">
+      <button class="back-btn-top" onclick="showScreen('home')"><span class="back-arrow">←</span>${L==='he'?'בית':'Home'}</button>
+      <div class="top-bar-title">${L==='he'?d.he:d.en} ${d.ico}</div>
+    </div>
+    <div class="coming-soon-wrap">
+      <div class="cs-icon">${d.ico}</div>
+      <div class="cs-title">${L==='he'?d.he:d.en}</div>
+      <div class="cs-sub">${L==='he'?d.sub_he:d.sub_en}</div>
+      <div class="cs-tag">COMING SOON</div>
+    </div>`;
+}
+
+// Override setLang to also re-render current screen
+const _origSetLang = setLang;
+
+// ───────────────────────────────
+//  INIT
+// ───────────────────────────────
+document.getElementById('btnHe').addEventListener('click', () => setLang('he'));
+document.getElementById('btnEn').addEventListener('click', () => setLang('en'));
+setLang('he');
+showScreen('home');
+</script>
+
+<div class="update-toast" id="updateToast">✨ גרסה חדשה — מרענן...</div>
+
+<!-- PWA Service Worker -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(reg => {
+      // Listen for new SW taking over
+      navigator.serviceWorker.addEventListener('message', e => {
+        if (e.data && e.data.type === 'SW_UPDATED') {
+          const toast = document.getElementById('updateToast');
+          if (toast) {
+            toast.classList.add('show');
+            setTimeout(() => window.location.reload(), 1800);
+          }
+        }
+      });
+      // Also check for waiting SW on each load
+      reg.addEventListener('updatefound', () => {
+        const newSW = reg.installing;
+        newSW.addEventListener('statechange', () => {
+          if (newSW.state === 'installed' && navigator.serviceWorker.controller) {
+            const toast = document.getElementById('updateToast');
+            if (toast) {
+              toast.classList.add('show');
+              setTimeout(() => window.location.reload(), 1800);
+            }
+          }
+        });
+      });
+    }).catch(err => console.log('SW error:', err));
+  });
+}
+</script>
+</body>
+</html>
