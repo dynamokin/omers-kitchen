@@ -642,11 +642,46 @@ footer .share-hint{margin-top:8px;font-size:11px;color:rgba(122,112,96,.6)}
 
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav">
-  <button class="nav-btn" id="navHome" onclick="showScreen('home')"><span class="nav-ico">🏠</span><span class="nav-label" data-i18n="navHome">בית</span></button>
-  <button class="nav-btn" id="navCalc" onclick="showScreen('calc')"><span class="nav-ico">🧮</span><span class="nav-label" data-i18n="navCalc">מחשבון</span></button>
-  <button class="nav-btn" id="navRecipes" onclick="showScreen('recipes')"><span class="nav-ico">🍕</span><span class="nav-label" data-i18n="navRecipes">מתכונים</span></button>
-  <button class="nav-btn" id="navTech" onclick="showScreen('techniques')"><span class="nav-ico">📖</span><span class="nav-label" data-i18n="navTech">טכניקות</span></button>
-  <button class="nav-btn" id="navTips" onclick="showScreen('tips')"><span class="nav-ico">🔥</span><span class="nav-label" data-i18n="navTips">טיפים</span></button>
+  <button class="nav-btn" id="navHome" onclick="showScreen('home')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="display:block">
+      <path d="M3 10.5L12 3L21 10.5V20C21 20.55 20.55 21 20 21H15V15H9V21H4C3.45 21 3 20.55 3 20V10.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M9 21V15H15V21" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+    </svg>
+    <span class="nav-label" data-i18n="navHome">בית</span>
+  </button>
+  <button class="nav-btn" id="navCalc" onclick="showScreen('calc')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="display:block">
+      <rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/>
+      <line x1="8" y1="8" x2="16" y2="8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="8" y1="12" x2="16" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="8" y1="16" x2="12" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <span class="nav-label" data-i18n="navCalc">מחשבון</span>
+  </button>
+  <button class="nav-btn" id="navRecipes" onclick="showScreen('recipes')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="display:block">
+      <path d="M12 3C9 3 6 5 6 8C6 10 7 11.5 8 12.5V20C8 20.55 8.45 21 9 21H15C15.55 21 16 20.55 16 20V12.5C17 11.5 18 10 18 8C18 5 15 3 12 3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <line x1="10" y1="15" x2="14" y2="15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="10" y1="18" x2="14" y2="18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <span class="nav-label" data-i18n="navRecipes">מתכונים</span>
+  </button>
+  <button class="nav-btn" id="navTech" onclick="showScreen('techniques')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="display:block">
+      <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <span class="nav-label" data-i18n="navTech">טכניקות</span>
+  </button>
+  <button class="nav-btn" id="navTips" onclick="showScreen('tips')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" style="display:block">
+      <path d="M12 2C8.5 2 6 5 6 8C6 10.5 7.5 12.5 9 13.5V16C9 16.55 9.45 17 10 17H14C14.55 17 15 16.55 15 16V13.5C16.5 12.5 18 10.5 18 8C18 5 15.5 2 12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+      <line x1="10" y1="20" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="11" y1="22" x2="13" y2="22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <span class="nav-label" data-i18n="navTips">טיפים</span>
+  </button>
 </nav>
 
 <footer>
@@ -1330,6 +1365,7 @@ const SCREENS = {
   taboon: 'screenTaboon',
   smoker: 'screenSmoker',
   sousvide: 'screenSousVide',
+  recipeDetail: 'screenRecipeDetail',
 };
 
 const NAV_BTNS = {
@@ -1443,6 +1479,33 @@ const RECIPES = [
     ],
     tip: { he: 'ארטישוק משומר עובד מצוין — ייבש אותו קלות עם נייר סופג לפני השימוש.', en: 'Canned artichoke works great — lightly pat dry with paper towel before using.' },
   },
+,
+  {
+    id: 'creme-brulee',
+    category: { he: 'קינוחי סוויד', en: 'Sous Vide Desserts' },
+    title: { he: 'קרם ברולה', en: 'Crème Brûlée' },
+    desc: { he: 'קרם ברולה מושלם בסוויד — מרקם קטיפתי, ציפוי קרמל פריך', en: 'Perfect sous vide crème brûlée — silky texture, crispy caramel top' },
+    tags: [{ he: 'סוויד', en: 'Sous Vide' }, { he: 'קינוח', en: 'Dessert' }, { he: '80°C · 60 דקות', en: '80°C · 60 min' }],
+    ingredients: [
+      { name: { he: 'שמנת מתוקה 38%', en: 'Heavy cream 38%' }, qty: { he: '500ml', en: '500ml' } },
+      { name: { he: 'חלמונים', en: 'Egg yolks' }, qty: { he: '5', en: '5' } },
+      { name: { he: 'סוכר', en: 'Sugar' }, qty: { he: '100g', en: '100g' } },
+      { name: { he: 'מחית וניל', en: 'Vanilla paste' }, qty: { he: '1 כפית', en: '1 tsp' } },
+      { name: { he: 'סוכר לקרמול', en: 'Sugar for caramel' }, qty: { he: '2 כפות לכל כוס', en: '2 tbsp per cup' } },
+    ],
+    steps: [
+      { he: 'חמם את מכשיר הסוויד ל-80°C.', en: 'Heat sous vide device to 80°C.' },
+      { he: 'טרוף חלמונים עם סוכר עד לתערובת חלקה ובהירה.', en: 'Whisk egg yolks with sugar until smooth and pale.' },
+      { he: 'חמם שמנת עם וניל על להבה נמוכה עד לרתיחה קלה — אל תרתח!', en: 'Heat cream with vanilla on low heat until just simmering — don\'t boil!' },
+      { he: 'הוסף שמנת לחלמונים בטפטוף תוך ערבוב מתמיד (tempering).', en: 'Slowly add cream to yolks while constantly whisking (tempering).' },
+      { he: 'סנן דרך מסננת דקה להסרת בועות וגושים.', en: 'Strain through fine sieve to remove bubbles and lumps.' },
+      { he: 'מלא צנצנות מייסון או שקיות ואקום — השאר 1 ס"מ מקום למעלה.', en: 'Fill mason jars or vacuum bags — leave 1cm space at top.' },
+      { he: 'בשל בסוויד 80°C למשך 60 דקות מדויק.', en: 'Cook sous vide at 80°C for exactly 60 minutes.' },
+      { he: 'צנן במי קרח 20 דקות, לאחר מכן הכנס למקרר לפחות 4 שעות.', en: 'Cool in ice bath 20 minutes, then refrigerate at least 4 hours.' },
+      { he: 'לפני הגשה: פזר סוכר אחיד מעל ושרוף עם ברנר עד לציפוי קרמל.', en: 'Before serving: sprinkle even sugar layer and torch until caramelized.' },
+    ],
+    tip: { he: 'הטמפרטורה המדויקת של 80°C היא הסוד — נמוך מדי = לא מתגבש, גבוה מדי = ביצה מקושקשת!', en: 'The precise 80°C is the secret — too low = won\'t set, too high = scrambled eggs!' },
+  },
   {
     id: 'basil-oil',
     category: { he: 'רטבים ותוספות', en: 'Sauces & Extras' },
@@ -1545,7 +1608,7 @@ function renderHome() {
         <div class="sc-arrow">→</div>
         <div class="sc-content">
           <div class="sc-label">${L==='he'?'מתכונים · טכניקות · מחשבון':'Recipes · Techniques · Calculator'}</div>
-          <div class="sc-title">${L==='he'?'טאבון 🔥':'Taboon 🔥'}</div>
+          <div class="sc-title">${L==='he'?'טאבון':'Taboon'} 🔥</div>
           <div class="sc-sub">${L==='he'?'פיצה ללא גלוטן, עיצוב בצק, שיטת החום':'Gluten-free pizza, dough shaping, heat method'}</div>
         </div>
       </div>
@@ -1556,7 +1619,7 @@ function renderHome() {
         <div class="sc-badge">Coming Soon</div>
         <div class="sc-content">
           <div class="sc-label">${L==='he'?'עישון איטי':'Slow Smoking'}</div>
-          <div class="sc-title">${L==='he'?'מעשנה 💨':'Smoker 💨'}</div>
+          <div class="sc-title">${L==='he'?'מעשנה':'Smoker'} 🥩</div>
           <div class="sc-sub">${L==='he'?'טמפרטורות, עצים, זמנים':'Temperatures, woods, timing'}</div>
         </div>
       </div>
@@ -1567,7 +1630,7 @@ function renderHome() {
         <div class="sc-badge">Coming Soon</div>
         <div class="sc-content">
           <div class="sc-label">${L==='he'?'בישול מדויק':'Precision Cooking'}</div>
-          <div class="sc-title">${L==='he'?'סוויד 🌊':'Sous Vide 🌊'}</div>
+          <div class="sc-title">${L==='he'?'סוויד':'Sous Vide'} 🧪</div>
           <div class="sc-sub">${L==='he'?'טמפרטורות, זמנים, מרקמים':'Temperatures, times, textures'}</div>
         </div>
       </div>
@@ -1782,11 +1845,32 @@ function renderTaboon() {
     </div>`;
 }
 
+
+function renderSousVide() {
+  const L = lang;
+  const el = document.getElementById('screenSousVide');
+  const svRecipes = RECIPES.filter(r => r.tags.some(t => (typeof t === 'object' ? t[L] : t).toLowerCase().includes('sous') || (typeof t === 'object' ? t[L] : t).includes('סוויד')));
+  el.innerHTML = `
+    <div class="top-bar">
+      <button class="back-btn-top" onclick="showScreen('home')"><span class="back-arrow">←</span>${L==='he'?'בית':'Home'}</button>
+      <div class="top-bar-title">${L==='he'?'סוויד 🧪':'Sous Vide 🧪'}</div>
+    </div>
+    <div class="recipe-list">
+      ${svRecipes.map(r => `
+        <div class="recipe-card" onclick="showRecipe('${r.id}')">
+          <div class="rc-category">${r.category[L]}</div>
+          <div class="rc-title">${r.title[L]}</div>
+          <div class="rc-desc">${r.desc[L]}</div>
+          <div class="rc-tags">${r.tags.map(t => `<span class="rc-tag">${typeof t === 'string' ? t : t[L]}</span>`).join('')}</div>
+        </div>`).join('')}
+    </div>`;
+}
+
 function renderComingSoon(type) {
   const L = lang;
   const data = {
-    smoker: { ico: '💨', he: 'מעשנה', en: 'Smoker', sub_he: 'מתכונים וטכניקות עישון בקרוב', sub_en: 'Smoking recipes & techniques coming soon' },
-    sousvide: { ico: '🌊', he: 'סוויד', en: 'Sous Vide', sub_he: 'מדריכי בישול מדויק בקרוב', sub_en: 'Precision cooking guides coming soon' },
+    smoker: { ico: '🥩', he: 'מעשנה', en: 'Smoker', sub_he: 'מתכונים וטכניקות עישון בקרוב', sub_en: 'Smoking recipes & techniques coming soon' },
+    sousvide: { ico: '🧪', he: 'סוויד', en: 'Sous Vide', sub_he: 'מדריכי בישול מדויק בקרוב', sub_en: 'Precision cooking guides coming soon' },
   };
   const d = data[type];
   const el = document.getElementById('screen' + type.charAt(0).toUpperCase() + type.slice(1));
