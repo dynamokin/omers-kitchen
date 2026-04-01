@@ -221,7 +221,7 @@ footer strong{color:var(--ink)}
 footer .share-hint{margin-top:8px;font-size:11px;color:rgba(122,112,96,.6)}
 
 /* ─── LANG TOGGLE ─── */
-.lang-bar{background:#0E0C09;padding:10px 20px;display:flex;justify-content:center;align-items:center;gap:8px;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,.06)}
+.lang-bar{background:#0E0C09;padding:10px 20px;display:flex;justify-content:center;align-items:center;gap:8px;position:sticky;top:0;z-index:300;border-bottom:1px solid rgba(255,255,255,.06)}
 .lang-btn{padding:5px 16px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;transition:all .18s;border:1.5px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.4);letter-spacing:.5px;font-family:'Heebo',sans-serif}
 .lang-btn.active{background:var(--tomato);border-color:var(--tomato);color:#fff}
 .lang-btn:hover:not(.active){border-color:rgba(255,255,255,.35);color:rgba(255,255,255,.7)}
@@ -319,7 +319,7 @@ footer .share-hint{margin-top:8px;font-size:11px;color:rgba(122,112,96,.6)}
 
 
 /* ─── BACK BUTTON ─── */
-.top-bar{background:var(--ink);padding:12px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.06)}
+.top-bar{background:var(--ink);padding:12px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.06);position:sticky;top:42px;z-index:200}
 .back-btn-top{display:flex;align-items:center;gap:7px;color:rgba(255,255,255,.6);font-size:13px;font-weight:600;cursor:pointer;border:none;background:none;font-family:'Heebo',sans-serif;padding:4px 0;transition:color .18s}
 .back-btn-top:hover{color:#F0C96A}
 .back-btn-top .back-arrow{font-size:18px;line-height:1}
@@ -805,7 +805,7 @@ const T = {
     }
   },
   en: {
-    headerTitle: "Omer's Dough<br><em>Calculator</em>",
+    headerTitle: "Omer's<br><em>Kitchen</em>",
     headerSub: 'Because great pizza starts with precise measurements — gluten-free, no compromises.',
     badgeGF: 'Omer\'s Kitchen · Gluten-Free · 🔥 Taboon',
     badgeReg: 'Flour 00 · Classic · 🔥 Taboon',
@@ -1319,7 +1319,7 @@ function setLang(l) {
   const calcBack = document.getElementById('calcBackLabel');
   const calcTitle = document.getElementById('calcTopTitle');
   if (calcBack) calcBack.textContent = l==='he' ? 'בית' : 'Home';
-  if (calcTitle) calcTitle.textContent = l==='he' ? 'מחשבון בצק' : 'Dough Calculator';
+  if (calcTitle) calcTitle.textContent = l==='he' ? 'Omer\'s Kitchen' : 'Omer\'s Kitchen';
   // Nav labels
   ['navHome','navCalc','navRecipes','navTech','navTips'].forEach(id => {
     const el = document.getElementById(id);
@@ -1347,6 +1347,10 @@ function setLang(l) {
   setFlour(flourType, document.querySelector('.flour-btn.active'));
   renderFermentSection();
   calculate();
+  // Re-render current screen (home/recipes/techniques/tips/taboon/sousvide/smoker)
+  if (currentScreen !== 'calc') {
+    showScreen(currentScreen);
+  }
 }
 
 
@@ -1354,6 +1358,7 @@ function setLang(l) {
 //  APP NAVIGATION
 // ─────────────────────────────────────────
 let currentScreen = 'home';
+let prevScreen = 'home';
 
 const SCREENS = {
   home: 'screenHome',
@@ -1365,7 +1370,6 @@ const SCREENS = {
   taboon: 'screenTaboon',
   smoker: 'screenSmoker',
   sousvide: 'screenSousVide',
-  recipeDetail: 'screenRecipeDetail',
 };
 
 const NAV_BTNS = {
@@ -1389,7 +1393,7 @@ function showScreen(name) {
   // Update nav
   Object.entries(NAV_BTNS).forEach(([k,v]) => {
     const btn = document.getElementById(v);
-    if (btn) btn.classList.toggle('active', k === name || (name === 'recipeDetail' && k === 'recipes'));
+    if (btn) btn.classList.toggle('active', k === name || (name === 'recipeDetail' && k === 'home') || (name === 'taboon' && k === 'home') || (name === 'smoker' && k === 'home') || (name === 'sousvide' && k === 'home'));
   });
   // Render dynamic screens
   if (name === 'home') renderHome();
@@ -1657,6 +1661,7 @@ function renderRecipes() {
 }
 
 function showRecipe(id) {
+  prevScreen = currentScreen;
   const L = lang;
   const r = RECIPES.find(x => x.id === id);
   if (!r) return;
@@ -1669,7 +1674,7 @@ function showRecipe(id) {
 
   el.innerHTML = `
     <div class="top-bar">
-      <button class="back-btn-top" onclick="showScreen('recipes')"><span class="back-arrow">←</span>${L==='he'?'מתכונים':'Recipes'}</button>
+      <button class="back-btn-top" onclick="showScreen(prevScreen||'recipes')"><span class="back-arrow">←</span>${L==='he'?'חזרה':'Back'}</button>
       <div class="top-bar-title">${r.title[L]}</div>
     </div>
     <div class="recipe-detail">
@@ -1765,7 +1770,7 @@ function renderTaboon() {
         </div>
         <div class="sub-card" onclick="showScreen('calc')">
           <div class="sc2-ico">🧮</div>
-          <div class="sc2-title">${L==='he'?'מחשבון בצק':'Dough Calculator'}</div>
+          <div class="sc2-title">${L==='he'?'Omer\'s Kitchen':'Omer\'s Kitchen'}</div>
           <div class="sc2-sub">${L==='he'?'פוליש, ביגה, ישיר':'Poolish, biga, direct'}</div>
         </div>
         <div class="sub-card" onclick="showScreen('techniques')">
@@ -1829,7 +1834,7 @@ function renderTaboon() {
       </div>
       <div class="sih-card" onclick="showScreen('calc')">
         <div class="sih-ico">🧮</div>
-        <div class="sih-title">${L==='he'?'מחשבון בצק':'Dough Calc'}</div>
+        <div class="sih-title">${L==='he'?'Omer\'s Kitchen':'Dough Calc'}</div>
         <div class="sih-sub">${L==='he'?'פוליש, ביגה, ישיר':'Poolish, biga, direct'}</div>
       </div>
       <div class="sih-card" onclick="showScreen('techniques')">
