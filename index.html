@@ -1336,7 +1336,7 @@ function setLang(l) {
   const calcBack = document.getElementById('calcBackLabel');
   const calcTitle = document.getElementById('calcTopTitle');
   if (calcBack) calcBack.textContent = l==='he' ? 'בית' : 'Home';
-  if (calcTitle) calcTitle.textContent = l==='he' ? 'Omer\'s Kitchen' : 'Omer\'s Kitchen';
+  if (calcTitle) calcTitle.textContent = l==='he' ? 'מחשבון בצק' : 'Dough Calculator';
   // Nav labels
   ['navHome','navCalc','navRecipes','navTech','navTips'].forEach(id => {
     const el = document.getElementById(id);
@@ -1851,7 +1851,7 @@ function renderTaboon() {
       </div>
       <div class="sih-card" onclick="showScreen('calc')">
         <div class="sih-ico">🧮</div>
-        <div class="sih-title">${L==='he'?'Omer\'s Kitchen':'Dough Calc'}</div>
+        <div class="sih-title">${L==='he'?'מחשבון בצק':'Dough Calc'}</div>
         <div class="sih-sub">${L==='he'?'פוליש, ביגה, מהיר':'Poolish, biga, fast'}</div>
       </div>
       <div class="sih-card" onclick="showScreen('techniques')">
@@ -1871,7 +1871,7 @@ function renderTaboon() {
 function renderSousVide() {
   const L = lang;
   const el = document.getElementById('screenSousVide');
-  const svRecipes = RECIPES.filter(r => r.tags.some(t => (typeof t === 'object' ? t[L] : t).toLowerCase().includes('sous') || (typeof t === 'object' ? t[L] : t).includes('סוויד')));
+  const svRecipes = RECIPES.filter(r => r.category[L].includes('סוויד') || r.category[L].toLowerCase().includes('sous') || r.tags.some(t => { const v = typeof t === 'object' ? (t.he || t.en || '') : t; return v.includes('סוויד') || v.toLowerCase().includes('sous'); }));
   el.innerHTML = `
     <div class="top-bar">
       <button class="back-btn-top" onclick="showScreen('home')"><span class="back-arrow">←</span>${L==='he'?'בית':'Home'}</button>
