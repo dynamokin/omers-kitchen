@@ -292,11 +292,28 @@ footer .share-hint{margin-top:8px;font-size:11px;color:rgba(122,112,96,.6)}
 .sc-taboon .sc-bg{background:linear-gradient(160deg,#3D1A08 0%,#1A0A03 100%)}
 .sc-taboon .sc-overlay{background:linear-gradient(to top,rgba(10,4,0,.85) 0%,rgba(10,4,0,.2) 60%,transparent 100%)}
 /* Smoker card */
-.sc-smoker .sc-bg{background:linear-gradient(160deg,#1A1A14 0%,#0A0A08 100%)}
-.sc-smoker .sc-overlay{background:linear-gradient(to top,rgba(5,5,4,.9) 0%,rgba(5,5,4,.3) 60%,transparent 100%)}
+.sc-smoker .sc-bg{background:linear-gradient(160deg,#1C1008 0%,#2A1A0A 35%,#1A1008 70%,#0E0804 100%)}
+.sc-smoker .sc-overlay{background:linear-gradient(to top,rgba(14,8,4,.92) 0%,rgba(14,8,4,.35) 55%,transparent 100%)}
+.sc-smoker .sc-bg::after{content:'';position:absolute;inset:0;background:
+  repeating-linear-gradient(85deg,transparent 0px,transparent 18px,rgba(180,100,30,.06) 18px,rgba(180,100,30,.06) 20px),
+  repeating-linear-gradient(92deg,transparent 0px,transparent 28px,rgba(120,60,10,.08) 28px,rgba(120,60,10,.08) 30px);
+  opacity:1}
+.sc-smoker .sc-bg::before{content:'';position:absolute;bottom:0;left:0;right:0;height:60%;
+  background:repeating-linear-gradient(175deg,transparent 0px,transparent 8px,rgba(80,40,10,.15) 8px,rgba(80,40,10,.15) 10px,transparent 10px,transparent 22px,rgba(60,30,5,.1) 22px,rgba(60,30,5,.1) 24px);
+  opacity:1}
 /* Sous Vide card */
-.sc-sousvide .sc-bg{background:linear-gradient(160deg,#0A1A2A 0%,#050E18 100%)}
-.sc-sousvide .sc-overlay{background:linear-gradient(to top,rgba(3,8,18,.9) 0%,rgba(3,8,18,.3) 60%,transparent 100%)}
+.sc-sousvide .sc-bg{background:linear-gradient(160deg,#041018 0%,#061828 40%,#041220 70%,#020C16 100%)}
+.sc-sousvide .sc-overlay{background:linear-gradient(to top,rgba(4,10,20,.93) 0%,rgba(4,10,20,.35) 55%,transparent 100%)}
+.sc-sousvide .sc-bg::before{content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 120% 40% at 50% 110%,rgba(30,80,140,.18) 0%,transparent 70%),
+    radial-gradient(ellipse 80% 30% at 30% 80%,rgba(20,60,120,.12) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 20% at 70% 60%,rgba(40,100,160,.08) 0%,transparent 50%);
+  opacity:1}
+.sc-sousvide .sc-bg::after{content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,transparent 0px,transparent 14px,rgba(30,80,160,.05) 14px,rgba(30,80,160,.05) 15px),
+  repeating-linear-gradient(90deg,transparent 0px,transparent 20px,rgba(20,60,140,.03) 20px,rgba(20,60,140,.03) 21px);
+  opacity:1}
 
 /* taboon section inner nav */
 .section-inner-home{padding:0 16px 100px;display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
@@ -469,7 +486,7 @@ footer .share-hint{margin-top:8px;font-size:11px;color:rgba(122,112,96,.6)}
   <div class="method-grid">
     <div class="method-btn active" data-method="direct" onclick="setMethod('direct',this)">
       <span class="method-emoji">⚡</span>
-      <div class="method-name" data-i18n="methodDirectName">ישיר</div>
+      <div class="method-name" data-i18n="methodDirectName">מהיר</div>
       <div class="method-desc" data-i18n="methodDirectDesc">קל ומהיר. בצק אחד, ללא פרה-פרמנט.</div>
     </div>
     <div class="method-btn" data-method="poolish" onclick="setMethod('poolish',this)">
@@ -709,7 +726,7 @@ const T = {
     navHome:'בית', navCalc:'מחשבון', navRecipes:'מתכונים', navTech:'טכניקות', navTips:'טיפים',
     methodTitle: 'שיטת הכנה', methodSub: '— בחר סוג בצק',
     ovenTitle: 'סוג אפייה', ovenTaboonName: 'טאבון', ovenTaboonDesc: '400–500°C · אפייה קצרה ועזה', ovenRegularName: 'תנור ביתי', ovenRegularDesc: '250–280°C · אבן פיצה / תבנית',
-    methodDirectName: 'ישיר', methodDirectDesc: 'קל ומהיר. בצק אחד, ללא פרה-פרמנט.',
+    methodDirectName: 'מהיר', methodDirectDesc: 'קל ומהיר. בצק אחד, ללא פרה-פרמנט.',
     methodPoolishName: 'פוליש', methodPoolishDesc: 'פרה-פרמנט נוזלי. טעם עמוק, מרקם פריך.',
     methodBigaName: 'ביגה', methodBigaDesc: 'פרה-פרמנט יבש. מרכיב נאפוליטנה קלאסית.',
     basicsTitle: 'הגדרות בסיסיות',
@@ -817,7 +834,7 @@ const T = {
     navHome:'Home', navCalc:'Calculator', navRecipes:'Recipes', navTech:'Techniques', navTips:'Tips',
     methodTitle: 'Method', methodSub: '— choose dough type',
     ovenTitle: 'Baking method', ovenTaboonName: 'Taboon', ovenTaboonDesc: '400–500°C · short intense bake', ovenRegularName: 'Home oven', ovenRegularDesc: '250–280°C · pizza stone / tray',
-    methodDirectName: 'Direct', methodDirectDesc: 'Simple & fast. One dough, no pre-ferment.',
+    methodDirectName: 'Fast', methodDirectDesc: 'Simple & fast. One dough, no pre-ferment.',
     methodPoolishName: 'Poolish', methodPoolishDesc: 'Liquid pre-ferment. Deep flavor, crispy crust.',
     methodBigaName: 'Biga', methodBigaDesc: 'Dry pre-ferment. Classic Napoletana ingredient.',
     basicsTitle: 'Basic Settings',
@@ -1771,7 +1788,7 @@ function renderTaboon() {
         <div class="sub-card" onclick="showScreen('calc')">
           <div class="sc2-ico">🧮</div>
           <div class="sc2-title">${L==='he'?'Omer\'s Kitchen':'Omer\'s Kitchen'}</div>
-          <div class="sc2-sub">${L==='he'?'פוליש, ביגה, ישיר':'Poolish, biga, direct'}</div>
+          <div class="sc2-sub">${L==='he'?'פוליש, ביגה, מהיר':'Poolish, biga, fast'}</div>
         </div>
         <div class="sub-card" onclick="showScreen('techniques')">
           <div class="sc2-ico">📖</div>
@@ -1835,7 +1852,7 @@ function renderTaboon() {
       <div class="sih-card" onclick="showScreen('calc')">
         <div class="sih-ico">🧮</div>
         <div class="sih-title">${L==='he'?'Omer\'s Kitchen':'Dough Calc'}</div>
-        <div class="sih-sub">${L==='he'?'פוליש, ביגה, ישיר':'Poolish, biga, direct'}</div>
+        <div class="sih-sub">${L==='he'?'פוליש, ביגה, מהיר':'Poolish, biga, fast'}</div>
       </div>
       <div class="sih-card" onclick="showScreen('techniques')">
         <div class="sih-ico">📖</div>

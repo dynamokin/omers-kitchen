@@ -3,7 +3,7 @@
 // Cache-first for fonts only (rarely change).
 // On new version → auto-reload all open tabs.
 
-const VERSION = 'omers-kitchen-v9';
+const VERSION = 'omers-kitchen-v10';
 const CORE = ['/', '/index.html', '/manifest.json', '/install.html'];
 
 // ── INSTALL: cache core files ──────────────────────────────
