@@ -1861,7 +1861,7 @@ function renderSousVide() {
   );
   const cards = svRecipes.map(r => {
     const tags = r.tags.map(t => '<span class="rc-tag">' + (typeof t === 'string' ? t : t[L]) + '</span>').join('');
-    return '<div class="recipe-card" onclick="showRecipe(\'' + r.id + '\')">' +
+    return '<div class="recipe-card sv-recipe-card" data-id="' + r.id + '">' +
       '<div class="rc-category">' + r.category[L] + '</div>' +
       '<div class="rc-title">' + r.title[L] + '</div>' +
       '<div class="rc-desc">' + r.desc[L] + '</div>' +
@@ -1870,10 +1870,14 @@ function renderSousVide() {
   }).join('');
   el.innerHTML =
     '<div class="top-bar">' +
-      '<button class="back-btn-top" onclick="showScreen(\'home\')"><span class="back-arrow">←</span>' + (L==='he'?'בית':'Home') + '</button>' +
+      '<button class="back-btn-top" id="svBackBtn"><span class="back-arrow">←</span>' + (L==='he'?'בית':'Home') + '</button>' +
       '<div class="top-bar-title">' + (L==='he'?'סוויד 🧪':'Sous Vide 🧪') + '</div>' +
     '</div>' +
     '<div class="recipe-list">' + cards + '</div>';
+  document.getElementById('svBackBtn').addEventListener('click', () => showScreen('home'));
+  document.querySelectorAll('.sv-recipe-card').forEach(card => {
+    card.addEventListener('click', () => showRecipe(card.dataset.id));
+  });
 }
 
 function renderComingSoon(type) {
