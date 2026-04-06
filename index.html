@@ -1855,21 +1855,25 @@ function renderTaboon() {
 function renderSousVide() {
   const L = lang;
   const el = document.getElementById('screenSousVide');
-  const svRecipes = RECIPES.filter(r => r.category[L].includes('סוויד') || r.category[L].toLowerCase().includes('sous') || r.tags.some(t => { const v = typeof t === 'object' ? (t.he || t.en || '') : t; return v.includes('סוויד') || v.toLowerCase().includes('sous'); }));
-  el.innerHTML = `
-    <div class="top-bar">
-      <button class="back-btn-top" onclick="showScreen('home')"><span class="back-arrow">←</span>${L==='he'?'בית':'Home'}</button>
-      <div class="top-bar-title">${L==='he'?'סוויד 🧪':'Sous Vide 🧪'}</div>
-    </div>
-    <div class="recipe-list">
-      ${svRecipes.map(r => `
-        <div class="recipe-card" onclick="showRecipe('${r.id}')">
-          <div class="rc-category">${r.category[L]}</div>
-          <div class="rc-title">${r.title[L]}</div>
-          <div class="rc-desc">${r.desc[L]}</div>
-          <div class="rc-tags">${r.tags.map(t => `<span class="rc-tag">${typeof t === 'string' ? t : t[L]}</span>`).join('')}</div>
-        </div>`).join('')}
-    </div>`;
+  const svRecipes = RECIPES.filter(r =>
+    r.category.he.includes('סוויד') ||
+    r.category.en.toLowerCase().includes('sous')
+  );
+  const cards = svRecipes.map(r => {
+    const tags = r.tags.map(t => '<span class="rc-tag">' + (typeof t === 'string' ? t : t[L]) + '</span>').join('');
+    return '<div class="recipe-card" onclick="showRecipe(\'' + r.id + '\')">' +
+      '<div class="rc-category">' + r.category[L] + '</div>' +
+      '<div class="rc-title">' + r.title[L] + '</div>' +
+      '<div class="rc-desc">' + r.desc[L] + '</div>' +
+      '<div class="rc-tags">' + tags + '</div>' +
+      '</div>';
+  }).join('');
+  el.innerHTML =
+    '<div class="top-bar">' +
+      '<button class="back-btn-top" onclick="showScreen(\'home\')"><span class="back-arrow">←</span>' + (L==='he'?'בית':'Home') + '</button>' +
+      '<div class="top-bar-title">' + (L==='he'?'סוויד 🧪':'Sous Vide 🧪') + '</div>' +
+    '</div>' +
+    '<div class="recipe-list">' + cards + '</div>';
 }
 
 function renderComingSoon(type) {
