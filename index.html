@@ -1854,7 +1854,7 @@ function showRecipe(id) {
       <div class="top-bar-title">${r.title[L]}</div>
     </div>
     <div class="recipe-detail">
-
+      ${r.heroImg ? '<div class="recipe-hero-wrap"><img src="' + r.heroImg + '" class="recipe-hero-img" alt=""><div class="recipe-hero-grad"></div></div>' : ''}
       <div class="recipe-hero">
         <div class="rh-cat">${r.category[L]}</div>
         <div class="rh-title">${r.title[L]}</div>
