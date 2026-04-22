@@ -2156,33 +2156,51 @@ showScreen('home');
 <!-- PWA Service Worker -->
 <script>
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').then(reg => {
-      // Listen for new SW taking over
-      navigator.serviceWorker.addEventListener('message', e => {
-        if (e.data && e.data.type === 'SW_UPDATED') {
-          const toast = document.getElementById('updateToast');
-          if (toast) {
-            toast.classList.add('show');
-            setTimeout(() => window.location.reload(), 1800);
-          }
-        }
-      });
-      // Also check for waiting SW on each load
+  window.addEventListener('load', async () => {
+    try {
+      const reg = await navigator.serviceWorker.register('/sw.js');
+
+      // When new SW found — tell it to skip waiting immediately
       reg.addEventListener('updatefound', () => {
         const newSW = reg.installing;
         newSW.addEventListener('statechange', () => {
-          if (newSW.state === 'installed' && navigator.serviceWorker.controller) {
-            const toast = document.getElementById('updateToast');
-            if (toast) {
-              toast.classList.add('show');
-              setTimeout(() => window.location.reload(), 1800);
-            }
+          if (newSW.state === 'installed') {
+            // Tell new SW to activate immediately
+            newSW.postMessage({ type: 'SKIP_WAITING' });
+          }
+          if (newSW.state === 'activated') {
+            showUpdateToast();
           }
         });
       });
-    }).catch(err => console.log('SW error:', err));
+
+      // If there's already a waiting SW — activate it now
+      if (reg.waiting) {
+        reg.waiting.postMessage({ type: 'SKIP_WAITING' });
+      }
+
+      // Listen for controller change (new SW took over)
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!refreshing) {
+          refreshing = true;
+          showUpdateToast();
+        }
+      });
+
+      // Check for update every 60 seconds
+      setInterval(() => reg.update(), 60000);
+
+    } catch(err) { console.log('SW error:', err); }
   });
+}
+
+function showUpdateToast() {
+  const toast = document.getElementById('updateToast');
+  if (toast) {
+    toast.classList.add('show');
+    setTimeout(() => window.location.reload(), 1800);
+  }
 }
 </script>
 </body>
