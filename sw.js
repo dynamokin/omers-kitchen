@@ -1,4 +1,4 @@
-const VERSION = 'omers-kitchen-v31';
+const VERSION = 'omers-kitchen-v32';
 const CORE = ['/', '/index.html', '/manifest.json', '/install.html'];
 
 self.addEventListener('install', e => {
