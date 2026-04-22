@@ -341,6 +341,21 @@ footer .share-hint{margin-top:8px;font-size:11px;color:rgba(122,112,96,.6)}
 .cs-tag{display:inline-block;background:var(--warm);border:1px solid var(--border);border-radius:20px;font-size:10px;font-weight:700;letter-spacing:2px;color:var(--muted);padding:5px 14px;margin-top:8px}
 
 
+
+/* ─── INGREDIENT CHECKLIST ─── */
+.ingredient{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--warm);border-radius:10px;border:1px solid var(--border);cursor:pointer;transition:all .18s;user-select:none}
+.ingredient.checked{background:#EAF5EE;border-color:#4CAF72;opacity:0.7}
+.ingredient.checked .ing-name{text-decoration:line-through;color:var(--muted)}
+.ingredient.checked .ing-qty{color:#4CAF72}
+.ingredient.checked::before{content:''}
+.ing-left{display:flex;align-items:center;gap:10px}
+.ing-check{width:20px;height:20px;border-radius:6px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .18s;background:#fff}
+.ingredient.checked .ing-check{background:#4CAF72;border-color:#4CAF72;color:#fff}
+.ing-check-icon{font-size:12px;display:none}
+.ingredient.checked .ing-check-icon{display:block}
+.ingredients-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.ingredients-reset{font-size:11px;color:var(--muted);cursor:pointer;padding:4px 10px;border-radius:10px;background:var(--warm);border:1px solid var(--border)}
+
 /* ─── RECIPE IMAGES ─── */
 .recipe-hero-img{width:100%;max-height:420px;object-fit:cover;object-position:center 30%;display:block}
 .recipe-gallery{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0}
@@ -1846,11 +1861,20 @@ function showRecipe(id) {
         <div class="rh-desc">${r.desc[L]}</div>
       </div>
       <div class="recipe-body">
-        <div class="recipe-section-title">🧾 ${L==='he'?'מצרכים':'Ingredients'}</div>
-        <div class="ingredient-list">
-          ${r.ingredients.map(i => `
-            <div class="ingredient">
-              <span class="ing-name">${i.name[L]}</span>
+        <div class="recipe-section-title">
+          <span>🧾 ${L==='he'?'מצרכים':'Ingredients'}</span>
+        </div>
+        <div class="ingredients-header">
+          <span style="font-size:11px;color:var(--muted)">${L==='he'?'לחץ לסימון':'Tap to check off'}</span>
+          <span class="ingredients-reset" onclick="resetIngredients(this)">${L==='he'?'אפס הכל':'Reset all'}</span>
+        </div>
+        <div class="ingredient-list" id="ing-list-${r.id}">
+          ${r.ingredients.map((i,idx) => `
+            <div class="ingredient" onclick="toggleIngredient(this)" data-checked="false">
+              <div class="ing-left">
+                <div class="ing-check"><span class="ing-check-icon">✓</span></div>
+                <span class="ing-name">${i.name[L]}</span>
+              </div>
               <span class="ing-qty">${i.qty[L]}</span>
             </div>`).join('')}
         </div>
@@ -2102,6 +2126,21 @@ function renderComingSoon(type) {
 
 // Override setLang to also re-render current screen
 const _origSetLang = setLang;
+
+
+function toggleIngredient(el) {
+  const checked = el.getAttribute('data-checked') === 'true';
+  el.setAttribute('data-checked', !checked);
+  el.classList.toggle('checked', !checked);
+}
+
+function resetIngredients(btn) {
+  const list = btn.closest('.recipe-body').querySelector('.ingredient-list');
+  list.querySelectorAll('.ingredient').forEach(el => {
+    el.setAttribute('data-checked', 'false');
+    el.classList.remove('checked');
+  });
+}
 
 // ───────────────────────────────
 //  INIT
