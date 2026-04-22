@@ -1822,6 +1822,7 @@ function renderRecipes() {
 }
 
 function showRecipe(id) {
+  console.log('showRecipe called with id:', id, 'RECIPES:', RECIPES.map(r=>r.id));
   prevScreen = currentScreen;
   const L = lang;
   const r = RECIPES.find(x => x.id === id);
