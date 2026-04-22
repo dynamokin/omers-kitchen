@@ -358,9 +358,9 @@ footer .share-hint{margin-top:8px;font-size:11px;color:rgba(122,112,96,.6)}
 
 /* ─── RECIPE IMAGES ─── */
 .recipe-hero-img{width:100%;height:260px;object-fit:cover;object-position:center center;display:block}
-.recipe-gallery{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0}
-.recipe-gallery img{width:100%;height:140px;object-fit:cover;border-radius:10px;cursor:pointer}
-.recipe-gallery img:first-child:nth-last-child(odd){grid-column:1/-1;height:160px}
+.recipe-gallery{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0 0}
+.recipe-gallery img{width:100%;height:200px;object-fit:cover;border-radius:12px;cursor:pointer}
+.recipe-gallery img:first-child:nth-last-child(odd){grid-column:1/-1;height:240px}
 .section-card-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.55}
 .smoker-anim{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.5}
 
@@ -1852,7 +1852,7 @@ function showRecipe(id) {
       <div class="top-bar-title">${r.title[L]}</div>
     </div>
     <div class="recipe-detail">
-      ${r.heroImg ? '<img src="' + r.heroImg + '" class="recipe-hero-img" alt="">' : ''}
+
       <div class="recipe-hero">
         <div class="rh-cat">${r.category[L]}</div>
         <div class="rh-title">${r.title[L]}</div>
