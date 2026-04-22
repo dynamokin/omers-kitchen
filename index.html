@@ -1799,20 +1799,25 @@ function renderHome() {
 function renderRecipes() {
   const L = lang;
   const el = document.getElementById('screenRecipes');
-  el.innerHTML = `
-    <div class="top-bar">
-      <button class="back-btn-top" onclick="showScreen('home')"><span class="back-arrow">←</span>${L==='he'?'בית':'Home'}</button>
-      <div class="top-bar-title">${L==='he'?'מתכונים':'Recipes'}</div>
-    </div>
-    <div class="recipe-list">
-      ${RECIPES.map(r => `
-        <div class="recipe-card" onclick="showRecipe('${r.id}')">
-          <div class="rc-category">${r.category[L]}</div>
-          <div class="rc-title">${r.title[L]}</div>
-          <div class="rc-desc">${r.desc[L]}</div>
-          <div class="rc-tags">${r.tags.map(t => `<span class="rc-tag">${typeof t === 'string' ? t : t[L]}</span>`).join('')}</div>
-        </div>`).join('')}
-    </div>`;
+  const cards = RECIPES.map(r => {
+    const tags = r.tags.map(t => '<span class="rc-tag">' + (typeof t === 'string' ? t : t[L]) + '</span>').join('');
+    return '<div class="recipe-card all-recipe-card" data-id="' + r.id + '">' +
+      '<div class="rc-category">' + r.category[L] + '</div>' +
+      '<div class="rc-title">' + r.title[L] + '</div>' +
+      '<div class="rc-desc">' + r.desc[L] + '</div>' +
+      '<div class="rc-tags">' + tags + '</div>' +
+      '</div>';
+  }).join('');
+  el.innerHTML =
+    '<div class="top-bar">' +
+      '<button class="back-btn-top" id="recipesBackBtn"><span class="back-arrow">←</span>' + (L==='he'?'בית':'Home') + '</button>' +
+      '<div class="top-bar-title">' + (L==='he'?'מתכונים':'Recipes') + '</div>' +
+    '</div>' +
+    '<div class="recipe-list">' + cards + '</div>';
+  document.getElementById('recipesBackBtn').addEventListener('click', () => showScreen('home'));
+  document.querySelectorAll('.all-recipe-card').forEach(card => {
+    card.addEventListener('click', () => showRecipe(card.dataset.id));
+  });
 }
 
 function showRecipe(id) {
