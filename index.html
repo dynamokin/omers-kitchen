@@ -1546,7 +1546,7 @@ const RECIPES = [
       { he: 'לפני הגשה: פזר סוכר אחיד מעל ושרוף עם ברנר עד לציפוי קרמל.', en: 'Before serving: sprinkle even sugar layer and torch until caramelized.' },
     ],
     tip: { he: 'הטמפרטורה המדויקת של 80°C היא הסוד — נמוך מדי = לא מתגבש, גבוה מדי = ביצה מקושקשת!', en: 'The precise 80°C is the secret — too low = won\'t set, too high = scrambled eggs!' },
-  },,
+  },
   {
     id: 'pasta-krisha',
     category: { he: 'פסטה ותנור', en: 'Pasta & Oven' },
@@ -1574,7 +1574,7 @@ const RECIPES = [
       { he: 'הגש עם הירקות הצלויים מעל, בזיליקום טרי וגרידת לימון.', en: 'Serve topped with roasted vegetables, fresh basil and lemon zest.' },
     ],
     tip: { he: 'הסוד: 2 כפות ממי הפסטה! העמילן הופך את הרוטב לקרמי ועוטף את הפסטה בצורה מושלמת.', en: 'The secret: 2 tbsp pasta water! The starch makes the sauce creamy and coats every piece of pasta.' },
-  },,
+  },
   {
     id: 'chimichurri',
     heroImg: '/chimichurri.jpg',
@@ -1822,7 +1822,6 @@ function renderRecipes() {
 }
 
 function showRecipe(id) {
-  console.log('showRecipe called with id:', id, 'RECIPES:', RECIPES.map(r=>r.id));
   prevScreen = currentScreen;
   const L = lang;
   const r = RECIPES.find(x => x.id === id);
