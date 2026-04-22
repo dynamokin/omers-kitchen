@@ -668,7 +668,6 @@ footer .share-hint{margin-top:8px;font-size:11px;color:rgba(122,112,96,.6)}
 <!-- OVEN SECTION -->
 <div id="screenOven" class="screen"></div>
 <!-- SMOKER SECTION -->
-<div id="screenSmoker" class="screen"></div>
 <!-- SOUS VIDE SECTION -->
 <div id="screenSousVide" class="screen"></div>
 <!-- TABOON SUB-HOME -->
@@ -1870,20 +1869,7 @@ function renderTaboon() {
     </div>`;
 }
 
-function renderSmoker() {
-  const L = lang;
-  const el = document.getElementById('screenSmoker');
-  el.innerHTML = `
-    <div class="top-bar">
-      <button class="back-btn-top" onclick="showScreen('home')"><span class="back-arrow">←</span>${L==='he'?'בית':'Home'}</button>
-      <div class="top-bar-title">${L==='he'?'מעשנה':'Smoker'}</div>
-    </div>
-    <div style="padding:60px 24px;text-align:center">
-      <div style="font-size:64px;margin-bottom:20px">🪵</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--ink);margin-bottom:10px">${L==='he'?'בקרוב...':'Coming Soon...'}</div>
-      <div style="font-size:14px;color:var(--muted);line-height:1.6;max-width:280px;margin:0 auto">${L==='he'?'מתכוני מעשנה, זמני עישון, טמפרטורות ועצות מקצועיות יתווספו בקרוב.':'Smoker recipes, smoking times, temperatures and pro tips coming soon.'}</div>
-    </div>`;
-}
+
 
 function renderTaboon() {
   const L = lang;
