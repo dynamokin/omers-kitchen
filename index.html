@@ -1816,7 +1816,8 @@ function renderRecipes() {
     '<div class="recipe-list">' + cards + '</div>';
   document.getElementById('recipesBackBtn').addEventListener('click', () => showScreen('home'));
   document.querySelectorAll('.all-recipe-card').forEach(card => {
-    card.addEventListener('click', () => showRecipe(card.dataset.id));
+    const id = card.getAttribute('data-id');
+    card.addEventListener('click', () => showRecipe(id));
   });
 }
 
@@ -2013,7 +2014,8 @@ function renderSousVide() {
     '<div class="recipe-list">' + cards + '</div>';
   document.getElementById('svBackBtn').addEventListener('click', () => showScreen('home'));
   document.querySelectorAll('.sv-recipe-card').forEach(card => {
-    card.addEventListener('click', () => showRecipe(card.dataset.id));
+    const id = card.getAttribute('data-id');
+    card.addEventListener('click', () => showRecipe(id));
   });
 }
 
@@ -2042,7 +2044,8 @@ function renderOven() {
     '<div class="recipe-list">' + cards + '</div>';
   document.getElementById('ovenBackBtn').addEventListener('click', () => showScreen('home'));
   document.querySelectorAll('.oven-recipe-card').forEach(card => {
-    card.addEventListener('click', () => showRecipe(card.dataset.id));
+    const id = card.getAttribute('data-id');
+    card.addEventListener('click', () => showRecipe(id));
   });
 }
 
@@ -2071,7 +2074,8 @@ function renderSmoker() {
     '<div class="recipe-list">' + cards + '</div>';
   document.getElementById('smokerBackBtn').addEventListener('click', () => showScreen('home'));
   document.querySelectorAll('.smoker-recipe-card').forEach(card => {
-    card.addEventListener('click', () => showRecipe(card.dataset.id));
+    const id = card.getAttribute('data-id');
+    card.addEventListener('click', () => showRecipe(id));
   });
 }
 
