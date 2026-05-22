@@ -1593,6 +1593,36 @@ const RECIPES = [
     tip: { he: 'הסוד: 2 כפות ממי הפסטה! העמילן הופך את הרוטב לקרמי ועוטף את הפסטה בצורה מושלמת.', en: 'The secret: 2 tbsp pasta water! The starch makes the sauce creamy and coats every piece of pasta.' },
   },
   {
+    id: 'pasta-rosa',
+    category: { he: 'פסטה ותנור', en: 'Pasta & Oven' },
+    title: { he: 'פסטה רוזה עם עגבניות שרופות', en: 'Pasta Rosa with Charred Tomatoes' },
+    desc: { he: 'רוטב רוזה קטיפתי מעגבניות שרי שרופות בתנור, שום צלוי ובזיליקום טרי — עשיר ומנחם', en: 'Velvety rosa sauce from oven-charred cherry tomatoes, roasted garlic and fresh basil — rich and comforting' },
+    tags: [{ he: 'תנור', en: 'Oven' }, { he: '250°C גריל טורבו', en: '250°C grill turbo' }, { he: 'ניתן ללא גלוטן', en: 'GF possible' }],
+    gfNote: { he: 'פשוט בוחרים פסטה ללא גלוטן — הרוטב נשאר בדיוק אותו דבר. זה הקטע שלנו!', en: 'Just pick a gluten-free pasta — the sauce stays exactly the same. That\'s our thing!' },
+    ingredients: [
+      { name: { he: 'עגבניות שרי (לובלו)', en: 'Cherry tomatoes (Lobello)' }, qty: { he: 'כ-30 (חובה!)', en: '~30 (a must!)' } },
+      { name: { he: 'שמנת לבישול 15% או 9%', en: 'Cooking cream 15% or 9%' }, qty: { he: '250 גרם', en: '250g' } },
+      { name: { he: 'עגבניות מרוסקות (מוטי)', en: 'Crushed tomatoes (canned)' }, qty: { he: '400 גרם', en: '400g' } },
+      { name: { he: 'שיני שום', en: 'Garlic cloves' }, qty: { he: '5', en: '5' } },
+      { name: { he: 'חמאה', en: 'Butter' }, qty: { he: '40 גרם', en: '40g' } },
+      { name: { he: 'בזיליקום טרי', en: 'Fresh basil' }, qty: { he: 'כוס', en: '1 cup' } },
+      { name: { he: 'גבינה צהובה / גאודה', en: 'Yellow cheese / Gouda' }, qty: { he: '50 גרם', en: '50g' } },
+      { name: { he: 'מוצרלה מגורדת', en: 'Grated mozzarella' }, qty: { he: '50 גרם', en: '50g' } },
+      { name: { he: 'אגוז מוסקט', en: 'Nutmeg' }, qty: { he: 'פחות מחצי כפית', en: 'under 1/2 tsp' } },
+      { name: { he: 'מלח', en: 'Salt' }, qty: { he: 'לפי טעם', en: 'to taste' } },
+      { name: { he: 'פלפל', en: 'Pepper' }, qty: { he: 'לפי טעם', en: 'to taste' } },
+    ],
+    steps: [
+      { he: 'חוצים את העגבניות לשניים ומסדרים על מגש תנור כשהפנים כלפי מעלה.', en: 'Halve the tomatoes and arrange on a baking tray, cut-side up.' },
+      { he: 'אופים בגריל טורבו על 250°C עד שהעגבניות שרופות וחרוכות יפה.', en: 'Roast under grill turbo at 250°C until the tomatoes are charred and blackened.' },
+      { he: 'כמה דקות לפני הסוף, זורקים למגש את 5 שיני השום שיצטלו יחד עם העגבניות.', en: 'A few minutes before they\'re done, add the 5 garlic cloves to the tray to roast alongside.' },
+      { he: 'מעבירים את העגבניות השרופות, השום, הבזיליקום הטרי והחמאה לבלנדר ומרסקים עד למרקם חלק.', en: 'Blend the charred tomatoes, garlic, fresh basil and butter until smooth.' },
+      { he: 'במחבת על אש בינונית: שופכים את התערובת מהבלנדר, מוסיפים את העגבניות המרוסקות מהקופסה, הגבינות, אגוז המוסקט, מלח ופלפל.', en: 'In a pan over medium heat: pour in the blended mixture, add the canned crushed tomatoes, the cheeses, nutmeg, salt and pepper.' },
+      { he: 'מוסיפים את השמנת לבישול ומערבבים עד לרוטב אחיד וקטיפתי. מערבבים עם הפסטה ומגישים.', en: 'Add the cooking cream and stir until smooth and velvety. Toss with pasta and serve.' },
+    ],
+    tip: { he: 'השריפה של העגבניות היא כל הסיפור — אל תפחדו מהחריכה! היא נותנת לרוטב עומק מעושן ומתוק שאי אפשר לקבל אחרת.', en: 'Charring the tomatoes is the whole story — don\'t fear the blackening! It gives the sauce a smoky-sweet depth you can\'t get any other way.' },
+  },
+  {
     id: 'chimichurri',
     heroImg: '/images/chimichurri.jpg',
     category: { he: 'רטבים ומעשנה', en: 'Sauces & Smoker' },
@@ -2160,36 +2190,39 @@ if ('serviceWorker' in navigator) {
     try {
       const reg = await navigator.serviceWorker.register('/sw.js');
 
-      // When new SW found — tell it to skip waiting immediately
+      // New SW found → tell it to activate immediately
       reg.addEventListener('updatefound', () => {
         const newSW = reg.installing;
         newSW.addEventListener('statechange', () => {
           if (newSW.state === 'installed') {
-            // Tell new SW to activate immediately
             newSW.postMessage({ type: 'SKIP_WAITING' });
-          }
-          if (newSW.state === 'activated') {
-            showUpdateToast();
           }
         });
       });
 
-      // If there's already a waiting SW — activate it now
+      // SW already waiting → activate it now
       if (reg.waiting) {
         reg.waiting.postMessage({ type: 'SKIP_WAITING' });
       }
 
-      // Listen for controller change (new SW took over)
-      let refreshing = false;
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
-        if (!refreshing) {
-          refreshing = true;
+      // SW message from activate event (new version took over)
+      navigator.serviceWorker.addEventListener('message', e => {
+        if (e.data?.type === 'SW_UPDATED') {
           showUpdateToast();
         }
       });
 
-      // Check for update every 60 seconds
-      setInterval(() => reg.update(), 60000);
+      // Controller changed → reload
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!refreshing) {
+          refreshing = true;
+          window.location.reload();
+        }
+      });
+
+      // Check for updates every 30 seconds
+      setInterval(() => reg.update(), 30000);
 
     } catch(err) { console.log('SW error:', err); }
   });
@@ -2199,7 +2232,7 @@ function showUpdateToast() {
   const toast = document.getElementById('updateToast');
   if (toast) {
     toast.classList.add('show');
-    setTimeout(() => window.location.reload(), 1800);
+    setTimeout(() => window.location.reload(), 1500);
   }
 }
 </script>
