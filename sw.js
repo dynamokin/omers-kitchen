@@ -1,5 +1,5 @@
 // ─── Omer's Kitchen Service Worker ───────────────────────
-const VERSION = 'omers-kitchen-v37';
+const VERSION = 'omers-kitchen-v38';
 const CORE = ['/', '/index.html', '/manifest.json', '/install.html'];
 
 // ── INSTALL ──────────────────────────────────────────────
@@ -31,19 +31,31 @@ self.addEventListener('activate', e => {
 });
 
 // ── FETCH ─────────────────────────────────────────────────
+function cachePut(request, response) {
+  // Clone BEFORE the response body is consumed, then store async.
+  const copy = response.clone();
+  caches.open(VERSION).then(c => c.put(request, copy)).catch(() => {});
+}
+
 self.addEventListener('fetch', e => {
   const url = e.request.url;
 
   // Skip non-GET requests
   if (e.request.method !== 'GET') return;
 
-  // Fonts → cache-first
-  if (url.includes('fonts.googleapis') || url.includes('fonts.gstatic')) {
+  const isCacheFirst =
+    url.includes('fonts.googleapis') ||
+    url.includes('fonts.gstatic') ||
+    url.includes('/images/') ||
+    /\.(jpg|jpeg|png|gif|ico|svg)$/.test(url);
+
+  if (isCacheFirst) {
+    // Cache-first for fonts & images
     e.respondWith(
       caches.match(e.request).then(cached => {
         if (cached) return cached;
         return fetch(e.request).then(res => {
-          caches.open(VERSION).then(c => c.put(e.request, res.clone()));
+          if (res && res.ok) cachePut(e.request, res);
           return res;
         });
       })
@@ -51,25 +63,11 @@ self.addEventListener('fetch', e => {
     return;
   }
 
-  // Images → cache-first
-  if (url.includes('/images/') || url.match(/\.(jpg|jpeg|png|gif|ico|svg)$/)) {
-    e.respondWith(
-      caches.match(e.request).then(cached => {
-        if (cached) return cached;
-        return fetch(e.request).then(res => {
-          caches.open(VERSION).then(c => c.put(e.request, res.clone()));
-          return res;
-        });
-      })
-    );
-    return;
-  }
-
-  // HTML/JS/JSON → network-first, always fresh
+  // Network-first for HTML/JS/JSON — always fresh, fall back to cache offline
   e.respondWith(
     fetch(e.request)
       .then(res => {
-        caches.open(VERSION).then(c => c.put(e.request, res.clone()));
+        if (res && res.ok) cachePut(e.request, res);
         return res;
       })
       .catch(() => caches.match(e.request))
