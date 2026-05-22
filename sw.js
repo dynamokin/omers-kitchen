@@ -1,5 +1,5 @@
 // ─── Omer's Kitchen Service Worker ───────────────────────
-const VERSION = 'omers-kitchen-v39';
+const VERSION = 'omers-kitchen-v40';
 const CORE = ['/', '/index.html', '/manifest.json', '/install.html'];
 
 // ── INSTALL ──────────────────────────────────────────────

@@ -7,7 +7,7 @@
 
 <!-- PWA -->
 <link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#2C1A0E">
+<meta name="theme-color" content="#1C1714">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -18,7 +18,7 @@
 <!-- SEO -->
 <meta name="description" content="מחשבון בצק פיצה לטאבון — ללא גלוטן, פוליש, ביגה">
 <meta name="author" content="עמר כחלון">
-<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@1,500&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@1,500&family=Amatic+SC:wght@400;700&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
 .logo-wrap{display:flex;align-items:center;justify-content:center;padding:40px 24px 28px;background:#0E0C09}
 .logo-el{display:flex;flex-direction:column;align-items:center}
@@ -31,36 +31,38 @@
 </style>
 <style>
 :root {
-  --ink: #14120E;
-  --paper: #F7F3EC;
-  --warm: #EDE7D9;
-  --tomato: #C13B2A;
-  --tomato-dim: rgba(193,59,42,0.1);
-  --gold: #B8922A;
-  --gold-dim: rgba(184,146,42,0.12);
-  --green: #1E5C36;
+  --ink: #0E0C09;
+  --paper: #1C1714;
+  --warm: #2A2017;
+  --tomato: #E8A85C;
+  --tomato-dim: rgba(232,168,92,0.14);
+  --gold: #E8A85C;
+  --gold-dim: rgba(232,168,92,0.14);
+  --green: #7EE8A2;
   --green-light: #4CAF72;
-  --green-dim: rgba(30,92,54,0.12);
-  --blue: #1A3A5C;
+  --green-dim: rgba(126,232,162,0.12);
+  --blue: #6FB3E8;
   --blue-light: #5B9BD5;
-  --blue-dim: rgba(26,58,92,0.1);
-  --muted: #7A7060;
-  --border: #D8CEBF;
-  --white: #FFFFFF;
-  --shadow-sm: 0 2px 12px rgba(20,18,14,0.07);
-  --shadow-md: 0 6px 28px rgba(20,18,14,0.11);
-  --shadow-lg: 0 16px 48px rgba(20,18,14,0.16);
+  --blue-dim: rgba(111,179,232,0.12);
+  --muted: #9A8A75;
+  --border: #3A2E22;
+  --white: #241D18;
+  --shadow-sm: 0 2px 12px rgba(0,0,0,0.3);
+  --shadow-md: 0 6px 28px rgba(0,0,0,0.4);
+  --shadow-lg: 0 16px 48px rgba(0,0,0,0.5);
   --r: 16px;
+  --text: #F2E9DD;
+  --text-soft: #C9BCAA;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Heebo',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;direction:rtl;font-size:15px}
+body{font-family:'Heebo',sans-serif;background:var(--paper);color:var(--text);min-height:100vh;direction:rtl;font-size:15px}
 
 /* ─── HEADER ─── */
 .site-header{background:var(--ink);padding:52px 24px 44px;text-align:center;position:relative;overflow:hidden}
 .site-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 100%,rgba(184,146,42,.15),transparent 55%),radial-gradient(ellipse at 80% 0%,rgba(193,59,42,.12),transparent 50%);pointer-events:none}
 .badge{display:inline-flex;align-items:center;gap:6px;background:var(--tomato);color:#fff;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 14px;border-radius:30px;margin-bottom:20px}
-.site-header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.1rem,6vw,3.6rem);font-weight:700;color:#fff;line-height:1.05;margin-bottom:10px}
+.site-header h1{font-family:'Amatic SC',cursive;font-size:clamp(2.8rem,8vw,4.4rem);font-weight:700;color:#fff;line-height:.9;margin-bottom:10px}
 .site-header h1 em{color:#F0C96A;font-style:normal}
 .site-header p{color:rgba(247,243,236,.5);font-size:14px;font-weight:300}
 .pizza-big{font-size:58px;display:block;margin-bottom:16px;filter:drop-shadow(0 6px 18px rgba(184,146,42,.4))}
@@ -73,18 +75,18 @@ main{max-width:880px;margin:0 auto;padding:40px 16px 120px;display:grid;gap:20px
 .card:hover{box-shadow:var(--shadow-md)}
 .card-head{display:flex;align-items:center;gap:10px;margin-bottom:20px}
 .card-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;background:var(--warm)}
-.card-head h2{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:var(--ink)}
+.card-head h2{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:var(--text)}
 .card-head small{font-size:11px;color:var(--muted);font-weight:400;margin-right:4px}
 
 /* ─── FLOUR TYPE TOGGLE ─── */
 .flour-toggle{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:14px;overflow:hidden;border:2px solid var(--border)}
 .flour-btn{padding:18px 14px 16px;cursor:pointer;transition:all .22s;text-align:center;user-select:none;background:var(--warm);position:relative}
 .flour-btn:first-child{border-left:1px solid var(--border)}
-.flour-btn:hover{background:#fff}
-.flour-btn.active.gf{background:linear-gradient(135deg,#EAF5EE,#D5EDE0);border-color:var(--green)}
-.flour-btn.active.reg{background:linear-gradient(135deg,#FFF8EC,#FDF0D5);border-color:var(--gold)}
+.flour-btn:hover{background:var(--white)}
+.flour-btn.active.gf{background:linear-gradient(135deg,#16301F,#0F2417);border-color:var(--green)}
+.flour-btn.active.reg{background:linear-gradient(135deg,#3A2A18,#2A1E12);border-color:var(--gold)}
 .flour-btn .f-emoji{font-size:32px;display:block;margin-bottom:8px}
-.flour-btn .f-name{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.flour-btn .f-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px}
 .flour-btn .f-sub{font-size:11px;color:var(--muted);line-height:1.4}
 .flour-btn.active.gf .f-name{color:var(--green)}
 .flour-btn.active.reg .f-name{color:var(--gold)}
@@ -95,11 +97,11 @@ main{max-width:880px;margin:0 auto;padding:40px 16px 120px;display:grid;gap:20px
 /* ─── METHOD PICKER ─── */
 .method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .method-btn{border:2px solid var(--border);border-radius:14px;padding:18px 12px 16px;cursor:pointer;transition:all .2s;background:var(--warm);text-align:center;user-select:none;position:relative}
-.method-btn:hover{border-color:var(--gold);background:#fff}
+.method-btn:hover{border-color:var(--gold);background:var(--white)}
 .method-btn.active{border-color:var(--tomato);background:var(--tomato-dim)}
 .method-btn.active .method-name{color:var(--tomato)}
 .method-btn .method-emoji{font-size:28px;display:block;margin-bottom:8px}
-.method-btn .method-name{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.method-btn .method-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px}
 .method-btn .method-desc{font-size:11px;color:var(--muted);line-height:1.4}
 .method-btn.active::after{content:'✓';position:absolute;top:8px;left:10px;width:18px;height:18px;background:var(--tomato);color:#fff;border-radius:50%;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center}
 
@@ -107,7 +109,7 @@ main{max-width:880px;margin:0 auto;padding:40px 16px 120px;display:grid;gap:20px
 .row2{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
 .field{display:flex;flex-direction:column;gap:6px}
 .field label{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--muted)}
-.field input[type=number],.field select{border:1.5px solid var(--border);border-radius:10px;padding:10px 13px;font-size:15px;font-family:'Heebo',sans-serif;color:var(--ink);background:var(--warm);width:100%;transition:border-color .2s,box-shadow .2s;-moz-appearance:textfield;appearance:textfield;direction:rtl}
+.field input[type=number],.field select{border:1.5px solid var(--border);border-radius:10px;padding:10px 13px;font-size:15px;font-family:'Heebo',sans-serif;color:var(--text);background:var(--warm);width:100%;transition:border-color .2s,box-shadow .2s;-moz-appearance:textfield;appearance:textfield;direction:rtl}
 .field input[type=number]::-webkit-inner-spin-button{display:none}
 .field input:focus,.field select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-dim)}
 
@@ -121,7 +123,7 @@ main{max-width:880px;margin:0 auto;padding:40px 16px 120px;display:grid;gap:20px
 input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:3px;background:linear-gradient(to left,var(--tomato) 0%,var(--tomato) var(--pct,30%),var(--border) var(--pct,30%),var(--border) 100%);outline:none;cursor:pointer}
 input[type=range].green-track{background:linear-gradient(to left,var(--green) 0%,var(--green) var(--pct,30%),var(--border) var(--pct,30%),var(--border) 100%)}
 input[type=range].blue-track{background:linear-gradient(to left,var(--blue) 0%,var(--blue) var(--pct,30%),var(--border) var(--pct,30%),var(--border) 100%)}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:#fff;border:2.5px solid var(--tomato);box-shadow:0 2px 8px rgba(193,59,42,.2);transition:transform .15s}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--white);border:2.5px solid var(--tomato);box-shadow:0 2px 8px rgba(193,59,42,.2);transition:transform .15s}
 input[type=range].green-track::-webkit-slider-thumb{border-color:var(--green);box-shadow:0 2px 8px rgba(30,92,54,.2)}
 input[type=range].blue-track::-webkit-slider-thumb{border-color:var(--blue);box-shadow:0 2px 8px rgba(26,58,92,.2)}
 input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
@@ -140,16 +142,16 @@ input[type=range].hours-range::-webkit-slider-thumb{border-color:#F0C96A;box-sha
 /* ─── CHIPS ─── */
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
 .chip{padding:7px 15px;border-radius:24px;border:1.5px solid var(--border);font-size:12px;font-weight:600;cursor:pointer;transition:all .18s;background:var(--warm);color:var(--muted);user-select:none;font-family:'Heebo',sans-serif}
-.chip:hover{border-color:var(--gold);color:var(--ink)}
-.chip.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip:hover{border-color:var(--gold);color:var(--text)}
+.chip.active{background:var(--ink);border-color:var(--text);color:#fff}
 
 /* ─── NOTE BOX ─── */
 .note{border-radius:12px;padding:13px 16px;display:flex;gap:11px;align-items:flex-start;margin-top:16px;font-size:13px;line-height:1.55}
-.note.gold{background:linear-gradient(135deg,#FFF8EC,#FDF0D5);border:1.5px solid var(--gold)}
-.note.green{background:linear-gradient(135deg,#EAF5EE,#D5EDE0);border:1.5px solid var(--green-light)}
+.note.gold{background:linear-gradient(135deg,#3A2A18,#2A1E12);border:1.5px solid var(--gold)}
+.note.green{background:linear-gradient(135deg,#16301F,#0F2417);border:1.5px solid var(--green-light)}
 .note.blue{background:linear-gradient(135deg,#EAF0F8,#D5E4F2);border:1.5px solid var(--blue-light)}
 .note-ico{font-size:20px;flex-shrink:0;margin-top:1px}
-.note p{color:var(--ink)}
+.note p{color:var(--text)}
 .note strong{font-weight:700;color:var(--tomato)}
 
 /* ─── PRE-FERMENT CARD ─── */
@@ -210,7 +212,7 @@ input[type=range].hours-range::-webkit-slider-thumb{border-color:#F0C96A;box-sha
 .tips-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
 .tip{background:var(--warm);border:1.5px solid var(--border);border-radius:13px;padding:15px;display:flex;gap:11px;align-items:flex-start}
 .tip-ico{font-size:20px;flex-shrink:0}
-.tip h4{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.tip h4{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px}
 .tip p{font-size:11.5px;color:var(--muted);line-height:1.5}
 
 /* ─── DIVIDER ─── */
@@ -218,7 +220,7 @@ input[type=range].hours-range::-webkit-slider-thumb{border-color:#F0C96A;box-sha
 
 /* ─── FOOTER ─── */
 footer{text-align:center;padding:28px 16px;font-size:12px;color:var(--muted);border-top:1px solid var(--border)}
-footer strong{color:var(--ink)}
+footer strong{color:var(--text)}
 footer .share-hint{margin-top:8px;font-size:11px;color:rgba(122,112,96,.6)}
 
 /* ─── LANG TOGGLE ─── */
@@ -240,7 +242,7 @@ footer .share-hint{margin-top:8px;font-size:11px;color:rgba(122,112,96,.6)}
 .sc-overlay{position:absolute;inset:0}
 .sc-content{position:relative;z-index:2;padding:24px 20px;width:100%}
 .sc-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:6px}
-.sc-title{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:700;color:#fff;line-height:1;margin-bottom:6px}
+.sc-title{font-family:'Amatic SC',cursive;font-size:3rem;font-weight:700;color:#fff;line-height:.85;margin-bottom:6px}
 .sc-sub{font-size:12px;color:rgba(255,255,255,.55);line-height:1.4}
 .sc-arrow{position:absolute;bottom:24px;left:20px;width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);font-size:14px}
 .sc-coming{position:absolute;top:16px;left:16px;background:rgba(0,0,0,.5);color:rgba(255,255,255,.6);font-size:9px;font-weight:700;letter-spacing:2px;padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.15)}
@@ -266,13 +268,13 @@ footer .share-hint{margin-top:8px;font-size:11px;color:rgba(122,112,96,.6)}
 /* ─── SUB-HOME SCREEN ─── */
 .sub-home{padding-bottom:80px}
 .sub-home-hero{background:var(--ink);padding:20px 20px 24px;border-bottom:1px solid rgba(255,255,255,.06)}
-.sub-home-hero .sh-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#F0C96A;margin-bottom:4px}
+.sub-home-hero .sh-title{font-family:'Amatic SC',cursive;font-size:2.6rem;font-weight:700;color:#F0C96A;margin-bottom:4px;line-height:.9}
 .sub-home-hero .sh-sub{font-size:12px;color:rgba(255,255,255,.4)}
 .sub-cards{padding:16px 16px 0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .sub-card{background:var(--white);border-radius:14px;padding:18px 14px;cursor:pointer;border:1px solid var(--border);box-shadow:var(--shadow-sm);transition:transform .18s,box-shadow .18s;display:flex;flex-direction:column}
 .sub-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
 .sub-card .sc2-ico{font-size:26px;margin-bottom:10px}
-.sub-card .sc2-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:3px;line-height:1.2}
+.sub-card .sc2-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--text);margin-bottom:3px;line-height:1.2}
 .sub-card .sc2-sub{font-size:11px;color:var(--muted);line-height:1.4}
 
 
@@ -284,7 +286,7 @@ footer .share-hint{margin-top:8px;font-size:11px;color:rgba(122,112,96,.6)}
 .section-card .sc-overlay{position:absolute;inset:0}
 .section-card .sc-content{position:relative;z-index:2;padding:20px 22px}
 .section-card .sc-label{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:5px}
-.section-card .sc-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:#fff;line-height:1;margin-bottom:4px}
+.section-card .sc-title{font-family:'Amatic SC',cursive;font-size:3rem;font-weight:700;color:#fff;line-height:.85;margin-bottom:4px}
 .section-card .sc-sub{font-size:12px;color:rgba(255,255,255,.6);line-height:1.4}
 .section-card .sc-arrow{position:absolute;top:18px;left:18px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(255,255,255,.7)}
 .section-card .sc-badge{position:absolute;top:18px;right:18px;background:rgba(0,0,0,.4);backdrop-filter:blur(4px);color:rgba(255,255,255,.6);font-size:9px;font-weight:700;letter-spacing:1.5px;padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.15)}
@@ -330,13 +332,13 @@ footer .share-hint{margin-top:8px;font-size:11px;color:rgba(122,112,96,.6)}
 .sih-card{background:var(--white);border-radius:14px;padding:18px 14px;border:1px solid var(--border);box-shadow:var(--shadow-sm);cursor:pointer;transition:box-shadow .2s;display:flex;flex-direction:column;gap:6px}
 .sih-card:hover{box-shadow:var(--shadow-md)}
 .sih-ico{font-size:24px}
-.sih-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--ink)}
+.sih-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--text)}
 .sih-sub{font-size:11px;color:var(--muted);line-height:1.4}
 
 /* coming soon screen */
 .coming-soon-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;padding:40px 32px;text-align:center;gap:16px}
 .cs-icon{font-size:56px;margin-bottom:8px;opacity:.6}
-.cs-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--ink)}
+.cs-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--text)}
 .cs-sub{font-size:14px;color:var(--muted);line-height:1.6;max-width:260px}
 .cs-tag{display:inline-block;background:var(--warm);border:1px solid var(--border);border-radius:20px;font-size:10px;font-weight:700;letter-spacing:2px;color:var(--muted);padding:5px 14px;margin-top:8px}
 
@@ -344,12 +346,12 @@ footer .share-hint{margin-top:8px;font-size:11px;color:rgba(122,112,96,.6)}
 
 /* ─── INGREDIENT CHECKLIST ─── */
 .ingredient{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--warm);border-radius:10px;border:1px solid var(--border);cursor:pointer;transition:all .18s;user-select:none}
-.ingredient.checked{background:#EAF5EE;border-color:#4CAF72;opacity:0.7}
+.ingredient.checked{background:#16301F;border-color:#4CAF72;opacity:0.7}
 .ingredient.checked .ing-name{text-decoration:line-through;color:var(--muted)}
 .ingredient.checked .ing-qty{color:#4CAF72}
 .ingredient.checked::before{content:''}
 .ing-left{display:flex;align-items:center;gap:10px}
-.ing-check{width:20px;height:20px;border-radius:6px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .18s;background:#fff}
+.ing-check{width:20px;height:20px;border-radius:6px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .18s;background:#1A1410}
 .ingredient.checked .ing-check{background:#4CAF72;border-color:#4CAF72;color:#fff}
 .ing-check-icon{font-size:12px;display:none}
 .ingredient.checked .ing-check-icon{display:block}
@@ -376,7 +378,7 @@ footer .share-hint{margin-top:8px;font-size:11px;color:rgba(122,112,96,.6)}
 .back-btn-top{display:flex;align-items:center;gap:7px;color:rgba(255,255,255,.6);font-size:13px;font-weight:600;cursor:pointer;border:none;background:none;font-family:'Heebo',sans-serif;padding:4px 0;transition:color .18s}
 .back-btn-top:hover{color:#F0C96A}
 .back-btn-top .back-arrow{font-size:18px;line-height:1}
-.top-bar-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:#F0C96A;flex:1;text-align:center;padding-right:60px}
+.top-bar-title{font-family:'Amatic SC',cursive;font-size:1.6rem;font-weight:700;color:#F0C96A;flex:1;text-align:center;padding-right:60px}
 
 /* ─── BOTTOM NAV ─── */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--ink);border-top:1px solid rgba(255,255,255,.08);display:flex;z-index:200;padding-bottom:env(safe-area-inset-bottom)}
@@ -408,7 +410,7 @@ footer .share-hint{margin-top:8px;font-size:11px;color:rgba(122,112,96,.6)}
 .recipe-card{background:var(--white);border-radius:16px;padding:20px;border:1px solid var(--border);box-shadow:var(--shadow-sm);cursor:pointer;transition:box-shadow .2s}
 .recipe-card:hover{box-shadow:var(--shadow-md)}
 .recipe-card .rc-category{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
-.recipe-card .rc-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--ink);margin-bottom:6px}
+.recipe-card .rc-title{font-family:'Amatic SC',cursive;font-size:1.8rem;font-weight:700;color:var(--text);margin-bottom:4px;line-height:.95}
 .recipe-card .rc-desc{font-size:12.5px;color:var(--muted);line-height:1.5}
 .recipe-card .rc-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .rc-tag{font-size:10px;font-weight:600;padding:3px 10px;border-radius:12px;background:var(--warm);color:var(--muted);border:1px solid var(--border)}
@@ -417,22 +419,22 @@ footer .share-hint{margin-top:8px;font-size:11px;color:rgba(122,112,96,.6)}
 .recipe-detail{padding:0 0 100px}
 .recipe-hero{background:var(--ink);padding:24px 20px 20px}
 .recipe-hero .rh-cat{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#B8922A;margin-bottom:8px}
-.recipe-hero .rh-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#fff;line-height:1.1;margin-bottom:8px}
+.recipe-hero .rh-title{font-family:'Amatic SC',cursive;font-size:2.8rem;font-weight:700;color:#fff;line-height:.9;margin-bottom:8px}
 .recipe-hero .rh-desc{font-size:13px;color:rgba(255,255,255,.55);line-height:1.6}
 .recipe-body{padding:20px}
-.recipe-section-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--ink);margin:20px 0 12px;display:flex;align-items:center;gap:8px}
+.recipe-section-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--text);margin:20px 0 12px;display:flex;align-items:center;gap:8px}
 .ingredient-list{display:flex;flex-direction:column;gap:8px}
 .ingredient{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--warm);border-radius:10px;border:1px solid var(--border)}
-.ingredient .ing-name{font-size:13.5px;color:var(--ink)}
+.ingredient .ing-name{font-size:13.5px;color:var(--text)}
 .ingredient .ing-qty{font-size:13px;font-weight:700;color:var(--gold)}
 .method-steps-list{display:flex;flex-direction:column;gap:12px}
 .method-step{display:flex;gap:12px;align-items:flex-start}
 .method-step .ms-num{width:26px;height:26px;border-radius:50%;background:var(--tomato);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-.method-step .ms-text{font-size:13.5px;color:var(--ink);line-height:1.6}
-.tip-note{background:linear-gradient(135deg,#FFF8EC,#FDF0D5);border:1.5px solid var(--gold);border-radius:12px;padding:14px 16px;display:flex;gap:10px;margin-top:16px}
+.method-step .ms-text{font-size:13.5px;color:var(--text);line-height:1.6}
+.tip-note{background:linear-gradient(135deg,#3A2A18,#2A1E12);border:1.5px solid var(--gold);border-radius:12px;padding:14px 16px;display:flex;gap:10px;margin-top:16px}
 .tip-note .tn-ico{font-size:18px;flex-shrink:0}
 .tip-note p{font-size:12.5px;color:var(--espresso);line-height:1.55}
-.basil-oil-box{background:linear-gradient(135deg,#EAF5EE,#D5EDE0);border:1.5px solid #4CAF72;border-radius:12px;padding:16px;margin-top:14px;cursor:pointer}
+.basil-oil-box{background:linear-gradient(135deg,#16301F,#0F2417);border:1.5px solid #4CAF72;border-radius:12px;padding:16px;margin-top:14px;cursor:pointer}
 .basil-oil-box .bo-title{font-size:12px;font-weight:700;color:var(--green);margin-bottom:4px}
 .basil-oil-box .bo-text{font-size:12px;color:#1E5C36;line-height:1.5}
 
@@ -440,15 +442,15 @@ footer .share-hint{margin-top:8px;font-size:11px;color:rgba(122,112,96,.6)}
 .techniques-list{padding:16px 16px 100px;display:grid;gap:14px}
 .technique-card{background:var(--white);border-radius:16px;padding:20px;border:1px solid var(--border);box-shadow:var(--shadow-sm)}
 .technique-card .tc-num{width:32px;height:32px;border-radius:50%;background:var(--tomato);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
-.technique-card .tc-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:8px}
+.technique-card .tc-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:8px}
 .technique-card .tc-text{font-size:13px;color:var(--muted);line-height:1.65}
-.technique-card .tc-highlight{background:var(--tomato-dim);border-right:3px solid var(--tomato);padding:10px 14px;border-radius:0 8px 8px 0;margin-top:12px;font-size:12.5px;color:var(--ink);line-height:1.55}
+.technique-card .tc-highlight{background:var(--tomato-dim);border-right:3px solid var(--tomato);padding:10px 14px;border-radius:0 8px 8px 0;margin-top:12px;font-size:12.5px;color:var(--text);line-height:1.55}
 
 /* ─── TIPS ─── */
 .tips-section{padding:16px 16px 100px;display:grid;gap:14px}
 .big-tip{background:var(--white);border-radius:16px;padding:20px;border:1px solid var(--border);box-shadow:var(--shadow-sm);display:flex;gap:14px;align-items:flex-start}
 .big-tip .bt-ico{font-size:28px;flex-shrink:0}
-.big-tip .bt-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:6px}
+.big-tip .bt-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:700;color:var(--text);margin-bottom:6px}
 .big-tip .bt-text{font-size:13px;color:var(--muted);line-height:1.6}
 
 /* ─── RESPONSIVE ─── */
@@ -1605,10 +1607,11 @@ const RECIPES = [
       { name: { he: 'שמנת לבישול 15% או 9%', en: 'Cooking cream 15% or 9%' }, qty: { he: '250 גרם', en: '250g' } },
       { name: { he: 'עגבניות מרוסקות (מוטי)', en: 'Crushed tomatoes (canned)' }, qty: { he: '400 גרם', en: '400g' } },
       { name: { he: 'שיני שום', en: 'Garlic cloves' }, qty: { he: '5', en: '5' } },
-      { name: { he: 'חמאה', en: 'Butter' }, qty: { he: '40 גרם', en: '40g' } },
+      { name: { he: 'חמאה', en: 'Butter' }, qty: { he: '25 גרם', en: '25g' } },
       { name: { he: 'בזיליקום טרי', en: 'Fresh basil' }, qty: { he: 'כוס', en: '1 cup' } },
-      { name: { he: 'גבינה צהובה / גאודה', en: 'Yellow cheese / Gouda' }, qty: { he: '50 גרם', en: '50g' } },
-      { name: { he: 'מוצרלה מגורדת', en: 'Grated mozzarella' }, qty: { he: '50 גרם', en: '50g' } },
+      { name: { he: 'פרמזן מגורד', en: 'Grated parmesan' }, qty: { he: 'המון! (כ-80 גרם)', en: 'Lots! (~80g)' } },
+      { name: { he: 'גבינה צהובה / גאודה', en: 'Yellow cheese / Gouda' }, qty: { he: '25 גרם', en: '25g' } },
+      { name: { he: 'מוצרלה מגורדת', en: 'Grated mozzarella' }, qty: { he: '25 גרם', en: '25g' } },
       { name: { he: 'אגוז מוסקט', en: 'Nutmeg' }, qty: { he: 'פחות מחצי כפית', en: 'under 1/2 tsp' } },
       { name: { he: 'מלח', en: 'Salt' }, qty: { he: 'לפי טעם', en: 'to taste' } },
       { name: { he: 'פלפל', en: 'Pepper' }, qty: { he: 'לפי טעם', en: 'to taste' } },
@@ -1618,7 +1621,7 @@ const RECIPES = [
       { he: 'אופים בגריל טורבו על 250°C עד שהעגבניות שרופות וחרוכות יפה.', en: 'Roast under grill turbo at 250°C until the tomatoes are charred and blackened.' },
       { he: 'כמה דקות לפני הסוף, זורקים למגש את 5 שיני השום שיצטלו יחד עם העגבניות.', en: 'A few minutes before they\'re done, add the 5 garlic cloves to the tray to roast alongside.' },
       { he: 'מעבירים את העגבניות השרופות, השום, הבזיליקום הטרי והחמאה לבלנדר ומרסקים עד למרקם חלק.', en: 'Blend the charred tomatoes, garlic, fresh basil and butter until smooth.' },
-      { he: 'במחבת על אש בינונית: שופכים את התערובת מהבלנדר, מוסיפים את העגבניות המרוסקות מהקופסה, הגבינות, אגוז המוסקט, מלח ופלפל.', en: 'In a pan over medium heat: pour in the blended mixture, add the canned crushed tomatoes, the cheeses, nutmeg, salt and pepper.' },
+      { he: 'במחבת על אש בינונית: שופכים את התערובת מהבלנדר, מוסיפים את העגבניות המרוסקות מהקופסה, את כל הגבינות (והמון פרמזן!), אגוז המוסקט, מלח ופלפל.', en: 'In a pan over medium heat: pour in the blended mixture, add the canned crushed tomatoes, all the cheeses (and lots of parmesan!), nutmeg, salt and pepper.' },
       { he: 'מוסיפים את השמנת לבישול ומערבבים עד לרוטב אחיד וקטיפתי. מערבבים עם הפסטה ומגישים.', en: 'Add the cooking cream and stir until smooth and velvety. Toss with pasta and serve.' },
     ],
     tip: { he: 'השריפה של העגבניות היא כל הסיפור — אל תפחדו מהחריכה! היא נותנת לרוטב עומק מעושן ומתוק שאי אפשר לקבל אחרת.', en: 'Charring the tomatoes is the whole story — don\'t fear the blackening! It gives the sauce a smoky-sweet depth you can\'t get any other way.' },
@@ -1920,7 +1923,7 @@ function showRecipe(id) {
             </div>`).join('')}
         </div>
         ${r.gfNote ? `
-        <div class="tip-note" style="margin-top:16px;background:linear-gradient(135deg,#EAF5EE,#D5EDE0);border-color:#4CAF72">
+        <div class="tip-note" style="margin-top:16px;background:linear-gradient(135deg,#16301F,#0F2417);border-color:#4CAF72">
           <div class="tn-ico">🌿</div>
           <p><strong>${L==='he'?'ללא גלוטן:':'Gluten-Free:'}</strong> ${r.gfNote[L]}</p>
         </div>` : ''}
