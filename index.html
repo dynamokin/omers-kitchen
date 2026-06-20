@@ -344,6 +344,28 @@ footer .share-hint{margin-top:8px;font-size:11px;color:rgba(122,112,96,.6)}
 
 
 
+/* ─── NUTRITION CARD ─── */
+.nutri-card{background:linear-gradient(140deg,#2A2218 0%,#1A1410 100%);border:1px solid rgba(232,168,92,.18);border-radius:14px;padding:18px 18px 14px;margin:0 0 8px;overflow:hidden;position:relative}
+.nutri-card::before{content:'';position:absolute;top:0;right:0;width:120px;height:120px;background:radial-gradient(circle,rgba(232,168,92,.10),transparent 70%);pointer-events:none}
+.nutri-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px dashed rgba(232,168,92,.18);position:relative}
+.nutri-kcal-wrap{display:flex;align-items:baseline;gap:6px}
+.nutri-kcal{font-family:'Amatic SC',cursive;font-weight:700;font-size:3.2rem;line-height:.85;color:#F0C96A}
+.nutri-kcal-unit{font-size:11px;font-weight:600;color:#C9BCAA;letter-spacing:1.5px;text-transform:uppercase}
+.nutri-per{font-size:11px;color:#9A8A75;text-align:left;line-height:1.4;max-width:160px}
+.nutri-macros{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px}
+.macro{background:rgba(232,168,92,.04);border:1px solid rgba(232,168,92,.1);border-radius:10px;padding:10px 6px 8px;text-align:center}
+.macro-v{font-family:'Amatic SC',cursive;font-weight:700;font-size:1.6rem;color:#E8DCC0;line-height:1}
+.macro-v span{font-size:.9rem;font-weight:400;color:#9A8A75;margin-right:1px}
+.macro-l{font-size:10px;color:#9A8A75;letter-spacing:.5px;margin-top:3px}
+.nutri-total{font-size:11px;color:#C9BCAA;text-align:center;padding:8px 0 4px;border-top:1px dashed rgba(232,168,92,.12);line-height:1.5}
+.nutri-note{font-size:9.5px;color:#7A6A55;font-style:italic;text-align:center;margin-top:8px;letter-spacing:.3px}
+.topping-toggle{display:flex;align-items:center;gap:9px;padding:12px 4px;cursor:pointer;font-size:13px;color:var(--text);user-select:none}
+.topping-toggle input{width:18px;height:18px;accent-color:var(--gold);cursor:pointer;flex-shrink:0}
+.topping-inputs{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 4px 14px}
+.topping-field label{display:block;font-size:10.5px;color:var(--muted);margin-bottom:5px;letter-spacing:.3px}
+.topping-field input{width:100%;background:var(--white);border:1px solid var(--border);border-radius:9px;padding:9px 10px;color:var(--text);font-size:14px;font-family:'Heebo',sans-serif}
+.topping-field input:focus{outline:none;border-color:var(--gold)}
+
 /* ─── INGREDIENT CHECKLIST ─── */
 .ingredient{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--warm);border-radius:10px;border:1px solid var(--border);cursor:pointer;transition:all .18s;user-select:none}
 .ingredient.checked{background:#16301F;border-color:#4CAF72;opacity:0.7}
@@ -656,6 +678,7 @@ footer .share-hint{margin-top:8px;font-size:11px;color:rgba(122,112,96,.6)}
 <div class="results-card">
   <div class="results-title" data-i18n="resultsTitle">📊 כמויות ומתכון מלא</div>
   <div class="results-grid" id="resultsGrid"></div>
+  <div id="calcNutrition"></div>
   <div class="steps-block">
     <div class="steps-title" data-i18n="stepsTitle">📋 הוראות הכנה שלב אחר שלב</div>
     <ol class="steps-list" id="recipeSteps"></ol>
@@ -980,6 +1003,9 @@ let fermentPct = 30;
 let fermentTiming = {hours:'8–12', type:'night'};
 let flourType = 'gf'; // 'gf' | 'reg'
 let honeyPct = 0.5;   // % of poolish flour
+let toppingsEnabled = false;
+let toppingsSauceG = 60;
+let toppingsCheeseG = 80;
 let ovenType = 'taboon'; // 'taboon' | 'regular'
 
 // ───────────────────────────────
@@ -1149,6 +1175,124 @@ function setFermentTiming(type, hours, btn) {
 // ───────────────────────────────
 //  MAIN CALCULATE
 // ───────────────────────────────
+// ───────────────────────────────
+//  LIVE DOUGH NUTRITION (calculator)
+// ───────────────────────────────
+function renderCalcNutrition(flourKey, yeastKey, flourG, saltG, oilG, yeastG, psG, sgG, honeyG, balls, ballW) {
+  const el = document.getElementById('calcNutrition');
+  if (!el) return;
+
+  const entries = [
+    { key: flourKey, g: flourG },
+    { key: 'salt',   g: saltG  },
+    { key: 'olive_oil', g: oilG },
+    { key: yeastKey, g: yeastG },
+  ];
+  if (psG   > 0)   entries.push({ key: 'psyllium', g: psG });
+  if (sgG   > 0.1) entries.push({ key: 'sugar',    g: sgG });
+  if (honeyG > 0)  entries.push({ key: 'honey',    g: honeyG });
+
+  const total = totalNutrition(entries);
+  const perBall = {
+    kcal: total.kcal / balls,
+    p:    total.p    / balls,
+    f:    total.f    / balls,
+    c:    total.c    / balls,
+    fi:   total.fi   / balls,
+  };
+
+  const r0 = v => Math.round(v);
+  const r1 = v => (Math.round(v*10)/10).toFixed(1);
+
+  const t = {
+    he: { title:'📊 ערכים תזונתיים — הבצק', perBall:`לכדור (${Math.round(ballW)}g)`, kcal:'קלוריות', p:'חלבון', f:'שומן', c:'פחמ׳', fi:'סיבים', total:`סה״כ ל-${balls} כדורים`, est:'הערכה לפי USDA — בצק בלבד, ללא תוספות וטופינגים' },
+    en: { title:'📊 Nutrition — Dough', perBall:`Per ball (${Math.round(ballW)}g)`, kcal:'Calories', p:'Protein', f:'Fat', c:'Carbs', fi:'Fiber', total:`Total for ${balls} balls`, est:'USDA-based estimate — dough only, no toppings' },
+  };
+  const T2 = t[lang];
+
+  el.innerHTML = `
+    <div class="results-title" style="margin-top:18px">${T2.title}</div>
+    <div class="nutri-card">
+      <div class="nutri-head">
+        <div class="nutri-kcal-wrap">
+          <div class="nutri-kcal">${r0(perBall.kcal)}</div>
+          <div class="nutri-kcal-unit">${T2.kcal}</div>
+        </div>
+        <div class="nutri-per">${T2.perBall}</div>
+      </div>
+      <div class="nutri-macros">
+        <div class="macro"><div class="macro-v">${r1(perBall.p)}<span>g</span></div><div class="macro-l">${T2.p}</div></div>
+        <div class="macro"><div class="macro-v">${r1(perBall.f)}<span>g</span></div><div class="macro-l">${T2.f}</div></div>
+        <div class="macro"><div class="macro-v">${r1(perBall.c)}<span>g</span></div><div class="macro-l">${T2.c}</div></div>
+        <div class="macro"><div class="macro-v">${r1(perBall.fi)}<span>g</span></div><div class="macro-l">${T2.fi}</div></div>
+      </div>
+      ${balls > 1 ? `<div class="nutri-total">${T2.total}: ${r0(total.kcal)} ${T2.kcal} · ${r1(total.p)}g ${T2.p} · ${r1(total.f)}g ${T2.f} · ${r1(total.c)}g ${T2.c}</div>` : ''}
+      <div class="nutri-note">${T2.est}</div>
+    </div>`;
+
+  // ── TOPPINGS TOGGLE + FULL PIZZA CARD ──
+  const tt = {
+    he: { toggle:'🍕 הצג פיצה מלאה עם תוספות', sauce:'רוטב עגבניות (גרם)', cheese:'גבינה (גרם)', fullTitle:'📊 פיצה מלאה (בצק + תוספות)', perPizza:'לפיצה אחת', fullEst:'הערכה לפי USDA — בצק + רוטב עגבניות + מוצרלה טרייה' },
+    en: { toggle:'🍕 Show full pizza with toppings', sauce:'Tomato sauce (g)', cheese:'Cheese (g)', fullTitle:'📊 Full Pizza (dough + toppings)', perPizza:'Per pizza', fullEst:'USDA-based estimate — dough + tomato sauce + fresh mozzarella' },
+  };
+  const TT = tt[lang];
+
+  let toppingsHtml = `
+    <label class="topping-toggle" id="toppingsToggleWrap">
+      <input type="checkbox" id="toppingsToggle" ${toppingsEnabled ? 'checked' : ''}>
+      <span>${TT.toggle}</span>
+    </label>`;
+
+  if (toppingsEnabled) {
+    toppingsHtml += `
+      <div class="topping-inputs">
+        <div class="topping-field"><label>${TT.sauce}</label><input type="number" id="toppingSauceInput" value="${toppingsSauceG}" min="0" max="300" step="5"></div>
+        <div class="topping-field"><label>${TT.cheese}</label><input type="number" id="toppingCheeseInput" value="${toppingsCheeseG}" min="0" max="300" step="5"></div>
+      </div>`;
+
+    const toppingsTotal = totalNutrition([
+      { key: 'tomato_sauce',     g: toppingsSauceG },
+      { key: 'mozzarella_fresh', g: toppingsCheeseG },
+    ]);
+    const full = {
+      kcal: perBall.kcal + toppingsTotal.kcal,
+      p:    perBall.p    + toppingsTotal.p,
+      f:    perBall.f    + toppingsTotal.f,
+      c:    perBall.c    + toppingsTotal.c,
+      fi:   perBall.fi   + toppingsTotal.fi,
+    };
+
+    toppingsHtml += `
+      <div class="results-title" style="margin-top:6px">${TT.fullTitle}</div>
+      <div class="nutri-card">
+        <div class="nutri-head">
+          <div class="nutri-kcal-wrap">
+            <div class="nutri-kcal">${r0(full.kcal)}</div>
+            <div class="nutri-kcal-unit">${T2.kcal}</div>
+          </div>
+          <div class="nutri-per">${TT.perPizza}</div>
+        </div>
+        <div class="nutri-macros">
+          <div class="macro"><div class="macro-v">${r1(full.p)}<span>g</span></div><div class="macro-l">${T2.p}</div></div>
+          <div class="macro"><div class="macro-v">${r1(full.f)}<span>g</span></div><div class="macro-l">${T2.f}</div></div>
+          <div class="macro"><div class="macro-v">${r1(full.c)}<span>g</span></div><div class="macro-l">${T2.c}</div></div>
+          <div class="macro"><div class="macro-v">${r1(full.fi)}<span>g</span></div><div class="macro-l">${T2.fi}</div></div>
+        </div>
+        <div class="nutri-note">${TT.fullEst}</div>
+      </div>`;
+  }
+
+  el.innerHTML += toppingsHtml;
+
+  // Wire up events (checkbox = instant; number fields = on blur/enter, to avoid losing focus mid-typing)
+  const toggleEl = document.getElementById('toppingsToggle');
+  if (toggleEl) toggleEl.addEventListener('change', () => { toppingsEnabled = toggleEl.checked; calculate(); });
+  const sauceInput = document.getElementById('toppingSauceInput');
+  if (sauceInput) sauceInput.addEventListener('change', () => { toppingsSauceG = parseFloat(sauceInput.value) || 0; calculate(); });
+  const cheeseInput = document.getElementById('toppingCheeseInput');
+  if (cheeseInput) cheeseInput.addEventListener('change', () => { toppingsCheeseG = parseFloat(cheeseInput.value) || 0; calculate(); });
+}
+
 function calculate() {
   const balls     = parseInt($('balls').value)     || 1;
   const ballW     = parseInt($('ballW').value)     || 250;
@@ -1282,6 +1426,14 @@ function calculate() {
     : (lang === 'he' ? 'לפחות 45–60 דקות עם אבן' : 'at least 45–60 min with stone');
   steps.push(`<li><div class="snum">${s++}</div><span>חמם ${ovenLabel} ל־<strong>${taboonTemp}</strong> (${heatNote}). ${spreadNote} ואפה <strong>${taboonTime}</strong> — עד שהקצוות זהובות ופריכות. 🔥</span></li>`);
   $('recipeSteps').innerHTML = steps.join('');
+
+  // ── LIVE NUTRITION (dough only) ──
+  const flourKey = isGF ? 'gf_dough_caputo' : 'flour_00';
+  const yeastChipsEls = document.querySelectorAll('#yeastChips .chip');
+  let yeastKey = 'yeast_fresh';
+  yeastChipsEls.forEach((c, i) => { if (c.classList.contains('active')) yeastKey = i === 0 ? 'yeast_fresh' : 'yeast_dry'; });
+  const honeyG = (isPl && honeyPct > 0) ? fFlour * (honeyPct / 100) : 0;
+  renderCalcNutrition(flourKey, yeastKey, flour, salt, oil, yeast, ps, sg, honeyG, balls, ballW);
 }
 
 // ───────────────────────────────
@@ -1466,6 +1618,92 @@ function showScreen(name) {
 // ─────────────────────────────────────────
 //  DATA
 // ─────────────────────────────────────────
+// ─────────────────────────────────────────
+//  NUTRITION DATABASE (per 100g — USDA-based)
+// ─────────────────────────────────────────
+// kcal, protein(g), fat(g), carbs(g), fiber(g)
+const NUTRITION = {
+  // — Pizza & dough —
+  gf_dough_caputo:    { kcal: 280, p: 5,    f: 1.5, c: 60,  fi: 3.0 }, // Caputo Fioreglut raw dough mix
+  flour_00:           { kcal: 364, p: 12,   f: 1.0, c: 73,  fi: 2.5 },
+  water:              { kcal: 0,   p: 0,    f: 0,   c: 0,   fi: 0   },
+  yeast_fresh:        { kcal: 105, p: 14,   f: 1.7, c: 11,  fi: 6.0 },
+  yeast_dry:          { kcal: 325, p: 40,   f: 7.6, c: 41,  fi: 26.9 },
+  salt:               { kcal: 0,   p: 0,    f: 0,   c: 0,   fi: 0   },
+  olive_oil:          { kcal: 884, p: 0,    f: 100, c: 0,   fi: 0   },
+  honey:              { kcal: 304, p: 0.3,  f: 0,   c: 82,  fi: 0.2 },
+  sugar:              { kcal: 387, p: 0,    f: 0,   c: 100, fi: 0   },
+  psyllium:           { kcal: 200, p: 1.5,  f: 0.6, c: 88,  fi: 80  },
+  cornmeal:           { kcal: 370, p: 7,    f: 1.6, c: 79,  fi: 7.0 },
+
+  // — Toppings —
+  tomato_sauce:       { kcal: 38,  p: 1.6,  f: 0.3, c: 8.4, fi: 1.9 }, // canned/passata
+  tomato_crushed:     { kcal: 32,  p: 1.6,  f: 0.4, c: 7,   fi: 1.5 },
+  cherry_tomato:      { kcal: 18,  p: 0.9,  f: 0.2, c: 3.9, fi: 1.2 },
+  artichoke_canned:   { kcal: 51,  p: 2.7,  f: 0.3, c: 11,  fi: 5.4 },
+  basil_fresh:        { kcal: 23,  p: 3.2,  f: 0.6, c: 2.7, fi: 1.6 },
+  garlic:             { kcal: 149, p: 6.4,  f: 0.5, c: 33,  fi: 2.1 },
+  garlic_powder:      { kcal: 331, p: 16.6, f: 0.7, c: 72.7,fi: 9.0 },
+  red_onion:          { kcal: 40,  p: 1.1,  f: 0.1, c: 9.3, fi: 1.7 },
+  red_pepper:         { kcal: 31,  p: 1.0,  f: 0.3, c: 6,   fi: 2.1 },
+  parsley:            { kcal: 36,  p: 3.0,  f: 0.8, c: 6.3, fi: 3.3 },
+  cilantro:           { kcal: 23,  p: 2.1,  f: 0.5, c: 3.7, fi: 2.8 },
+  lemon_zest:         { kcal: 47,  p: 1.5,  f: 0.3, c: 16,  fi: 10.6 },
+
+  // — Cheeses —
+  mozzarella:         { kcal: 280, p: 18,   f: 22,  c: 3.1, fi: 0   },
+  mozzarella_fresh:   { kcal: 254, p: 17.4, f: 19,  c: 2.5, fi: 0   },
+  parmesan:           { kcal: 392, p: 36,   f: 26,  c: 3.2, fi: 0   },
+  gouda:              { kcal: 356, p: 25,   f: 27,  c: 2.2, fi: 0   },
+  yellow_cheese:      { kcal: 356, p: 25,   f: 27,  c: 2.2, fi: 0   },
+
+  // — Dairy / cream / butter —
+  butter:             { kcal: 717, p: 0.9,  f: 81,  c: 0.1, fi: 0   },
+  cream_15:           { kcal: 150, p: 3,    f: 15,  c: 4,   fi: 0   },
+  cream_38:           { kcal: 340, p: 2.1,  f: 36,  c: 2.8, fi: 0   },
+  coconut_milk:       { kcal: 230, p: 2.3,  f: 24,  c: 5.5, fi: 0   },
+  egg_yolk:           { kcal: 322, p: 16,   f: 27,  c: 3.6, fi: 0   },
+  vanilla_paste:      { kcal: 288, p: 0.1,  f: 0.1, c: 71,  fi: 0   },
+
+  // — Vinegar / acids —
+  vinegar_white:      { kcal: 18,  p: 0,    f: 0,   c: 0.04,fi: 0   },
+  vinegar_red:        { kcal: 19,  p: 0.04, f: 0,   c: 0.27,fi: 0   },
+  vinegar_apple:      { kcal: 22,  p: 0,    f: 0,   c: 0.9, fi: 0   },
+
+  // — Pasta —
+  pasta_dry:          { kcal: 371, p: 13,   f: 1.5, c: 75,  fi: 3.2 },
+  pasta_gf:           { kcal: 357, p: 6.5,  f: 1.5, c: 79,  fi: 2.5 },
+  squash_butternut:   { kcal: 45,  p: 1.0,  f: 0.1, c: 12,  fi: 2.0 },
+  cashew:             { kcal: 553, p: 18,   f: 44,  c: 30,  fi: 3.3 },
+  chestnut_cooked:    { kcal: 131, p: 2.4,  f: 1.4, c: 28,  fi: 5.1 },
+  nutritional_yeast:  { kcal: 325, p: 50,   f: 4,   c: 35,  fi: 22  },
+  nutmeg:             { kcal: 525, p: 5.8,  f: 36,  c: 49,  fi: 21  },
+
+  // — Meat —
+  brisket_raw:        { kcal: 277, p: 18,   f: 22,  c: 0,   fi: 0   },
+  asado_short_ribs:   { kcal: 310, p: 17,   f: 26,  c: 0,   fi: 0   },
+
+  // — Misc —
+  maple_syrup:        { kcal: 260, p: 0.04, f: 0.06,c: 67,  fi: 0   },
+};
+
+// Scale a per-100g entry to actual grams
+function nut(key, grams) {
+  const n = NUTRITION[key];
+  if (!n) return { kcal:0,p:0,f:0,c:0,fi:0 };
+  const k = grams / 100;
+  return { kcal:n.kcal*k, p:n.p*k, f:n.f*k, c:n.c*k, fi:n.fi*k };
+}
+
+// Sum a recipe's nutrition entries
+function totalNutrition(entries) {
+  return entries.reduce((acc, e) => {
+    const n = nut(e.key, e.g);
+    acc.kcal += n.kcal; acc.p += n.p; acc.f += n.f; acc.c += n.c; acc.fi += n.fi;
+    return acc;
+  }, { kcal:0,p:0,f:0,c:0,fi:0 });
+}
+
 const RECIPES = [
   {
     id: 'margherita',
@@ -1491,6 +1729,15 @@ const RECIPES = [
       { he: 'הוסף בזיליקום טרי מיד לאחר היציאה מהטאבון.', en: 'Add fresh basil immediately after removing from taboon.' },
     ],
     tip: { he: 'בצק GF דקיק יותר = יותר פריך. אל תתפתה לעשות אותו עבה!', en: 'Thinner GF dough = crispier result. Don\'t be tempted to make it thick!' },
+    servings: 1,
+    nutrition: [
+      { key: 'gf_dough_caputo', g: 250 },
+      { key: 'tomato_sauce',    g: 60 },
+      { key: 'mozzarella_fresh',g: 80 },
+      { key: 'olive_oil',       g: 5 },
+      { key: 'basil_fresh',     g: 5 },
+      { key: 'salt',            g: 1 },
+    ],
   },
   {
     id: 'margherita-plus',
@@ -1516,6 +1763,15 @@ const RECIPES = [
     ],
     tip: { he: 'שמן הבזיליקום הוא הסוד — מוסיף ניחוח עמוק שלא מתקבל מעלים בלבד.', en: 'The basil oil is the secret — adds deep aroma that leaves alone can\'t achieve.' },
     basilOil: true,
+    servings: 1,
+    nutrition: [
+      { key: 'gf_dough_caputo', g: 250 },
+      { key: 'tomato_sauce',    g: 50 },
+      { key: 'mozzarella_fresh',g: 80 },
+      { key: 'parmesan',        g: 10 },
+      { key: 'olive_oil',       g: 15 },
+      { key: 'salt',            g: 1 },
+    ],
   },
   {
     id: 'artichoke',
@@ -1540,6 +1796,15 @@ const RECIPES = [
       { he: 'הנמך אש, אפה 4-6 דקות. הוסף בזיליקום לאחר האפייה.', en: 'Lower heat, bake 4-6 minutes. Add basil after baking.' },
     ],
     tip: { he: 'ארטישוק משומר עובד מצוין — ייבש אותו קלות עם נייר סופג לפני השימוש.', en: 'Canned artichoke works great — lightly pat dry with paper towel before using.' },
+    servings: 1,
+    nutrition: [
+      { key: 'gf_dough_caputo', g: 250 },
+      { key: 'tomato_sauce',    g: 45 },
+      { key: 'mozzarella_fresh',g: 70 },
+      { key: 'artichoke_canned',g: 80 },
+      { key: 'olive_oil',       g: 5  },
+      { key: 'basil_fresh',     g: 3  },
+    ],
   },
   {
     id: 'creme-brulee',
@@ -1566,6 +1831,13 @@ const RECIPES = [
       { he: 'לפני הגשה: פזר סוכר אחיד מעל ושרוף עם ברנר עד לציפוי קרמל.', en: 'Before serving: sprinkle even sugar layer and torch until caramelized.' },
     ],
     tip: { he: 'הטמפרטורה המדויקת של 80°C היא הסוד — נמוך מדי = לא מתגבש, גבוה מדי = ביצה מקושקשת!', en: 'The precise 80°C is the secret — too low = won\'t set, too high = scrambled eggs!' },
+    servings: 4,
+    nutrition: [
+      { key: 'cream_38',       g: 500 },
+      { key: 'egg_yolk',       g: 90  },
+      { key: 'sugar',          g: 200 },
+      { key: 'vanilla_paste',  g: 5   },
+    ],
   },
   {
     id: 'pasta-krisha',
@@ -1594,6 +1866,21 @@ const RECIPES = [
       { he: 'הגש עם הירקות הצלויים מעל, בזיליקום טרי וגרידת לימון.', en: 'Serve topped with roasted vegetables, fresh basil and lemon zest.' },
     ],
     tip: { he: 'הסוד: 2 כפות ממי הפסטה! העמילן הופך את הרוטב לקרמי ועוטף את הפסטה בצורה מושלמת.', en: 'The secret: 2 tbsp pasta water! The starch makes the sauce creamy and coats every piece of pasta.' },
+    servings: 4,
+    nutrition: [
+      { key: 'pasta_dry',         g: 400 },
+      { key: 'squash_butternut',  g: 900 },
+      { key: 'garlic',            g: 30  },
+      { key: 'cherry_tomato',     g: 180 },
+      { key: 'olive_oil',         g: 27  },
+      { key: 'maple_syrup',       g: 40  },
+      { key: 'cashew',            g: 130 },
+      { key: 'chestnut_cooked',   g: 50  },
+      { key: 'nutritional_yeast', g: 24  },
+      { key: 'coconut_milk',      g: 400 },
+      { key: 'basil_fresh',       g: 15  },
+      { key: 'lemon_zest',        g: 3   },
+    ],
   },
   {
     id: 'pasta-rosa',
@@ -1625,6 +1912,19 @@ const RECIPES = [
       { he: 'מוסיפים את השמנת לבישול ומערבבים עד לרוטב אחיד וקטיפתי. מערבבים עם הפסטה ומגישים.', en: 'Add the cooking cream and stir until smooth and velvety. Toss with pasta and serve.' },
     ],
     tip: { he: 'השריפה של העגבניות היא כל הסיפור — אל תפחדו מהחריכה! היא נותנת לרוטב עומק מעושן ומתוק שאי אפשר לקבל אחרת.', en: 'Charring the tomatoes is the whole story — don\'t fear the blackening! It gives the sauce a smoky-sweet depth you can\'t get any other way.' },
+    servings: 4,
+    nutrition: [
+      { key: 'pasta_dry',     g: 400 },
+      { key: 'cherry_tomato', g: 450 },
+      { key: 'cream_15',      g: 250 },
+      { key: 'tomato_crushed',g: 400 },
+      { key: 'garlic',        g: 15  },
+      { key: 'butter',        g: 25  },
+      { key: 'basil_fresh',   g: 20  },
+      { key: 'parmesan',      g: 80  },
+      { key: 'yellow_cheese', g: 25  },
+      { key: 'mozzarella',    g: 25  },
+    ],
   },
   {
     id: 'chimichurri',
@@ -1650,6 +1950,17 @@ const RECIPES = [
       { he: 'העבר לצנצנת ושמור במקרר לפחות 3 שעות לפני ההגשה.', en: 'Transfer to a jar and refrigerate for at least 3 hours before serving.' },
     ],
     tip: { he: 'אחרי 24 שעות הטעם רק מתחזק. עדיף להכין יום לפני! מחזיק במקרר עד שבוע.', en: 'After 24 hours the flavor only gets stronger. Best made a day ahead! Keeps refrigerated up to one week.' },
+    servings: 1,
+    nutrition: [
+      { key: 'parsley',       g: 90  },
+      { key: 'cilantro',      g: 24  },
+      { key: 'red_pepper',    g: 150 },
+      { key: 'red_onion',     g: 150 },
+      { key: 'vinegar_white', g: 105 },
+      { key: 'vinegar_red',   g: 105 },
+      { key: 'salt',          g: 6   },
+      { key: 'olive_oil',     g: 54  },
+    ],
   },
   {
     id: 'brisket',
@@ -1677,6 +1988,13 @@ const RECIPES = [
       { he: 'הוצא לצידנית או תנור על 70°C. נוח 2-4 שעות — שמור על לפחות 60°C פנימי.', en: 'Transfer to cooler or oven at 70°C. Rest 2-4 hours — maintain at least 60°C internal.' },
     ],
     tip: { he: 'ה-rest חשוב לא פחות מהעישון! השעות האלה מחלחלות את המיצים חזרה לנתח ועושות אותו רך להפליא.', en: 'The rest is as important as the smoking! These hours redistribute the juices making it incredibly tender.' },
+    servings: 10,
+    nutrition: [
+      { key: 'brisket_raw',   g: 3000 },
+      { key: 'salt',          g: 60   },
+      { key: 'vinegar_apple', g: 45   },
+      { key: 'vinegar_white', g: 30   },
+    ],
   },
   {
     id: 'asado',
@@ -1705,6 +2023,14 @@ const RECIPES = [
       { he: 'הוצא לצידנית או תנור על 70°C. נוח 2-4 שעות — שמור על לפחות 60°C פנימי.', en: 'Transfer to cooler or oven at 70°C. Rest 2-4 hours — maintain at least 60°C internal.' },
     ],
     tip: { he: 'הבדל מהבריסקט: ראב ברביקיו + אבקת שום נותנים לאסאדו פרופיל טעם מתוק יותר. שבבי דובדבן בלבד.', en: 'Key difference from brisket: BBQ rub + garlic powder give asado a sweeter flavor profile. Cherry wood only.' },
+    servings: 8,
+    nutrition: [
+      { key: 'asado_short_ribs', g: 3000 },
+      { key: 'salt',             g: 60   },
+      { key: 'garlic_powder',    g: 10   },
+      { key: 'vinegar_apple',    g: 45   },
+      { key: 'vinegar_white',    g: 30   },
+    ],
   },
   {
     id: 'basil-oil',
@@ -1725,6 +2051,13 @@ const RECIPES = [
       { he: 'סנן דרך מסננת דקה לבקבוק זכוכית — שמור במקרר עד שבוע.', en: 'Strain through fine sieve into glass bottle — keep refrigerated up to one week.' },
     ],
     tip: { he: 'ייבוש מוחלט של הבזיליקום = שמן בהיר ולא כהה. לחות = חמצון מהיר.', en: 'Completely dry basil = bright green oil, not dark. Moisture = fast oxidation.' },
+    servings: 1,
+    nutrition: [
+      { key: 'olive_oil',   g: 92 },
+      { key: 'basil_fresh', g: 30 },
+      { key: 'garlic',      g: 3  },
+      { key: 'salt',        g: 1  },
+    ],
   },
 ];
 
@@ -1870,6 +2203,46 @@ function renderRecipes() {
   });
 }
 
+function renderNutritionBlock(r, L) {
+  if (!r.nutrition || !r.nutrition.length) return '';
+  const total = totalNutrition(r.nutrition);
+  const servings = r.servings || 1;
+  const per = {
+    kcal: total.kcal / servings,
+    p:    total.p    / servings,
+    f:    total.f    / servings,
+    c:    total.c    / servings,
+    fi:   total.fi   / servings,
+  };
+  const r0 = v => Math.round(v);
+  const r1 = v => (Math.round(v*10)/10).toFixed(1);
+  const t = {
+    he: { title:'ערכים תזונתיים', perServing:`למנה (${servings===1?'לכל המתכון':servings+' מנות'})`, kcal:'קלוריות', p:'חלבון', f:'שומן', c:'פחמ׳', fi:'סיבים', total:'סה״כ למתכון', est:'הערכה לפי USDA — תלוי במותג ובשיטה' },
+    en: { title:'Nutrition', perServing:`Per serving (${servings===1?'whole recipe':servings+' servings'})`, kcal:'Calories', p:'Protein', f:'Fat', c:'Carbs', fi:'Fiber', total:'Total recipe', est:'USDA-based estimate — varies by brand & method' },
+  };
+  const T2 = t[L];
+  const perLabel = servings > 1 ? T2.perServing : T2.perServing;
+  return `
+    <div class="recipe-section-title">📊 ${T2.title}</div>
+    <div class="nutri-card">
+      <div class="nutri-head">
+        <div class="nutri-kcal-wrap">
+          <div class="nutri-kcal">${r0(per.kcal)}</div>
+          <div class="nutri-kcal-unit">${T2.kcal}</div>
+        </div>
+        <div class="nutri-per">${perLabel}</div>
+      </div>
+      <div class="nutri-macros">
+        <div class="macro"><div class="macro-v">${r1(per.p)}<span>g</span></div><div class="macro-l">${T2.p}</div></div>
+        <div class="macro"><div class="macro-v">${r1(per.f)}<span>g</span></div><div class="macro-l">${T2.f}</div></div>
+        <div class="macro"><div class="macro-v">${r1(per.c)}<span>g</span></div><div class="macro-l">${T2.c}</div></div>
+        <div class="macro"><div class="macro-v">${r1(per.fi)}<span>g</span></div><div class="macro-l">${T2.fi}</div></div>
+      </div>
+      ${servings > 1 ? `<div class="nutri-total">${T2.total}: ${r0(total.kcal)} ${T2.kcal} · ${r1(total.p)}g ${T2.p} · ${r1(total.f)}g ${T2.f} · ${r1(total.c)}g ${T2.c}</div>` : ''}
+      <div class="nutri-note">${T2.est}</div>
+    </div>`;
+}
+
 function showRecipe(id) {
   prevScreen = currentScreen;
   const L = lang;
@@ -1913,6 +2286,7 @@ function showRecipe(id) {
             </div>`).join('')}
         </div>
         ${basilOilHtml}
+        ${renderNutritionBlock(r, L)}
 
         <div class="recipe-section-title">👨‍🍳 ${L==='he'?'הכנה':'Method'}</div>
         <div class="method-steps-list">
